@@ -1,0 +1,2 @@
+# Ignore my_program executable in all subdirectories
+**/my_program
