@@ -1,3 +1,3 @@
 # Table of contents
 
-* [Page](README.md)
+* [Proximity Service](./mocks/proximity_service.md)
