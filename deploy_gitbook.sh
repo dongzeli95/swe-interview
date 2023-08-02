@@ -1,5 +1,7 @@
 #!/bin/bash
 
+gitbook build
+
 # Get current datetime
 version=$(date "+%Y%m%d%H%M%S")
 
