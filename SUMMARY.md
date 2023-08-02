@@ -1,3 +1,3 @@
 # Table of contents
 
-* [Proximity Service](./mocks/proximity_service.md)
+* [Proximity Service](./system-design/mocks/proximity_service.md)
