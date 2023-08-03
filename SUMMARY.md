@@ -1,9 +1,9 @@
-# Table of Contents
+# Table of contents
 
 * [README](README.md)
-* Coding
-* System Design
-    * Mocks
-        * [Proximity Service](system-design/mocks/proximity_service.md)
-    * Deep-Dive
-        * [Geohash](system-design/deep-dive/geospatial-indexing/geohash.md)
+* [Coding](coding.md)
+* [System Design](system-design/README.md)
+  * [Mocks](system-design/mocks/README.md)
+    * [Proximity Service](system-design/mocks/proximity\_service.md)
+  * [Deep-Dive](system-design/deep-dive/README.md)
+    * [Geohash](system-design/deep-dive/geospatial-indexing/geohash.md)

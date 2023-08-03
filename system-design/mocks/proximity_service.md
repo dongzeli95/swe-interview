@@ -58,7 +58,7 @@ Cons:
 
 ***
 
-**Option 3: Geohashing**
+**Option 3:** [**Geohashing**](../deep-dive/geospatial-indexing/geohash.md)
 
 Reducing the two-dimensional longitude and latitude data into one-dimensional string of letters and digits. Recursively dividing the world into smaller and smaller grids with each additional bit.
 
