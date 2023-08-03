@@ -86,11 +86,9 @@ Pros:
 3. Filter these results by calculating distance between each business to user's location and only keep businesses that are within the search radius.
 4. Search the adjacent geohashes to the user's location to avoid missing any businesses from other geohashes.
 
-
-
 ### High Level Diagram
 
-<img src=".gitbook/assets/file.excalidraw.svg" alt="" class="gitbook-drawing">
+<img src="../../.gitbook/assets/file.excalidraw.svg" alt="" class="gitbook-drawing">
 
 ### TODO List
 

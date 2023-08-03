@@ -1,3 +1,4 @@
 # Table of contents
 
-* [Proximity Service](./system-design/mocks/proximity_service.md)
+* [README](README.md)
+* [Proximity Service](system-design/mocks/proximity\_service.md)
