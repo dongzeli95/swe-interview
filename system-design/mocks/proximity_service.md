@@ -92,8 +92,9 @@ Pros:
 
 ### TODO List
 
-* [ ] When new business info get added, how to compute geohash and store it?
-* [ ] For evenly divided grid, how about we store evenly grid on multiple precision?
-* [ ] QuadTree and Google S2.
+* [x] When new business info get added, how to compute geohash and store it?
+* [x] For evenly divided grid, how about we store evenly grid on multiple precision?
+* [x] QuadTree&#x20;
+* [ ] Google S2.
 * [ ] How to use cache and set cache key
 * [ ] Modify the high level diagram.
