@@ -9,3 +9,4 @@
     * [Proximity Service](system-design/mocks/proximity\_service.md)
   * [Deep-Dive](system-design/deep-dive/README.md)
     * [Geohash](system-design/deep-dive/geospatial-indexing/geohash.md)
+    * [Quadtree](system-design/deep-dive/quadtree.md)
