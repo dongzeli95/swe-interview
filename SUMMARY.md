@@ -3,6 +3,8 @@
 * [README](README.md)
 * [Coding](coding.md)
   * [Array](coding/array/README.md)
+    * [Product Of Array Except Self](./md/product_of_array_except_self.md)
+    * [Merge Strings Alternately](./md/merge_strings_alternately.md)
 * [System Design](system-design/README.md)
   * [Mocks](system-design/mocks/README.md)
     * [Proximity Service](system-design/mocks/proximity\_service.md)
