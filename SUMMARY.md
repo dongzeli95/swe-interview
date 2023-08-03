@@ -9,8 +9,8 @@
 ## Algorithm
 
 * [Array](algorithm/array/README.md)
-  * [Product Of Array Except Self](algorithm/array/product\_of\_array\_except\_self.md)
-  * [Merge Strings Alternately](algorithm/array/merge\_strings\_alternately.md)
+  * [Product Of Array Except Self](algorithm/array/md/product\_of\_array\_except\_self.md)
+  * [Merge Strings Alternately](algorithm/array/md/merge\_strings\_alternately.md)
 
 ## System Design
 
