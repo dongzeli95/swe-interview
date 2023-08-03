@@ -1,5 +1,7 @@
 # Software Engineer Interview Preparation Repository
 
+[GitBook](https://dongzeli95s-organization.gitbook.io/swe-interview-handbook/)
+
 Welcome to the **Software Engineer Interview Preparation** repository! This repository is designed to help you excel in your software engineer interviews by providing comprehensive resources for both coding and system design preparation.
 
 ## Purpose
@@ -16,9 +18,6 @@ In the coding section, you will find a wide range of coding challenges and exerc
 
 The system design section focuses on enhancing your understanding of designing scalable, reliable, and efficient software systems. We provide a collection of real-world scenarios and architecture problems that interviewers often present during system design interviews. By working on these scenarios, you will sharpen your ability to think critically and design robust systems.
 
-## GitBook
-
-For a more structured and in-depth learning experience, check out our [GitBook](https://dongzeli95.github.io/swe-interview-book/). It provides additional content and step-by-step guides for your software engineer interview preparation.
 
 ## How to Use
 
