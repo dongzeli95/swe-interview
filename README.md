@@ -1,6 +1,6 @@
 # Software Engineer Interview Preparation Repository
 
-[GitBook](https://dongzeli95s-organization.gitbook.io/swe-interview/)
+[GitBook](https://dongzeli95s-organization.gitbook.io/swe-interview-handbook/)
 
 Welcome to the **Software Engineer Interview Preparation** repository! This repository is designed to help you excel in your software engineer interviews by providing comprehensive resources for both coding and system design preparation.
 
