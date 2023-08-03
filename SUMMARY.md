@@ -2,6 +2,8 @@
 
 * [README](README.md)
 * [Coding](coding.md)
+  * [Array]
+    * [Merge Strings Alternatively](coding/array/merge_strings_alternately.cpp)
 * [System Design](system-design/README.md)
   * [Mocks](system-design/mocks/README.md)
     * [Proximity Service](system-design/mocks/proximity\_service.md)
