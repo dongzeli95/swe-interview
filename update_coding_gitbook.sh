@@ -1,10 +1,21 @@
 #!/bin/bash
 
 # Get the list of changed .cpp files using Git
+# Get the list of changed .cpp files using Git
 changed_files=$(git diff --name-only --diff-filter=ACMR "*.cpp")
+untracked_files=$(git ls-files --others --exclude-standard "*.cpp")
+staged_files=$(git diff --name-only --cached "*.cpp")
+
+echo "staged files: $staged_files"
+
+# Combine the lists of changed, untracked, and staged files
+all_files_string="$changed_files $untracked_files $staged_files"
+
+# Convert the string of filenames into an array of filenames
+IFS=' ' read -r -a all_files <<< "$all_files_string"
 
 # Loop through the changed .cpp files
-for file in $changed_files; do
+for file in "${all_files[@]}"; do
     folder=$(dirname "$file")
     md_folder="./$folder/md"
     md_file="./$folder/md/$(basename "$file" .cpp).md"
