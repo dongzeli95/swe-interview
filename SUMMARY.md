@@ -11,6 +11,7 @@
 * [Array](algorithm/array/README.md)
   * [Product Of Array Except Self](algorithm/array/md/product\_of\_array\_except\_self.md)
   * [Merge Strings Alternately](algorithm/array/md/merge\_strings\_alternately.md)
+  * [Increasing Triplet Subsequence](algorithm/array/md/increasing_triplet_subsequence.md)
 
 ## System Design
 
