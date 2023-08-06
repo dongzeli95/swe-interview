@@ -26,8 +26,11 @@ Output: [1,1,0]
 using namespace std;
 
 // Time: O(n), Space: O(n)
+//
 // Although there is a while loop inside the for loop, the number of elements in the stack is at most n
 // and if that's the actual case, for n-1 iterations in for loop, the while loop will be executed once.
+
+// In other words, the stack only visit each elemtent once in all iterations of for loop.
 // So the time complexity is O(n).
 vector<int> dailyTemperatures(vector<int>& temp) {
     if (temp.empty()) {
