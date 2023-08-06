@@ -15,6 +15,7 @@
   * [String Compression](algorithm/array/md/string_compression.md)
 * [Monotonic Stack](algorithm/monotonic_stack/README.md)
   * [Daily Temperatures](algorithm/monotonic_stack/md/daily_temperatures.md)
+  * [Online Stock Span](algorithm/monotonic_stack/md/online_stock_span.md)
 
 ## System Design
 
