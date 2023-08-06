@@ -13,6 +13,8 @@
   * [Merge Strings Alternately](algorithm/array/md/merge\_strings\_alternately.md)
   * [Increasing Triplet Subsequence](algorithm/array/md/increasing_triplet_subsequence.md)
   * [String Compression](algorithm/array/md/string_compression.md)
+* [Monotonic Stack](algorithm/monotonic_stack/README.md)
+  * [Daily Temperatures](algorithm/monotonic_stack/md/daily_temperatures.md)
 
 ## System Design
 
