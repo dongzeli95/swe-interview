@@ -67,6 +67,19 @@ Pros:
 * Very efficient and can fit any precision use cases.
 * Not very straightforward to implement but luckily we have a lot of out-of-box libraries/solutions.
 
+#### Option 4: [Quadtree](../deep-dive/quadtree.md)
+
+Build a in-memory quadtree by partitioning the two-dimensional space by recursively subdividing it into four quadrants until the content of the grid meet a certain criteria, for example, 100 businesses  maximum.
+
+#### Geohash vs Quadtree
+
+| Geohash                                                                                                                                           | Quadtree                                                                                                                                                                                                                                                                                                                                                                                  |
+| ------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| <mark style="background-color:green;">Easy to use and implement, No need to build a tree</mark>                                                   | <mark style="background-color:red;">Need to build a tree, harder to implement</mark>                                                                                                                                                                                                                                                                                                      |
+| <mark style="background-color:red;">Grid size is fixed. Support returning businesses within a specific radius but not k-nearest businesses</mark> | <mark style="background-color:green;">Good fit for k-nearest businesses it can automatically adjust the query range until it returns k results.</mark>                                                                                                                                                                                                                                    |
+| <mark style="background-color:red;">Precision is fixed, grid size is fixed, cannot adjust grid size based on item density.</mark>                 | <mark style="background-color:green;">Dynamically adjust the grid size based on population density.</mark>                                                                                                                                                                                                                                                                                |
+| <mark style="background-color:green;">Update/Remove a business is as easy as deleting that geohash record.</mark>                                 | <p><mark style="background-color:red;">Updating index is more complicated than geohash.</mark><br><br>If a business is removed, we need to traverse from root to leaf node in order to remove business. Locking mechanism is also required if multiple threads are modifying it.<br><br>Also need to think about rebalancing the tree, A possible fix is to over-allocate the ranges.</p> |
+
 ***
 
 #### Business Table
@@ -89,6 +102,35 @@ Pros:
 ### High Level Diagram
 
 <img src="../../.gitbook/assets/file.excalidraw.svg" alt="" class="gitbook-drawing">
+
+### Caching
+
+Caching is not a solid win because:
+
+* The workload is read-heavy, the dataset is relatively small. The data could fit in the working set of any modern database server. (1.7GB), the queries are not I/O bound and they should run almost as fast as in-memory cache.
+* If read is bottleneck, we can add more read replicas to improve read throughput.
+
+#### Cache key selection
+
+*   _<mark style="color:blue;">Location coordinates</mark>_ (latitude, longitude).&#x20;
+
+    Cons:
+
+    * location returned from device not always accurate, will change slightly every time.
+    * user can move
+    * hit rate is terrible if we use location.
+* _<mark style="color:blue;">**Geohash and business id**</mark>_
+
+| Key         | Value                  |
+| ----------- | ---------------------- |
+| geohash     | a list of business ids |
+| business id | business entity        |
+
+According to requirements, user can select different radius: 500m, 1km, 2km and 5km. Those radius mapped to 4, 5, 5, and 6 for geohash length. We can cache data on geohash#precision like geohash\_4, geohash\_5 and geohash\_6.
+
+#### Memory
+
+Redis storage: 8 bytes x 200M x 3 precisions = 5GB
 
 ### TODO List
 
