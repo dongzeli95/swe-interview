@@ -11,11 +11,11 @@
 * [Array](algorithm/array/README.md)
   * [Product Of Array Except Self](algorithm/array/md/product\_of\_array\_except\_self.md)
   * [Merge Strings Alternately](algorithm/array/md/merge\_strings\_alternately.md)
-  * [Increasing Triplet Subsequence](algorithm/array/md/increasing_triplet_subsequence.md)
-  * [String Compression](algorithm/array/md/string_compression.md)
-* [Monotonic Stack](algorithm/monotonic_stack/README.md)
-  * [Daily Temperatures](algorithm/monotonic_stack/md/daily_temperatures.md)
-  * [Online Stock Span](algorithm/monotonic_stack/md/online_stock_span.md)
+  * [Increasing Triplet Subsequence](algorithm/array/md/increasing\_triplet\_subsequence.md)
+  * [String Compression](algorithm/array/md/string\_compression.md)
+* [Monotonic Stack](algorithm/monotonic\_stack/README.md)
+  * [Daily Temperatures](algorithm/monotonic\_stack/md/daily\_temperatures.md)
+  * [Online Stock Span](algorithm/monotonic\_stack/md/online\_stock\_span.md)
 
 ## System Design
 
@@ -25,3 +25,4 @@
   * [Geohash](system-design/deep-dive/geospatial-indexing/geohash.md)
   * [Quadtree](system-design/deep-dive/quadtree.md)
 * [DDIA](system-design/ddia/README.md)
+  * [Data Models and Query Languages](system-design/ddia/data-models-and-query-languages.md)
