@@ -25,4 +25,4 @@
   * [Geohash](system-design/deep-dive/geospatial-indexing/geohash.md)
   * [Quadtree](system-design/deep-dive/quadtree.md)
 * [DDIA](system-design/ddia/README.md)
-  * [Data Models and Query Languages](system-design/ddia/data-models-and-query-languages.md)
+  * [Chapter 2: Data Models and Query Languages](system-design/ddia/chapter-2-data-models-and-query-languages.md)
