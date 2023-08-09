@@ -13,6 +13,8 @@
   * [Merge Strings Alternately](algorithm/array/md/merge\_strings\_alternately.md)
   * [Increasing Triplet Subsequence](algorithm/array/md/increasing\_triplet\_subsequence.md)
   * [String Compression](algorithm/array/md/string\_compression.md)
+* [Binary Search](algorithm/binary_search/README.md)
+  * [Koko Eating Bananas](./md/koko_eating_bananas.md)
 * [Monotonic Stack](algorithm/monotonic\_stack/README.md)
   * [Daily Temperatures](algorithm/monotonic\_stack/md/daily\_temperatures.md)
   * [Online Stock Span](algorithm/monotonic\_stack/md/online\_stock\_span.md)
