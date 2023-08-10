@@ -9,13 +9,19 @@ staged_files=$(git diff --name-only --cached "*.cpp")
 echo "staged files: $staged_files"
 
 # Combine the lists of changed, untracked, and staged files
-all_files_string="$changed_files $untracked_files $staged_files"
+all_files_string="$changed_files"$'\n'"$untracked_files"$'\n'"$staged_files"
 
 # Convert the string of filenames into an array of filenames
-IFS=' ' read -r -a all_files <<< "$all_files_string"
+while IFS= read -r line; do
+    all_files+=("$line")
+done <<< "$all_files_string"
+
+# Echo all the elements of the array
+echo "all files: ${all_files[@]}"
 
 # Loop through the changed .cpp files
 for file in "${all_files[@]}"; do
+    echo "Processing $file"
     folder=$(dirname "$file")
     md_folder="./$folder/md"
     md_file="./$folder/md/$(basename "$file" .cpp).md"
