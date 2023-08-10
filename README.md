@@ -36,5 +36,3 @@ Contributions to this repository are highly welcome! If you have additional codi
 Please note that while this repository aims to provide valuable interview preparation resources, it cannot guarantee success in any specific interview. The actual interview experience may vary based on the company and interviewer's preferences. Use this repository as a supplementary tool and combine it with other learning resources, mock interviews, and practical experience to maximize your chances of success.
 
 *Good luck with your preparation, and may you land your dream software engineering role!*
-
-* [](./md/.md)
