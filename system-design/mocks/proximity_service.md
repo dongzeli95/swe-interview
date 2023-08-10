@@ -14,6 +14,12 @@
 3. consistency requirements?
 4. Read > write
 
+### QPS
+
+Assuming we have 100M users and 5 search queries a day.
+
+100M \* 5 / 10^5 = 10^8 \* 5 / 10^5 = **5000 QPS**
+
 ### APIs
 
 ```
