@@ -13,14 +13,14 @@
   * [Merge Strings Alternately](algorithm/array/md/merge\_strings\_alternately.md)
   * [Increasing Triplet Subsequence](algorithm/array/md/increasing\_triplet\_subsequence.md)
   * [String Compression](algorithm/array/md/string\_compression.md)
-* [Binary Search](algorithm/binary_search/README.md)
-  * [Koko Eating Bananas](./md/koko_eating_bananas.md)
+* [Binary Search](algorithm/binary\_search/README.md)
+  * [Koko Eating Bananas](algorithm/binary\_search/koko-eating-bananas.md)
 * [Monotonic Stack](algorithm/monotonic\_stack/README.md)
   * [Daily Temperatures](algorithm/monotonic\_stack/md/daily\_temperatures.md)
   * [Online Stock Span](algorithm/monotonic\_stack/md/online\_stock\_span.md)
 * [Intervals](algorithm/intervals/README.md)
-  * [Non Overlapping Intervals](algorithm/intervals/md/non_overlapping_intervals.md)
-  * [Min Arrows Burst Ballons](algorithm/intervals/md/min_arrows_burst_ballons.md)
+  * [Non Overlapping Intervals](algorithm/intervals/md/non\_overlapping\_intervals.md)
+  * [Min Arrows Burst Ballons](algorithm/intervals/md/min\_arrows\_burst\_ballons.md)
 
 ## System Design
 
