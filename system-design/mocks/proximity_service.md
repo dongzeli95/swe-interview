@@ -95,9 +95,15 @@ Build a in-memory quadtree by partitioning the two-dimensional space by recursiv
 #### Serving Algorithm
 
 1. Convert user's location to a geohash with a precision based on the radius.
-2. Query for businesses with geohashes that start with the same prefix as the user's location.
-3. Filter these results by calculating distance between each business to user's location and only keep businesses that are within the search radius.
-4. Search the adjacent geohashes to the user's location to avoid missing any businesses from other geohashes.
+2. Start with geohashes with same prefix as user's location, calculate neighboring geohashes and add them to a list.
+3. For each geohash in the list, fetch businesses:
+
+```
+SELECT * FROM geohash_index WHERE geohash LIKE '9q8zn%'
+```
+
+4. Filter these results by calculating distance between each business to user's location and only keep businesses that are within the search radius.
+5. Rank result list and return to client.
 
 ### High Level Diagram
 
@@ -132,11 +138,3 @@ According to requirements, user can select different radius: 500m, 1km, 2km and 
 
 Redis storage: 8 bytes x 200M x 3 precisions = 5GB
 
-### TODO List
-
-* [x] When new business info get added, how to compute geohash and store it?
-* [x] For evenly divided grid, how about we store evenly grid on multiple precision?
-* [x] QuadTree&#x20;
-* [ ] Google S2.
-* [ ] How to use cache and set cache key
-* [ ] Modify the high level diagram.
