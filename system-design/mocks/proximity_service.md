@@ -124,7 +124,7 @@ Caching is not a solid win because:
 
 #### Cache key selection
 
-*   _<mark style="color:blue;">Location coordinates</mark>_ (latitude, longitude).&#x20;
+*   _<mark style="color:blue;">**Location coordinates**</mark>_ (latitude, longitude).&#x20;
 
     Cons:
 
