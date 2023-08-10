@@ -14,7 +14,7 @@
   * [Increasing Triplet Subsequence](algorithm/array/md/increasing\_triplet\_subsequence.md)
   * [String Compression](algorithm/array/md/string\_compression.md)
 * [Binary Search](algorithm/binary\_search/README.md)
-  * [Koko Eating Bananas](algorithm/binary_search/md/koko_eating_bananas.md)
+  * [Koko Eating Bananas](algorithm/binary\_search/md/koko\_eating\_bananas.md)
 * [Monotonic Stack](algorithm/monotonic\_stack/README.md)
   * [Daily Temperatures](algorithm/monotonic\_stack/md/daily\_temperatures.md)
   * [Online Stock Span](algorithm/monotonic\_stack/md/online\_stock\_span.md)
@@ -32,3 +32,4 @@
   * [Quadtree](system-design/deep-dive/quadtree.md)
 * [DDIA](system-design/ddia/README.md)
   * [Chapter 2: Data Models and Query Languages](system-design/ddia/chapter-2-data-models-and-query-languages.md)
+  * [Chapter 5: Replication](system-design/ddia/chapter-5-replication.md)
