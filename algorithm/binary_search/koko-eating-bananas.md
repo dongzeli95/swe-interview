@@ -1,2 +1,0 @@
-# Koko Eating Bananas
-
