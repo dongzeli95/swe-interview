@@ -13,6 +13,8 @@
   * [Merge Strings Alternately](algorithm/array/md/merge\_strings\_alternately.md)
   * [Increasing Triplet Subsequence](algorithm/array/md/increasing\_triplet\_subsequence.md)
   * [String Compression](algorithm/array/md/string\_compression.md)
+* [Backtracking](algorithm/backtracking/README.md)
+  * [Letter Combination Phone Number](algorithm/backtracking/md/letter_combination_phone_number.md)
 * [Binary Search](algorithm/binary\_search/README.md)
   * [Koko Eating Bananas](algorithm/binary_search/md/koko_eating_bananas.md)
   * [Find Peak Element](algorithm/binary_search/md/find_peak_element.md)
