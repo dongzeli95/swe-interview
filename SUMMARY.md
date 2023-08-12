@@ -15,6 +15,7 @@
   * [String Compression](algorithm/array/md/string\_compression.md)
 * [Backtracking](algorithm/backtracking/README.md)
   * [Letter Combination Phone Number](algorithm/backtracking/md/letter_combination_phone_number.md)
+  * [Combination Sum Iii](algorithm/backtracking/md/combination_sum_iii.md)
 * [Binary Search](algorithm/binary\_search/README.md)
   * [Koko Eating Bananas](algorithm/binary_search/md/koko_eating_bananas.md)
   * [Find Peak Element](algorithm/binary_search/md/find_peak_element.md)
