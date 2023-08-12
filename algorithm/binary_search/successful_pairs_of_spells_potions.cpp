@@ -37,7 +37,6 @@ Thus, [2,0,2] is returned.
 using namespace std;
 
 // Time: O(nlogm), Space: O(1), where n = spells.size(), m = potions.size()
-// Large number overflow.
 vector<int> successfulPairs(vector<int>& spells, vector<int>& potions, long long success) {
     if (spells.empty() || potions.empty()) {
         return {};
@@ -57,8 +56,8 @@ vector<int> successfulPairs(vector<int>& spells, vector<int>& potions, long long
         // Find the index of the first element that is greater than or equal to success / spells[i].
         while (l <= r) {
             int mid = l + (r-l) / 2;
-            long long product = spells[i] * potions[mid];
-            if (product < success) {
+            // To prevent overflow.
+            if (spells[i] < (double)success / potions[mid]) {
                 l = mid+1;
             } else {
                 idx = mid;
@@ -72,8 +71,6 @@ vector<int> successfulPairs(vector<int>& spells, vector<int>& potions, long long
     return res;
 }
 
-// TODO: How to fix the overflow problem?
-// TOOD: Time: O(m+n), Space: O(1), https://leetcode.com/problems/successful-pairs-of-spells-and-potions/solutions/3370088/c-prefix-sum-o-m-n-time-o-1-space/?envType=study-plan-v2&envId=leetcode-75
 
 int main() {
     vector<int> spells = {5,1,3};
