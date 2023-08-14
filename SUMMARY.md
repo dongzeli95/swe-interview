@@ -22,7 +22,8 @@
   * [Successful Pairs Of Spells Potions](algorithm/binary_search/md/successful_pairs_of_spells_potions.md)
 * [BFS](algorithm/bfs/README.md)
   * [Rotten Oranges](algorithm/bfs/md/rotten_oranges.md)
-* [Monotonic Stack](algorithm/monotonic\_stack/README.md)
+  * [Nearest Exist From Entrance](algorithm/bfs/md/nearest_exist_from_entrance.md)
+* [Monotonic Stack](algorithm/monotonic\_stack/README.md)git 
   * [Daily Temperatures](algorithm/monotonic\_stack/md/daily\_temperatures.md)
   * [Online Stock Span](algorithm/monotonic\_stack/md/online\_stock\_span.md)
 * [Intervals](algorithm/intervals/README.md)
