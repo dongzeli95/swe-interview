@@ -90,3 +90,49 @@ Things that could go wrong:
 
 <mark style="color:yellow;">Implementing various timeout mechanisms can help in determining leader failure. For example, a leader heartbeat mechanism where nodes regularly send signals to indicate their liveliness can be used. If other nodes detect a prolonged absence of these signals, they might initiate leader election. Additionally, quorum-based approaches can be employed to ensure that a leader is only declared dead when a majority of nodes agree on it.</mark>
 
+### Replication Logs
+
+#### Statement replication
+
+The leader logs every statement and sends it to its followers (every INSERT, UPDATE or DELETE)
+
+Cons:
+
+* Non-deterministic functions such as `NOW()` or `RAND()` will generate different values on replicas.
+* Statements that depend on existing data, like auto-increments, must be executed in the same order in each replica.
+* Statements with side effects (triggers, stored procedures) may result in different outcome on each replica.
+
+Solution: replace any non-deterministic function with a fixed return value in the leader.
+
+#### Write-ahead log (WAL)
+
+The log is an append-only sequence of bytes containing all writes to the database. We cam ise exact same log to build a replica on another node. The leader writes the log to disk and send them across the network to its followers.
+
+Examples: PostgreSQL, Oracle.
+
+Cons:
+
+Log describes data at a very low level (which bytes were changed in which disk blocks), making it tightly coupled with storage engine. It's not possible to run different versions, hence impossible to have zero-downtime upgrade of database.
+
+#### Logical (row-based) log replication - Change Data Capture
+
+A sequence of records describing writes to database table at granularity of a row.
+
+* For an inserted row, the new values of all columns.
+* For a deleted row, the log contain information uniquely identify the row, primary key or old values.
+* For a updated row, new values of the columns.
+
+Pros:
+
+* Logical log is decoupled from storage engine internals, it's easier to make it backwards compatible.
+* Easier to parse for external system like data warehouse for offline analysis, custom indexes and caches.
+
+#### Trigger-based replication
+
+A trigger lets you register custom application code that is automatically executed when a data change (write transaction) occurs. It's possible to log the change into a separate table which can be read by external process.&#x20;
+
+Example: Oracle's Databus, Bucardo for Postgres.
+
+Cons:
+
+It's on application layer. Greater overhead than other replication methods. More prone to bugs but might be useful due to its flexibility.
