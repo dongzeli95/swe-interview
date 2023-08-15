@@ -21,9 +21,9 @@
   * [Find Peak Element](algorithm/binary\_search/md/find\_peak\_element.md)
   * [Successful Pairs Of Spells Potions](algorithm/binary\_search/md/successful\_pairs\_of\_spells\_potions.md)
 * [BFS](algorithm/bfs/README.md)
-  * [Rotten Oranges](algorithm/bfs/md/rotten_oranges.md)
-  * [Nearest Exist From Entrance](algorithm/bfs/md/nearest_exist_from_entrance.md)
-* [Monotonic Stack](algorithm/monotonic\_stack/README.md)git 
+  * [Rotten Oranges](algorithm/bfs/md/rotten\_oranges.md)
+  * [Nearest Exist From Entrance](algorithm/bfs/md/nearest\_exist\_from\_entrance.md)
+* [Monotonic Stack](algorithm/monotonic\_stack/README.md)
   * [Daily Temperatures](algorithm/monotonic\_stack/md/daily\_temperatures.md)
   * [Online Stock Span](algorithm/monotonic\_stack/md/online\_stock\_span.md)
 * [Intervals](algorithm/intervals/README.md)
