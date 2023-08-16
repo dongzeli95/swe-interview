@@ -42,7 +42,27 @@ description: >-
 
 <img src="../../.gitbook/assets/file.excalidraw (2).svg" alt="" class="gitbook-drawing">
 
+## E2E
+
+1. Client send both http/Websocket request to API Gateway with its own location.
+   1. http request for fetching friends' locations.
+   2. websocket request for publishing its own location as well as subscribe to friends' locations.
+2. API Gateway routes Websocket request onto Websocket servers and http request onto API servers.
+3. Websocket services:
+   * Fetch all of friend list of the user.
+   * Subscribe to friends' channels based on friend list.
+   * Publish user's location to Redis pub/sub, this message got broadcasted to all subscribers channels.
+   * Subscribe to all friends' location channels.
+   * Store user's location onto location cache.
+   * On receiving broadcast messages from Redis Pub/Sub, connection handler computes the distance between two users, if distance is out of radius, the update is dropped.
+4. HTTP services
+   * Fetch friends' locations, filter out friends out of radius.
+   * Add/Remove friends -> calls websocket service to notify client a friend is added or removed -> client sends back websocket request to subscribe/unsubscribe.
+   * Store location into location history DB.
+
 ## FAQ
 
 * [ ] Why not use socketio room with certain geo\_locations? And when user comes in, we just check see if this person A and person B's friend? What's the pros and cons of this way vs using each user as a room.
 * [ ] Can i use the same redis instance for both pub/sub and cache?
+* [ ] Websocket diagram.
+* [ ] Deep-dive and scale.
