@@ -32,6 +32,7 @@
 * [Two Pointers](algorithm/two_pointers/README.md)
   * [Container With Most Water](algorithm/two_pointers/md/container_with_most_water.md)
   * [Max Number K Sum Pairs](algorithm/two_pointers/md/max_number_k_sum_pairs.md)
+  * [Is Subsequence](algorithm/two_pointers/md/is_subsequence.md)
 
 ## System Design
 
