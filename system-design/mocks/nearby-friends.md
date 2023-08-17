@@ -40,7 +40,15 @@ description: >-
 
 ## High Level Diagram
 
-<img src="../../.gitbook/assets/file.excalidraw (2).svg" alt="" class="gitbook-drawing">
+<img src="../../.gitbook/assets/file.excalidraw (2).svg" alt="Architecture" class="gitbook-drawing">
+
+## Websocket Diagram
+
+User1's friends: User2, User3 and User4
+
+User5's friends: User4, User6
+
+<img src="../../.gitbook/assets/file.excalidraw (3).svg" alt="" class="gitbook-drawing">
 
 ## E2E
 
