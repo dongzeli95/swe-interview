@@ -136,3 +136,33 @@ Example: Oracle's Databus, Bucardo for Postgres.
 Cons:
 
 It's on application layer. Greater overhead than other replication methods. More prone to bugs but might be useful due to its flexibility.
+
+### Replication Lag
+
+If an application reads from an asynchronous follower, it may see outdated information if follower has fallen behind.&#x20;
+
+#### Reading your own writes (read-after-write consistency)
+
+Read from leader based on:
+
+* If user modified the piece of information.
+* time of latest update.
+
+#### Monotonic reads (read order)
+
+> A user first reads from a fresh replica, then from a stale replica. Time appears to go backward.
+
+Monotonic Reads is a guarantee that "moving back in time" anomaly does not happen.
+
+Make sure user always make their reads from the same replica. It can be chosen based on hash of user ID.&#x20;
+
+#### Consistent prefix reads (write order)
+
+> If some partitions are replicated slower than others, an observer may see the answer before they see the question.
+
+This only happens in sharded db.
+
+Writes casually related to each other are written to the same parition.
+
+#### Solution for Replication Lag: <mark style="color:blue;">**Transactions**</mark>
+
