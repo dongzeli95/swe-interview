@@ -68,6 +68,45 @@ User5's friends: User4, User6
    * Add/Remove friends -> calls websocket service to notify client a friend is added or removed -> client sends back websocket request to subscribe/unsubscribe.
    * Store location into location history DB.
 
+## API
+
+### Websocket
+
+* Websocket initialization (onConnect)
+  * Request: Client send latitude, longitude and timestamp.
+  * Response: Friend location with timestamp.
+
+&#x20;   User subscribe to all of his/her friends' channels on connection.
+
+* Periodic location update
+  * Request: Client send latitude, longitude and timestamp.
+  * Response: Nothing
+* Client receives location updates
+  * Event: Friend location with timestamp.
+* Subscribe to a friend
+  * Request: friend ID
+  * Response: friend's location with timestamp
+
+&#x20;   Subscribe to friend's channel.
+
+* Unsubscribe a friend
+  * Request: friend ID
+  * Response: Nothing.
+
+&#x20;   Unsubscribe to a friend's channel.
+
+## Data Model
+
+### Location Cache
+
+| key      | value                            |
+| -------- | -------------------------------- |
+| user\_id | {latitude, longitude, timestamp} |
+
+Use TTL to automatically purge inactive user's location, this helps prevent user receive location data from inactive friends.
+
+
+
 ## FAQ
 
 * [ ] Why not use socketio room with certain geo\_locations? And when user comes in, we just check see if this person A and person B's friend? What's the pros and cons of this way vs using each user as a room.
