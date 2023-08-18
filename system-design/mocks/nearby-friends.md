@@ -53,19 +53,18 @@ User5's friends: User4, User6
 ## E2E
 
 1. Client send both http/Websocket request to API Gateway with its own location.
-   1. http request for fetching friends' locations.
-   2. websocket request for publishing its own location as well as subscribe to friends' locations.
+   1. http request for fetching friends' list.
+   2. websocket request for publishing its own location as well as subscribe to friends' channels.
 2. API Gateway routes Websocket request onto Websocket servers and http request onto API servers.
 3. Websocket services:
-   * Fetch all of friend list of the user.
+   * Fetch friends' locations, filter out friends out of radius.
    * Subscribe to friends' channels based on friend list.
    * Publish user's location to Redis pub/sub, this message got broadcasted to all subscribers channels.
-   * Subscribe to all friends' location channels.
    * Store user's location onto location cache.
    * On receiving broadcast messages from Redis Pub/Sub, connection handler computes the distance between two users, if distance is out of radius, the update is dropped.
 4. HTTP services
-   * Fetch friends' locations, filter out friends out of radius.
-   * Add/Remove friends -> calls websocket service to notify client a friend is added or removed -> client sends back websocket request to subscribe/unsubscribe.
+   * Fetch all of friend list of the user.
+   * Add/Remove friends -> api service calls websocket service to notify client a friend is added or removed (event handler from websocket) -> client sends back websocket request to subscribe/unsubscribe channels.
    * Store location into location history DB.
 
 ## API
