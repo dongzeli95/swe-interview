@@ -104,7 +104,29 @@ User5's friends: User4, User6
 
 Use TTL to automatically purge inactive user's location, this helps prevent user receive location data from inactive friends.
 
+## Scale
 
+### API servers
+
+stateless servers, auto-scale the clusters based on CPU, load or I/O.&#x20;
+
+### Websocket servers
+
+> Effective auto-scaling of stateful servers is the job of a good load balancer.
+
+They are stateful. Before a node can be removed, all existing connections should be allowed to drain. Mark the node at the load balancer so no new websocket connections will be routed to the draining server.&#x20;
+
+### User database
+
+The user database holds two distinct sets of data: user profiles and friendships. Data is horizontally scalable by sharing based on User ID.&#x20;
+
+### Location Cache
+
+Memory: 10M active users \* 100 bytes = 1GB
+
+QPS: 10M active users, update every 30s = 334k per seconds.
+
+QPS is too high, we need to shard location data based on user ID and replicate location data on each shard to improve availability.
 
 ## FAQ
 
