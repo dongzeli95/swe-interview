@@ -30,6 +30,7 @@
   * [Trade Stock With Transaction Fee](algorithm/dp/md/trade_stock_with_transaction_fee.md)
 * [Heap](algorithm/heap/README.md)
   * [Maximum Subsequence Score](algorithm/heap/md/maximum_subsequence_score.md)
+  * [Smallest Number Infinite Set](algorithm/heap/md/smallest_number_infinite_set.md)
 * [Intervals](algorithm/intervals/README.md)
   * [Non Overlapping Intervals](algorithm/intervals/md/non\_overlapping\_intervals.md)
   * [Min Arrows Burst Ballons](algorithm/intervals/md/min\_arrows\_burst\_ballons.md)
