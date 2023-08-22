@@ -22,6 +22,7 @@ Bolded numbers were flipped from 0 to 1. The longest subarray is underlined.
 
 using namespace std;
 
+// Time complexity: O(n), Space complexity: O(1)
 int longestOnes(vector<int>& nums, int k) {
     if (nums.empty()) {
         return 0;
