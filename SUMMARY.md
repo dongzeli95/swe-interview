@@ -31,6 +31,7 @@
 * [Heap](algorithm/heap/README.md)
   * [Maximum Subsequence Score](algorithm/heap/md/maximum\_subsequence\_score.md)
   * [Smallest Number Infinite Set](algorithm/heap/md/smallest\_number\_infinite\_set.md)
+  * [Total Cost Hire Workers](algorithm/heap/md/total_cost_hire_workers.md)
 * [Intervals](algorithm/intervals/README.md)
   * [Non Overlapping Intervals](algorithm/intervals/md/non\_overlapping\_intervals.md)
   * [Min Arrows Burst Ballons](algorithm/intervals/md/min\_arrows\_burst\_ballons.md)
