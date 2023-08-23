@@ -50,6 +50,10 @@ User5's friends: User4, User6
 
 <img src="../../.gitbook/assets/file.excalidraw (3).svg" alt="" class="gitbook-drawing">
 
+We assign channel to every user who uses "nearby" feature. A user would, upon app initialization, subscribe to each friend's channel regardless whether the friend is online or not.
+
+We trade memory for simpler architecture in this case.
+
 ## E2E
 
 1. Client send both http/Websocket request to API Gateway with its own location.
@@ -122,11 +126,58 @@ The user database holds two distinct sets of data: user profiles and friendships
 
 ### Location Cache
 
-Memory: 10M active users \* 100 bytes = 1GB
+<mark style="color:blue;">**Memory**</mark>:&#x20;
 
-QPS: 10M active users, update every 30s = 334k per seconds.
+10M active users \* 100 bytes = 1GB
+
+<mark style="color:orange;">**QPS**</mark>:&#x20;
+
+10M active users, update every 30s = 334k per seconds.
 
 QPS is too high, we need to shard location data based on user ID and replicate location data on each shard to improve availability.
+
+Read replicas are not enough because the write QPS is large.
+
+### Redis Pub/Sub Server
+
+<mark style="color:blue;">**Memory**</mark>:&#x20;
+
+1B users \* 10% = 100M users = 100M channels.
+
+20 bytes to track each subscriber using hash table and linked list.
+
+On average, each user has around 100 friends.
+
+100M channels \* 20 bytes \* 100 friends / 10^9 = 200 GB
+
+We need **2 Redis Pub/Sub** servers with 100 GB
+
+<mark style="color:orange;">**QPS**</mark>:&#x20;
+
+10M active users + update every 30 seconds = 334k QPS.
+
+On average user have 400 friends, only 10% online and nearby:
+
+334K \* 400 \* 10% = 14M location pushes.
+
+Assume a modern server with a gigabit network can handle 100k push per second.
+
+14M / 100k = 140 Redis servers.
+
+#### Distributed Redis Pub/Sub server
+
+Use some service discovery component like etcd, ZooKeeper to:
+
+1. Keep a list of servers, a simple UI or API to update it.
+
+```
+Key: /config/pub_sub_ring
+Value: ["p_1", "p_2", "p_3", "p_4"]
+```
+
+2. For client (websocket servers) to subscribe to any updates to the "Value" (a list of Redis Pub/Sub servers)
+
+<img src="../../.gitbook/assets/file.excalidraw (4).svg" alt="" class="gitbook-drawing">
 
 ## FAQ
 
