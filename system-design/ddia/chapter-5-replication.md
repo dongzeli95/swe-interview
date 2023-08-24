@@ -166,3 +166,7 @@ Writes casually related to each other are written to the same parition.
 
 #### Solution for Replication Lag: <mark style="color:blue;">**Transactions**</mark>
 
+## Multi-Leader Replication
+
+Allow more than one node to accept writes. Each node processes a write will forward data change to all the other nodes.
+
