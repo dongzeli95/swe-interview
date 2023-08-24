@@ -31,8 +31,8 @@
 * [Heap](algorithm/heap/README.md)
   * [Maximum Subsequence Score](algorithm/heap/md/maximum\_subsequence\_score.md)
   * [Smallest Number Infinite Set](algorithm/heap/md/smallest\_number\_infinite\_set.md)
-  * [Total Cost Hire Workers](algorithm/heap/md/total_cost_hire_workers.md)
-  * [Kth Largest Element](algorithm/heap/md/kth_largest_element.md)
+  * [Total Cost Hire Workers](algorithm/heap/md/total\_cost\_hire\_workers.md)
+  * [Kth Largest Element](algorithm/heap/md/kth\_largest\_element.md)
 * [Intervals](algorithm/intervals/README.md)
   * [Non Overlapping Intervals](algorithm/intervals/md/non\_overlapping\_intervals.md)
   * [Min Arrows Burst Ballons](algorithm/intervals/md/min\_arrows\_burst\_ballons.md)
@@ -50,6 +50,7 @@
 ## System Design
 
 * [Mocks](system-design/mocks/README.md)
+  * [Google Maps](system-design/mocks/google-maps.md)
   * [Nearby Friends](system-design/mocks/nearby-friends.md)
   * [Proximity Service](system-design/mocks/proximity\_service.md)
 * [Deep-Dive](system-design/deep-dive/README.md)
