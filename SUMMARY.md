@@ -26,6 +26,8 @@
 * [DFS](algorithm/dfs/README.md)
   * [Reorder Routes Lead City](algorithm/dfs/md/reorder_routes_lead_city.md)
   * [Evaluate Division](algorithm/dfs/md/evaluate_division.md)
+  * [Keys And Rooms](algorithm/dfs/md/keys_and_rooms.md)
+  * [Number Of Provinces](algorithm/dfs/md/number_of_provinces.md)
 * [DP](algorithm/dp/README.md)
   * [Domino And Tromino Tiling](algorithm/dp/md/domino\_and\_tromino\_tiling.md)
   * [House Robber](algorithm/dp/md/house\_robber.md)
