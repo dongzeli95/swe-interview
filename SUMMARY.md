@@ -25,6 +25,7 @@
   * [Nearest Exist From Entrance](algorithm/bfs/md/nearest\_exist\_from\_entrance.md)
 * [DFS](algorithm/dfs/README.md)
   * [Reorder Routes Lead City](algorithm/dfs/md/reorder_routes_lead_city.md)
+  * [Evaluate Division](algorithm/dfs/md/evaluate_division.md)
 * [DP](algorithm/dp/README.md)
   * [Domino And Tromino Tiling](algorithm/dp/md/domino\_and\_tromino\_tiling.md)
   * [House Robber](algorithm/dp/md/house\_robber.md)
