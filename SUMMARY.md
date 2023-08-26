@@ -47,6 +47,7 @@
 * [Sliding Window](algorithm/sliding-window/README.md)
   * [Max Vowels Substring](algorithm/sliding\_window/md/max\_vowels\_substring.md)
   * [Max Consecutive Ones III](algorithm/sliding\_window/md/max\_consecutive\_ones\_iii.md)
+  * [Longest Subarray Deleting Element](algorithm/sliding\_window/md/longest_subarray_deleting_element.md)
 * [Two Pointers](algorithm/two\_pointers/README.md)
   * [Container With Most Water](algorithm/two\_pointers/md/container\_with\_most\_water.md)
   * [Max Number K Sum Pairs](algorithm/two\_pointers/md/max\_number\_k\_sum\_pairs.md)
