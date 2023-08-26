@@ -20,6 +20,8 @@
   * [Koko Eating Bananas](algorithm/binary\_search/md/koko\_eating\_bananas.md)
   * [Find Peak Element](algorithm/binary\_search/md/find\_peak\_element.md)
   * [Successful Pairs Of Spells Potions](algorithm/binary\_search/md/successful\_pairs\_of\_spells\_potions.md)
+* [Binary Search Tree](algorithm/binary_search_tree/README.md)
+  * [Delete Node In Bst](algorithm/binary_search_tree/md/delete_node_in_bst.md)
 * [BFS](algorithm/bfs/README.md)
   * [Rotten Oranges](algorithm/bfs/md/rotten\_oranges.md)
   * [Nearest Exist From Entrance](algorithm/bfs/md/nearest\_exist\_from\_entrance.md)
