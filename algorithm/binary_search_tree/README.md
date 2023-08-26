@@ -1,1 +1,1 @@
-* [Delete Node In Bst](./md/delete_node_in_bst.md)
+* [Delete Node In BST](./md/delete_node_in_bst.md)
