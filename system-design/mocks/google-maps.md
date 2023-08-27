@@ -2,16 +2,19 @@
 
 ## Functional Requirements
 
-* User can see the current location of him/herself.
-* User can see the nearby map display, zoom in/out.
-* User can search point of interest / address using search bar and the system would return some navigation routes options.
+* User Location Update
+  * Monitor live traffic, detect new and closed roads, analyze user behavior for personalization.
+  * Use real-time data to provide accurate ETA and reroute options.
+  * Leverage stream of location data to improve system.
+* Navigation Service, including ETA
+* Map rendering
 
 ## Non-functional requirements:
 
+* Accuracy
 * Low latency
 * Highly available
-* Read > Write
 
 ## High Level Diagram
 
-<img alt="" class="gitbook-drawing">
+<img src="../../.gitbook/assets/file.excalidraw (5).svg" alt="" class="gitbook-drawing">
