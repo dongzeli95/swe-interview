@@ -85,3 +85,21 @@ Response
 ## High Level Diagram
 
 <img src="../../.gitbook/assets/file.excalidraw (5).svg" alt="" class="gitbook-drawing">
+
+## E2E
+
+#### App Initialization
+
+1. Client open up the app, the GPS on the phone will locate user and its coordinate.
+2. Client sends map rendering requests to fetch map tiles CDN urls to render nearby map on the specific zoom level.
+3. Client set up websocket connections to receive reroute options, ETA updates.
+
+#### Navigation
+
+1. Client search for some place / address on search bar.
+2. Backend will route request to geocoding service to convert place or address to latitude and longitude pair.
+3. Backend returns the detail information about the place as well as the navigation option response based on user location and destination location.
+
+#### Location Update
+
+1. Client send location update requests every 15 seconds.
