@@ -51,6 +51,37 @@ Compressed image + natural lands = **44 to 88PB**
 
 **100 PB in total**
 
+## API
+
+Location Update:
+
+**POST /v1/locations**
+
+Payload: JSON encoded array {latitude, longitude, timestamp}
+
+**GET /v1/navigation?origin=xxx\&destination=xxx**
+
+Response
+
+```
+{
+    'distance': {'text': '0.2 mi', 'value': 259},
+    'duration': {'text': '1 min', 'value': 83},
+    'start_location': {'lat': 37.4027165, 'lng': -121.9435809},
+    'end_location': {'lat': 37.4021232, 'lng': xxx},
+    'polyline': {'points': 'xxx'},
+    'geocoded_waypoints': [
+        {
+            "geocoder_status": "OK",
+            "place_id": "xxx"
+        },
+        {...},
+        {...}
+    ],
+    'travel_mode': 'DRIVING'
+}
+```
+
 ## High Level Diagram
 
 <img src="../../.gitbook/assets/file.excalidraw (5).svg" alt="" class="gitbook-drawing">
