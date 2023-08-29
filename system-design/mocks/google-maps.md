@@ -103,3 +103,32 @@ Response
 #### Location Update
 
 1. Client send location update requests every 15 seconds.
+
+## Data Model
+
+### Routing Tiles
+
+> By breaking up road networks into routing tiles that can be loaded on demand, the routing algorithms can significantly reduce memory consumption and improve pathfinding performance by only consuming a small subset of the routing tiles at a time, and only loading additional tiles as needed.
+
+Initial dataset contains roads and associated metadata like names, country, longitude and latitude. The data is not organized as graph structure and is not usable by most routing algorithm.&#x20;
+
+Each tile contains a list of graph nodes and edges representing the intersections and roads.
+
+It's efficient to store it in **S3** and cache it progressively. We can use some package/library to serialize adjacency lists into a binary file. We can **organize tiles by its geohashes** for fast look ups.
+
+### User Location Data
+
+<table><thead><tr><th width="157">user_id</th><th width="154">timestamp</th><th width="198">driving_mode</th><th>location</th></tr></thead><tbody><tr><td>101</td><td>1635740977</td><td>driving</td><td>(20.0, 30.5)</td></tr></tbody></table>
+
+### Geocoding DB
+
+Redis, Key-Value
+
+key: place\_name, address. value: lat/lng pair.
+
+### Precomputed Map Tiles
+
+Store in S3 backed by CDN.
+
+## Deep Dive
+
