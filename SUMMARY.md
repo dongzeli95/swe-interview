@@ -14,6 +14,7 @@
   * [Merge Strings Alternately](algorithm/array/md/merge\_strings\_alternately.md)
   * [Increasing Triplet Subsequence](algorithm/array/md/increasing\_triplet\_subsequence.md)
   * [String Compression](algorithm/array/md/string\_compression.md)
+  * [Greatest Common Divisor Strings](algorithm/array/md/greatest_common_divisor_strings.md)
 * [Backtracking](algorithm/backtracking/README.md)
   * [Letter Combination Phone Number](algorithm/backtracking/md/letter\_combination\_phone\_number.md)
   * [Combination Sum Iii](algorithm/backtracking/md/combination\_sum\_iii.md)
