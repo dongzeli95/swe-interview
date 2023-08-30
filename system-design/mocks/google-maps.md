@@ -116,6 +116,24 @@ Each tile contains a list of graph nodes and edges representing the intersection
 
 It's efficient to store it in **S3** and cache it progressively. We can use some package/library to serialize adjacency lists into a binary file. We can **organize tiles by its geohashes** for fast look ups.
 
+#### Road Segments
+
+A road can be represented as a list of connected points: (lat1, lng1), (lat2, lng2)...(latN, lngN). Calculate the geohash for every point, and identify which tiles the road passes through.
+
+For each road segment that crosses multiple tiles, you can split it into smaller segment lie within individual tiles.&#x20;
+
+```
+Schema:
+segment_id: uuid
+start_point: The starting geographical coordinate of the segment.
+end_point: The ending coordinate of the segment.
+geom: The geometry of the segment, stored as LineString in PostGIS.
+geohash: The geohash tile this road belongs to.
+road_type: enum, "highway", "local" etc.
+speed_limit: xx mph
+other_attributes: is_toll_road, surface_type etc.
+```
+
 ### User Location Data
 
 <table><thead><tr><th width="157">user_id</th><th width="154">timestamp</th><th width="198">driving_mode</th><th>location</th></tr></thead><tbody><tr><td>101</td><td>1635740977</td><td>driving</td><td>(20.0, 30.5)</td></tr></tbody></table>
@@ -132,3 +150,11 @@ Store in S3 backed by CDN.
 
 ## Deep Dive
 
+### Location Service
+
+<img src="../../.gitbook/assets/file.excalidraw (6).svg" alt="" class="gitbook-drawing">
+
+## TODO
+
+* [ ] Why Kafka is good for scaling and broadcasting the location update data?
+* [ ] Navigation Service Deep Dive.
