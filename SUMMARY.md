@@ -51,6 +51,8 @@
 * [Monotonic Stack](algorithm/monotonic\_stack/README.md)
   * [Daily Temperatures](algorithm/monotonic\_stack/md/daily\_temperatures.md)
   * [Online Stock Span](algorithm/monotonic\_stack/md/online\_stock\_span.md)
+* [Stack](algorithm/stack/README.md)
+  * [Removing Stars From String](algorithm/stack/md/removing_stars_from_string.md)
 * [Prefix Sum](algorithm/prefix_sum/README.md)
   * [Find The Highest Altitude](algorithm/prefix_sum/md/find_the_highest_altitude.md)
   * [Find Pivot Index](algorithm/prefix_sum/md/find_pivot_index.md)
