@@ -154,7 +154,60 @@ Store in S3 backed by CDN.
 
 <img src="../../.gitbook/assets/file.excalidraw (6).svg" alt="" class="gitbook-drawing">
 
+### Rendering Map Tiles
+
+**WebGL**: Instead of sending images over network, we can send vector formations (paths and polygons)
+
+Pros: vector tiles provide a much better zooming experience.
+
+### Navigation Service
+
+#### Shortest Path Service
+
+1. Receives the origin and destination in lat/lng pairs. Load start points and end points of routing tiles based on geohashes.
+2. Starts with origin routing tile, as it traverse the graph, hydrates neighboring tiles from object storage, including bigger tiles at higher zoom level so that it can make use of highway roads etc.
+
+#### ETA Service
+
+Use machine learning to predict ETAs based on current traffic and historical data.
+
+#### Ranker Service
+
+Navigation service obtains the ETA predications, passes the info to ranker to rank possible routes from fastest to slowest, return top-k results to navigation service.
+
+#### Updater Service
+
+Tap into Kafka location update stream and asynchronously update traffic DB and routing tiles DB.&#x20;
+
+<mark style="color:blue;">Update routing tiles DB</mark>: responsible for transforming the road dataset with newly found roads and road closures into a updated set of routing tiles.
+
+<mark style="color:blue;">Update traffic DB</mark>: Extracts traffic conditions from the streams of location updates sent by active users. Enable ETA service to provide better estimates.
+
+<img src="../../.gitbook/assets/file.excalidraw.svg" alt="" class="gitbook-drawing">
+
+### Adaptive ETA and rerouting
+
+The system needs to track all active navigating users and update them on ETA continuously.
+
+* How do we track actively navigating users?
+* How do we store data, so we efficiently locate the users affected by traffic changes among millions of navigation routes?
+
+Traffic DB stores actively navigating users with routing tile information:
+
+```
+user1: current_r_1, super(r_1), super(super(r_1)), ...
+```
+
+We store the upper zoom level routing tile until we found the destination.
+
+To find if a user is affected by the traffic change, we need only check if a routing tile is inside the last routing tile of the row in record.
+
+We prefer to use <mark style="color:blue;">websocket</mark> to communicate the reroute options to clients.
+
 ## TODO
 
 * [ ] Why Kafka is good for scaling and broadcasting the location update data?
 * [ ] Navigation Service Deep Dive.
+* [ ] ETA Service machine learning.
+* [ ] What is HTTP keep-alive?
+* [ ] Pros and Cons of long polling, websocket and SSE?
