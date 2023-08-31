@@ -170,3 +170,19 @@ Writes casually related to each other are written to the same parition.
 
 Allow more than one node to accept writes. Each node processes a write will forward data change to all the other nodes.
 
+### Use Cases
+
+#### Multi-datacenter operation
+
+Have a leader in each datacenter. Each datacenter leader replicates its change to the leaders in other datacenters.
+
+|                                | Single-leader configuration                                                                                                                                | Multi-leader configuration                                                                                                                                          |
+| ------------------------------ | ---------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Performance                    | <mark style="background-color:red;">Writes must go over internet to the datacenter with leader. Add significant latency if datacenter is not local.</mark> | <mark style="background-color:green;">Writes can be processed in local datacenter and replicated asynchronously to other datacenters. Performance is better.</mark> |
+| Tolerance of datacenter outage | <mark style="background-color:red;">Failover to promote a follower in another datacenter as leader.</mark>                                                 | <mark style="background-color:green;">No Impact. Replication catches up when failed datacenter comes back online.</mark>                                            |
+
+#### Clients with offline operation
+
+If you have an application that needs to continue to work while it's offline. Every device that has a local database is a leader, and there will be some asynchronous multi-leader replication. (Imagine, a Calender app)
+
+CouchDB is designed for this mode of operation.
