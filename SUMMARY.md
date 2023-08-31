@@ -64,6 +64,8 @@
   * [Container With Most Water](algorithm/two\_pointers/md/container\_with\_most\_water.md)
   * [Max Number K Sum Pairs](algorithm/two\_pointers/md/max\_number\_k\_sum\_pairs.md)
   * [Is Subsequence](algorithm/two\_pointers/md/is\_subsequence.md)
+* [Trie](algorithm/trie/README.md)
+  * [Prefix Tree](algorithm/trie/md/prefix_tree.md)
 
 ## System Design
 
