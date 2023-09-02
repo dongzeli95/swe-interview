@@ -66,6 +66,7 @@
   * [Is Subsequence](algorithm/two\_pointers/md/is\_subsequence.md)
 * [Trie](algorithm/trie/README.md)
   * [Prefix Tree](algorithm/trie/md/prefix_tree.md)
+  * [Search Suggestions System](algorithm/trie/md/search_suggestions_system.md)
 
 ## System Design
 
