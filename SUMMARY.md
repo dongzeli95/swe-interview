@@ -27,6 +27,8 @@
 * [Binary Tree](algorithm/binary\_tree/README.md)
   * [Maximum Level Sum](algorithm/binary\_tree/md/maximum\_level\_sum.md)
   * [Binary Tree Right Side](algorithm/binary\_tree/md/binary\_tree\_right\_side.md)
+  * [Lowest Common Ancestor](algorithm/binary\_tree/md/lowest_common_ancestor.md)
+  * [Longest Zigzag Path](algorithm/binary\_tree/md/longest_zigzag_path.md)
 * [BFS](algorithm/bfs/README.md)
   * [Rotten Oranges](algorithm/bfs/md/rotten\_oranges.md)
   * [Nearest Exist From Entrance](algorithm/bfs/md/nearest\_exist\_from\_entrance.md)
