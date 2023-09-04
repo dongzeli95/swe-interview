@@ -2,3 +2,5 @@
 * [Binary Tree Right Side](./md/binary_tree_right_side.md)
 * [Lowest Common Ancestor](./md/lowest_common_ancestor.md)
 * [Longest Zigzag Path](./md/longest_zigzag_path.md)
+* [Count Good Nodes](./md/count_good_nodes.md)
+* [Path Sum III](./md/path_sum_iii.md)
