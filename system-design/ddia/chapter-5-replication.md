@@ -186,3 +186,14 @@ Have a leader in each datacenter. Each datacenter leader replicates its change t
 If you have an application that needs to continue to work while it's offline. Every device that has a local database is a leader, and there will be some asynchronous multi-leader replication. (Imagine, a Calender app)
 
 CouchDB is designed for this mode of operation.
+
+#### Collaborative editing
+
+> When one user wants to edits a document, the changes are instantly applied to local replica, and asynchronously replicated to other users.
+
+Google Docs allow multiple people to concurrently edit a text document or spreadsheet using Automatic Conflict Resolution.&#x20;
+
+For faster collaboration, you may want to avoid locking, but it also brings multi-leader replication challenge including requiring conflict resolution.
+
+### Handling Write Conflicts
+
