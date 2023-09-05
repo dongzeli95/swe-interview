@@ -25,6 +25,8 @@
 * [Binary Search Tree](algorithm/binary\_search\_tree/README.md)
   * [Delete Node In BST](algorithm/binary\_search\_tree/md/delete\_node\_in\_bst.md)
 * [Binary Tree](algorithm/binary\_tree/README.md)
+  * [Maximum Depth](algorithm/binary\_tree/md/maximum_depth.md)
+  * [Leaf Similar Trees](algorithm/binary\_tree/md/leaf_similar_trees.md)
   * [Maximum Level Sum](algorithm/binary\_tree/md/maximum\_level\_sum.md)
   * [Binary Tree Right Side](algorithm/binary\_tree/md/binary\_tree\_right\_side.md)
   * [Lowest Common Ancestor](algorithm/binary\_tree/md/lowest\_common\_ancestor.md)

@@ -4,3 +4,5 @@
 * [Longest Zigzag Path](./md/longest_zigzag_path.md)
 * [Count Good Nodes](./md/count_good_nodes.md)
 * [Path Sum III](./md/path_sum_iii.md)
+* [Maximum Depth](./md/maximum_depth.md)
+* [Leaf Similar Trees](./md/leaf_similar_trees.md)
