@@ -197,3 +197,47 @@ For faster collaboration, you may want to avoid locking, but it also brings mult
 
 ### Handling Write Conflicts
 
+#### Sync vs Async conflict detection
+
+> If you want synchronous conflict detection, you might as well just use single-leader replication.
+
+On multi-leader if both writes are successful, the conflict is only detected async at later time, it might be too late for user to resolve the conflict.
+
+#### Conflict Avoidance
+
+The simplest strategy is to avoid conflict. If all writes for a particular record go through the same leader, then conflicts cannot occur.
+
+In an application where a user can edit their own data, you can ensure requests from a particular user always routed to the same datacenter and use the same leader for reads and writes.
+
+#### Converging towards a consistent state
+
+On single-leader, the last write determines the final value.
+
+On multi-leader, it's not clear what the final value should be.
+
+Different ways of achieving convergent conflict resolution:
+
+* Last write wins: \
+  Give each write a unique ID (timestamp, UUID, or a hash of the key and value), pick the write with highest ID as winner and throw away the other writes. This is prone to data loss.
+* Higher replica wins:\
+  Same as above, prone to data loss.
+* Merge values:\
+  Order them alphabetically and concatenate. for example: B/C
+* Record conflict in an explicit data structure:\
+  Preserve all information and write application code to resolve conflict, perhaps prompting user.
+
+#### Custom conflict resolution logic
+
+Multi-leader replication tools let you write conflict resolution logic using application code.
+
+* **On write**: As soon as database system detects a conflict in the log of replicated changes, it calls the conflict handler. Ex: Bucardo
+* **On read**: All the conflicting writes are stored. On read, multiple versions of the data are returned to the application. The application may prompt the user or automatically resolve the conflict. Ex: CouchDB
+
+#### Automatic conflict resolution
+
+* **Conflict-free replicated datatypes** (CRDTs)\
+  a family of data structures for sets, maps, ordered lists, counters that can be concurrently edited by multiple users, which automatically resolve conflicts in sensible ways. CRDTs have been implemented in Riak 2.0.
+* **Mergeable persistent data structures**\
+  track history explicitly, use three-way merge function similar to git.
+* **Operational transformation**\
+  conflict resolution algorithm behind collaborative editing applications like Google Docs.
