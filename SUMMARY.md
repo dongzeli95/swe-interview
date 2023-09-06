@@ -46,6 +46,8 @@
   * [House Robber](algorithm/dp/md/house\_robber.md)
   * [Longest Common Subsequence](algorithm/dp/md/longest\_common\_subsequence.md)
   * [Trade Stock With Transaction Fee](algorithm/dp/md/trade\_stock\_with\_transaction\_fee.md)
+* [Hashmap](algorithm/hashmap/README.md)
+  * [Equal Row Column Pairs](algorithm/hashmap/md/equal_row_column_pairs.md)
 * [Heap](algorithm/heap/README.md)
   * [Maximum Subsequence Score](algorithm/heap/md/maximum\_subsequence\_score.md)
   * [Smallest Number Infinite Set](algorithm/heap/md/smallest\_number\_infinite\_set.md)
