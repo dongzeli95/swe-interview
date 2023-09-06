@@ -48,6 +48,7 @@
   * [Trade Stock With Transaction Fee](algorithm/dp/md/trade\_stock\_with\_transaction\_fee.md)
 * [Hashmap](algorithm/hashmap/README.md)
   * [Equal Row Column Pairs](algorithm/hashmap/md/equal_row_column_pairs.md)
+  * [Two Strings Close](algorithm/hashmap/md/two_strings_close.md)
 * [Heap](algorithm/heap/README.md)
   * [Maximum Subsequence Score](algorithm/heap/md/maximum\_subsequence\_score.md)
   * [Smallest Number Infinite Set](algorithm/heap/md/smallest\_number\_infinite\_set.md)
