@@ -64,6 +64,7 @@
   * [Online Stock Span](algorithm/monotonic\_stack/md/online\_stock\_span.md)
 * [Stack](algorithm/stack/README.md)
   * [Removing Stars From String](algorithm/stack/md/removing\_stars\_from\_string.md)
+  * [Asteroid Collision](algorithm/stack/md/asteroid_collision.md)
 * [Prefix Sum](algorithm/prefix\_sum/README.md)
   * [Find The Highest Altitude](algorithm/prefix\_sum/md/find\_the\_highest\_altitude.md)
   * [Find Pivot Index](algorithm/prefix\_sum/md/find\_pivot\_index.md)
