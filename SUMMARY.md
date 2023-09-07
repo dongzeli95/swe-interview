@@ -65,6 +65,8 @@
 * [Prefix Sum](algorithm/prefix\_sum/README.md)
   * [Find The Highest Altitude](algorithm/prefix\_sum/md/find\_the\_highest\_altitude.md)
   * [Find Pivot Index](algorithm/prefix\_sum/md/find\_pivot\_index.md)
+* [Queue](algorithm/queue/dota2_senate.cpp)
+  * [Dota2 Senate](algorithm/queue/md/dota2_senate.md)
 * [Sliding Window](algorithm/sliding-window/README.md)
   * [Max Vowels Substring](algorithm/sliding\_window/md/max\_vowels\_substring.md)
   * [Max Consecutive Ones III](algorithm/sliding\_window/md/max\_consecutive\_ones\_iii.md)
