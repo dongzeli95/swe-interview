@@ -65,6 +65,7 @@
 * [Linkedlist](algorithm/linkedlist/README.md)
   * [Reverse Linked List](algorithm/linkedlist/md/reverse_linked_list.md)
   * [Delete Middle Node](algorithm/linkedlist/md/delete_middle_node.md)
+  * [Odd Even Linkedlist](algorithm/linkedlist/md/odd_even_linkedlist.md)
 * [Monotonic Stack](algorithm/monotonic\_stack/README.md)
   * [Daily Temperatures](algorithm/monotonic\_stack/md/daily\_temperatures.md)
   * [Online Stock Span](algorithm/monotonic\_stack/md/online\_stock\_span.md)
