@@ -36,6 +36,7 @@
 * [Bit](algorithm/bit/README.md)
   * [Min Flips](algorithm/bit/md/min_flips.md)
   * [Single Number](algorithm/bit/md/single_number.md)
+  * [Pow](algorithm/bit/md/pow.md)
 * [BFS](algorithm/bfs/README.md)
   * [Rotten Oranges](algorithm/bfs/md/rotten\_oranges.md)
   * [Nearest Exist From Entrance](algorithm/bfs/md/nearest\_exist\_from\_entrance.md)
@@ -102,3 +103,6 @@
 * [DDIA](system-design/ddia/README.md)
   * [Chapter 2: Data Models and Query Languages](system-design/ddia/chapter-2-data-models-and-query-languages.md)
   * [Chapter 5: Replication](system-design/ddia/chapter-5-replication.md)
+
+## Company Tags
+* [Pow](algorithm/bit/md/pow.md)
