@@ -54,11 +54,40 @@ double pow(double x, int n) {
     return n < 0 ? 1.0 / powHelper(x, -exp) : powHelper(x, exp);
 }
 
+
+// We will use a while loop which will continue until nnn reaches 000.
+// If n is odd then we will multiply xxx once with the result, so that we can reduce n by 1 to make it even.
+// Now, n will be even, thus, we now square the x and reduce n by half, i.e. x^n = (x^2)^{n/2}
+double powIterative(double x, int n) {
+    if (x == 1) return 1;
+    long long exp = n;
+    if (n < 0) {
+        x = 1.0 / x;
+        exp = -exp;
+    }
+
+    double res = 1.0;
+    while (exp > 0) {
+        // Why we only multiply res when exp is odd?
+        if (exp % 2 == 1) {
+            res *= x;
+        }
+        x *= x;
+        exp /= 2;
+    }
+
+    return res;
+}
+
 int main() {
     cout << pow(2.00000, 10) << endl; // 1024
+    cout << powIterative(2.00000, 10) << endl; // 1024
     cout << pow(2.10000, 3) << endl; // 9.261
+    cout << powIterative(2.10000, 3) << endl; // 9.261
     cout << pow(2.00000, -2) << endl; // 0.25
+    cout << powIterative(2.00000, -2) << endl; // 0.25
 
     cout << pow(1.00000, -2147483648) << endl;
+    cout << powIterative(1.00000, -2147483648) << endl;
     return 0;
 }
