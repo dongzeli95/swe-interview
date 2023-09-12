@@ -105,5 +105,5 @@
   * [Chapter 5: Replication](system-design/ddia/chapter-5-replication.md)
 
 ## Company Tags
-
-* [Pow](algorithm/bit/md/pow.md)
+* [AppLovin](company/applovin/README.md)
+  * [Pow](algorithm/bit/md/pow.md)
