@@ -104,6 +104,9 @@
   * [Chapter 2: Data Models and Query Languages](system-design/ddia/chapter-2-data-models-and-query-languages.md)
   * [Chapter 5: Replication](system-design/ddia/chapter-5-replication.md)
 
+## OOD
+* [Overview](ood/README.md)
+
 ## Company Tags
 * [AppLovin](company/applovin/README.md)
   * [Pow](algorithm/bit/md/pow.md)
