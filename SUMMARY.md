@@ -105,8 +105,11 @@
   * [Chapter 5: Replication](system-design/ddia/chapter-5-replication.md)
 
 ## OOD
+
 * [Overview](ood/README.md)
+* [Design Parking](ood/design-parking.md)
 
 ## Company Tags
+
 * [AppLovin](company/applovin/README.md)
-  * [Pow](algorithm/bit/md/pow.md)
+  *
