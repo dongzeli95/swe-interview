@@ -26,10 +26,28 @@ subscribeMessage()
 
 ## Data Schema
 
-* Messages
-* Write-ahead Log
+Read/Write pattern:
 
-Why use write-ahead log? Pros??
+* Write-heavy, read-heavy
+* No update or delete operations.
+* Sequential read/write access.
+
+| Database                                                                                                 | Write-ahead log (WAL)                                                                            |
+| -------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------ |
+| <mark style="background-color:red;">Can't support both write-heavy and read-heavy access pattern.</mark> | <mark style="background-color:green;">WAL has pure sequential read/write access pattern.</mark>  |
+|                                                                                                          | <mark style="background-color:green;">Disk performance of sequential access is very good.</mark> |
+
+For WAL, a file cannot grow infinitely, we need segments. New messages are appended only to active segment file. When it reaches to certain size, we create a new active segment to accept writes. Non-active segments only serve read requests.
+
+| Field Name | Data Type | Description                                                                                                   |
+| ---------- | --------- | ------------------------------------------------------------------------------------------------------------- |
+| key        | byte\[]   | used to determine the partition of the message                                                                |
+| value      | byte\[]   | payload of a message                                                                                          |
+| topic      | string    | the name of the topic                                                                                         |
+| partition  | integer   | ID of the partition                                                                                           |
+| offset     | long      | <p>the position of the message in the partition. We can find a message using:<br>topic, partition, offset</p> |
+| timestamp  | long      | timestamp                                                                                                     |
+| size       | integer   | size of message                                                                                               |
 
 ## High Level Diagram
 
