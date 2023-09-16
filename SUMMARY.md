@@ -111,5 +111,5 @@
 
 ## Company Tags
 
-* [AppLovin](company/applovin/README.md)
-  *
+* [AppLovin](company-tags/applovin/README.md)
+  * [Java Basic Questions](company-tags/applovin/java-basic-questions.md)
