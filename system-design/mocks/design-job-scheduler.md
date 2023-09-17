@@ -52,3 +52,10 @@ SELECT * FROM ScheduledJob WHERE scheduled_job_execution_time == now() - X and s
 * Master monitors health of workers and knows which worker is dead and how to re-assign the query to new worker
 * If master dies, we can allocate other worker node as master. (Automatic fail-over)
 * Introduce a local DB to track the status if worker has queries the DB and put the entry inside queue.
+
+### Job Executor Flow
+
+1. When a job is picked up from the queue, consumer's master updates JOB db attribution execution\_status = CLAIMED
+2. When worker process picks up the work, it updates execution\_status = PROCESSING and continuously send health check to local DB.
+3. Upon completion of a job, worker process will push the result inside S3, update JOB db execution\_status = COMPLETED and local db with the status.
+4. Both worker processes and master will update the health check inside local database.
