@@ -35,7 +35,7 @@
 * **Cash payment:** To pay the parking ticket through cash.
 * **Add/Modify parking rate:** To allow admin to add or modify the hourly parking rate.
 
-<img src="../.gitbook/assets/file.excalidraw.svg" alt="" class="gitbook-drawing">
+<img src="../.gitbook/assets/file.excalidraw (1).svg" alt="" class="gitbook-drawing">
 
 ## Class Diagram
 

@@ -27,6 +27,8 @@ description: Design a job scheduler that runs jobs at a scheduled interval.
 
 <img src="../../.gitbook/assets/file.excalidraw (8).svg" alt="" class="gitbook-drawing">
 
+<img src="../../.gitbook/assets/file.excalidraw.svg" alt="" class="gitbook-drawing">
+
 ## E2E
 
 1. User submit/get job connecting to API Gateway.
