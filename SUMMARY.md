@@ -87,6 +87,8 @@
 * [Trie](algorithm/trie/README.md)
   * [Prefix Tree](algorithm/trie/md/prefix\_tree.md)
   * [Search Suggestions System](algorithm/trie/md/search\_suggestions\_system.md)
+* [Union Find](algorithm/union\_find/README.md)
+  * [Accounts Merge](algorithm/union\_find/md/accounts_merge.md)
 
 ## System Design
 
@@ -113,5 +115,7 @@
 
 * [AppLovin](company-tags/applovin/README.md)
   * [Java Basic Questions](company-tags/applovin/java-basic-questions.md)
+  * [Pow](algorithm/bit/md/pow.md)
+  * [Accounts Merge](algorithm/union\_find/md/accounts_merge.md)
 
 * [Google](company-tags/google/README.md)
