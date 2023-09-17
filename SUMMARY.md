@@ -91,6 +91,7 @@
 ## System Design
 
 * [Mocks](system-design/mocks/README.md)
+  * [Design Job Scheduler](system-design/mocks/design-job-scheduler.md)
   * [Distributed Message Queue](system-design/mocks/distributed-message-queue.md)
   * [Google Maps](system-design/mocks/google-maps.md)
   * [Nearby Friends](system-design/mocks/nearby-friends.md)
