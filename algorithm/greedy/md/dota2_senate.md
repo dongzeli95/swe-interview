@@ -47,28 +47,60 @@ And in round 2, the third senator can just announce the victory since he is the 
 
 using namespace std;
 
+// We can pop the front of the queue.
+// if the senator is eligible to vote, we can "float" the ban on the oponent senator.By "floating", we mean that we are not banning the opponent senator right now, but we are just making a note that we will ban the opponent senator if encountered in the future.This will also ensure that the banned senator is the immediate opponent of the current senator.
+// After doing this, we can simply push the current senator to the back of the queue because it will again get a chance to vote in the next round.
+// else if the senator is not eligible to vote because previously its opponent has "floated" a ban on it, we can simply ignore it.Banning is marked by NOT adding it again to the queue.Moreover, we can also decrement the floating ban count on this party.
+// Thus, this thought process ensures the implementation of the greedy approach by floating the ban.
+// A minute optimization, we can also maintain the count of "eligible senators" of each party, and decrement it when a senator is banned.This will help us to stop the voting process when one party has no eligible senators left.
 string predictPartyVictory(string senate) {
-    int n = senate.size();
+    // Number of Senators of each party
+    int rCount = 0, dCount = 0;
+
+    // Floating Ban Count
+    int dFloatingBan = 0, rFloatingBan = 0;
+
+    // Queue of Senators
     queue<char> q;
+    for (char c : senate) {
+        q.push(c);
+        if (c == 'R') rCount++;
+        else dCount++;
+    }
 
-    string res = "";
-    for (int i = 0; i < n; i++) {
-        char s = senate[i];
-        if (q.empty()) {
-            q.push(s);
-            res = s == 'R' ? "Radiant" : "Dire";
-            continue;
-        }
+    // While any party has eligible Senators
+    while (rCount && dCount) {
 
+        // Pop the senator with turn
         char curr = q.front();
-        if (curr != s) {
-            q.pop();
-        } else {
-            q.push(s);
+        q.pop();
+
+        // If eligible, float the ban on the other party, enqueue again.
+        // If not, decrement the floating ban and count of the party.
+        if (curr == 'D') {
+            if (dFloatingBan) {
+                dFloatingBan--;
+                dCount--;
+            }
+            else {
+                rFloatingBan++;
+                q.push('D');
+            }
+        }
+        else {
+            if (rFloatingBan) {
+                rFloatingBan--;
+                rCount--;
+            }
+            else {
+                dFloatingBan++;
+                q.push('R');
+            }
         }
     }
 
-    return res;
+    // Return the party with eligible Senators
+    return rCount ? "Radiant" : "Dire";
 }
 
 int main() {
