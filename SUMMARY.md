@@ -118,7 +118,7 @@
 * [AppLovin](company-tags/applovin/README.md)
   * [Java Basic Questions](company-tags/applovin/java-basic-questions.md)
   * [Design Parking](ood/design-parking.md)
-  * [Accounts Merge](algorithm/union\_find/md/accounts\_merge.md)
+  * [Accounts Merge](algorithm/union_find/md/accounts_merge.md)
   * [Group Anagrams](algorithm/hashmap/md/group_anagrams.md)
   * [Pow](algorithm/bit/md/pow.md)
 * [Google](company-tags/google/README.md)
