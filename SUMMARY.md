@@ -55,7 +55,7 @@
 * [Hashmap](algorithm/hashmap/README.md)
   * [Equal Row Column Pairs](algorithm/hashmap/md/equal\_row\_column\_pairs.md)
   * [Two Strings Close](algorithm/hashmap/md/two\_strings\_close.md)
-  * [Group Anagrams](algorithm/hashmap/md/group_anagrams.md)
+  * [Group Anagrams](algorithm/hashmap/md/group\_anagrams.md)
 * [Heap](algorithm/heap/README.md)
   * [Maximum Subsequence Score](algorithm/heap/md/maximum\_subsequence\_score.md)
   * [Smallest Number Infinite Set](algorithm/heap/md/smallest\_number\_infinite\_set.md)
@@ -116,9 +116,10 @@
 ## Company Tags
 
 * [AppLovin](company-tags/applovin/README.md)
+  * [TODO](company-tags/applovin/todo.md)
   * [Java Basic Questions](company-tags/applovin/java-basic-questions.md)
   * [Design Parking](ood/design-parking.md)
-  * [Accounts Merge](algorithm/union_find/md/accounts_merge.md)
-  * [Group Anagrams](algorithm/hashmap/md/group_anagrams.md)
+  * [Accounts Merge](algorithm/union\_find/md/accounts\_merge.md)
+  * [Group Anagrams](algorithm/hashmap/md/group\_anagrams.md)
   * [Pow](algorithm/bit/md/pow.md)
 * [Google](company-tags/google/README.md)
