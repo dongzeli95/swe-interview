@@ -6,3 +6,4 @@
   * [ ] how to design db key for collaborative tool lock? If segments are moving?
   * [ ] How to render changes from other users?
   * [ ] If user is disconnected, how to recover the missed push messages?
+* [ ] Delivery mechanism for message queue? at-least once, exactly once etc, use ACK?
