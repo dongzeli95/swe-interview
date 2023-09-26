@@ -46,6 +46,7 @@
   * [Keys And Rooms](algorithm/dfs/md/keys\_and\_rooms.md)
   * [Number Of Provinces](algorithm/dfs/md/number\_of\_provinces.md)
   * [Disconnected Path With One Flip](algorithm/dfs/md/disconnected_path_with_one_flip.md)
+  * [Course Schedule Ii](algorithm/dfs/md/course_schedule_ii.md)
 * [DP](algorithm/dp/README.md)
   * [Domino And Tromino Tiling](algorithm/dp/md/domino\_and\_tromino\_tiling.md)
   * [House Robber](algorithm/dp/md/house\_robber.md)
