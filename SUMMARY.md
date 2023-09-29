@@ -125,3 +125,5 @@
   * [Group Anagrams](algorithm/hashmap/md/group\_anagrams.md)
   * [Pow](algorithm/bit/md/pow.md)
 * [Google](company-tags/google/README.md)
+  * [Huffman Tree](company-tags/google/md/huffman_tree.md)
+  * [Unique Elements](company-tags/google/md/unique_elements.md)
