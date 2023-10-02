@@ -73,6 +73,8 @@
 * [Monotonic Stack](algorithm/monotonic\_stack/README.md)
   * [Daily Temperatures](algorithm/monotonic\_stack/md/daily\_temperatures.md)
   * [Online Stock Span](algorithm/monotonic\_stack/md/online\_stock\_span.md)
+* [Random](algorithm/random/README.md)
+  * [Random Pick With Weight](algorithm/random/md/random_pick_with_weight.md)
 * [Stack](algorithm/stack/README.md)
   * [Removing Stars From String](algorithm/stack/md/removing\_stars\_from\_string.md)
   * [Asteroid Collision](algorithm/stack/md/asteroid\_collision.md)
