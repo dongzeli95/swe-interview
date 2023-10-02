@@ -183,7 +183,7 @@ Tap into Kafka location update stream and asynchronously update traffic DB and r
 
 <mark style="color:blue;">Update traffic DB</mark>: Extracts traffic conditions from the streams of location updates sent by active users. Enable ETA service to provide better estimates.
 
-<img src="../../.gitbook/assets/file.excalidraw (1) (1).svg" alt="" class="gitbook-drawing">
+<img src="../../.gitbook/assets/file.excalidraw (1) (1) (1).svg" alt="" class="gitbook-drawing">
 
 ### Adaptive ETA and rerouting
 

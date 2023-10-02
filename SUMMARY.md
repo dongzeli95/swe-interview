@@ -9,6 +9,7 @@
 
 ## Algorithm
 
+* [Segment Tree](algorithm/segment-tree.md)
 * [Array](algorithm/array/README.md)
   * [Product Of Array Except Self](algorithm/array/md/product\_of\_array\_except\_self.md)
   * [Merge Strings Alternately](algorithm/array/md/merge\_strings\_alternately.md)

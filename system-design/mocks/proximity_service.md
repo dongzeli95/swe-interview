@@ -113,7 +113,7 @@ SELECT * FROM geohash_index WHERE geohash LIKE '9q8zn%'
 
 ### High Level Diagram
 
-<img src="../../.gitbook/assets/file.excalidraw (1) (1) (1).svg" alt="" class="gitbook-drawing">
+<img src="../../.gitbook/assets/file.excalidraw (1) (1) (1) (1).svg" alt="" class="gitbook-drawing">
 
 ### Caching
 
