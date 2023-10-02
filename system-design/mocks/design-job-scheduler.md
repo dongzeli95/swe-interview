@@ -11,17 +11,23 @@ description: Design a job scheduler that runs jobs at a scheduled interval.
 
 ## Functional Requirements
 
-1. User can schedule a task one time with retry.
-2. User can schedule a cron job with a schedule.
-3. User can view the status of a executed job.
-4. For scheduled jobs, user can limit its max concurrency.
-5. Support different languages.
+1. **Submit task**: allow the user to submit their tasks for execution.
+2. **Allocate resources**: allocate require resources to each task.
+3. **Remove tasks**: should allow cancel submitted tasks.
+4. **Monitor task execution**: should be adequately monitored and rescheduled if the task fails to execute.
+5. **Show task status**: User can view the status of a executed job.
+6. User can schedule a cron job with a schedule.
+7. For scheduled jobs, user can limit its max concurrency.
+8. Support different languages.
 
 ## Non-functional Requirement
 
 1. Submitted job cannot be lost. Durability.
 2. Availability.
-3. Reliability - retry
+3. Scalability: should be able to schedule and execute an ever-increasing number of tasks per day.
+4. Reliability - retry
+5. Efficient resource utilization.
+6. **Release resources**: after executing a task, the system should take back resources assigned to the task.
 
 ## High Level Diagram
 

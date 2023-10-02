@@ -45,8 +45,8 @@
   * [Evaluate Division](algorithm/dfs/md/evaluate\_division.md)
   * [Keys And Rooms](algorithm/dfs/md/keys\_and\_rooms.md)
   * [Number Of Provinces](algorithm/dfs/md/number\_of\_provinces.md)
-  * [Disconnected Path With One Flip](algorithm/dfs/md/disconnected_path_with_one_flip.md)
-  * [Course Schedule Ii](algorithm/dfs/md/course_schedule_ii.md)
+  * [Disconnected Path With One Flip](algorithm/dfs/md/disconnected\_path\_with\_one\_flip.md)
+  * [Course Schedule Ii](algorithm/dfs/md/course\_schedule\_ii.md)
 * [DP](algorithm/dp/README.md)
   * [Domino And Tromino Tiling](algorithm/dp/md/domino\_and\_tromino\_tiling.md)
   * [House Robber](algorithm/dp/md/house\_robber.md)
@@ -120,10 +120,10 @@
 * [AppLovin](company-tags/applovin/README.md)
   * [TODO](company-tags/applovin/todo.md)
   * [Java Basic Questions](company-tags/applovin/java-basic-questions.md)
-  * [Design Parking](ood/design-parking.md)
-  * [Accounts Merge](algorithm/union\_find/md/accounts\_merge.md)
-  * [Group Anagrams](algorithm/hashmap/md/group\_anagrams.md)
-  * [Pow](algorithm/bit/md/pow.md)
+  *
+  *
+  *
+  *
 * [Google](company-tags/google/README.md)
-  * [Huffman Tree](company-tags/google/md/huffman_tree.md)
-  * [Unique Elements](company-tags/google/md/unique_elements.md)
+  * [Huffman Tree](company-tags/google/md/huffman\_tree.md)
+  * [Unique Elements](company-tags/google/md/unique\_elements.md)
