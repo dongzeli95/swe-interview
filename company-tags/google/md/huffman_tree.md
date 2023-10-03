@@ -68,8 +68,6 @@ TreeNode* buildTree(map<char, int>& encoding) {
         TreeNode* left = pq.top(); pq.pop();
         TreeNode* right = pq.top(); pq.pop();
 
-        cout << left->data << " " << right->data << endl;
-
         // Create a new internal node with these two nodes as children and with a frequency equal to the sum of both nodes' frequencies.
         // Add the new node to the priority queue.
         TreeNode* node = new TreeNode('*');
