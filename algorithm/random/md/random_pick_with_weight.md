@@ -76,14 +76,129 @@ private:
     int total_sum;
 };
 
+// Follow up 2: For each index we pick, we delete it from the array.
+// Time: O(logn), Space: O(n)
+// Segment Tree
+
+class Solution2 {
+public:
+    Solution2(vector<int>& w) {
+        this->arr = w;
+        int n = w.size();
+        segTree.resize(4 * n);
+        build(1, 0, n - 1);
+    }
+
+    void build(int node, int start, int end) {
+        if (start == end) {
+            segTree[node] = arr[start];
+            return;
+        }
+
+        int mid = (start + end) / 2;
+        build(2 * node, start, mid);
+        build(2 * node + 1, mid + 1, end);
+        segTree[node] = segTree[2 * node] + segTree[2 * node + 1];
+    }
+
+    void update(int node, int start, int end, int idx, int val) {
+        if (start == end) {
+            arr[idx] += val;
+            segTree[node] += val;
+            return;
+        }
+
+        int mid = (start + end) / 2;
+        if (idx <= mid)
+            update(2 * node, start, mid, idx, val);
+        else
+            update(2 * node + 1, mid + 1, end, idx, val);
+
+        segTree[node] = segTree[2 * node] + segTree[2 * node + 1];
+    }
+
+    void query(int node, int start, int end, int& val, int& res) {
+        cout << "start: " << start << " end: " << end << " sum: " << segTree[node] << endl;
+        // If out of boundary, return best index found so far.
+        if (start > end || segTree[node] == 0) {
+            return;
+        }
+
+        // If it's a leaf node, check if it's the best index found so far.
+        if (start == end) {
+            if (segTree[node] <= val && arr[start] != 0) {
+                res = max(res, start);
+            }
+            return;
+        }
+
+        int mid = (start + end) / 2;
+        if (arr[mid] != 0) {
+            res = max(res, mid);
+        }
+
+        // If the left child has a sum less than or equal to val, 
+        // then we might need to go to the right child.
+        if (segTree[2 * node+1] >= val) {
+            query(2 * node + 1, mid + 1, end, val, res);
+        }
+        // Else, continue searching in the left child.
+        else {
+            query(2 * node, start, mid, val, res);
+        }
+    }
+
+    int pickIndex() {
+        if (segTree[1] == 0) {
+            return -1;
+        }
+
+        // random number
+        int random_num = rand() % segTree[1];
+        // query using segment tree.
+        int idx = -1;
+        query(1, 0, arr.size()-1, random_num, idx);
+        // update segment tree along with original array.
+        int delta = arr[idx];
+        update(1, 0, arr.size()-1, idx, -delta);
+        print();
+        return idx;
+    }
+
+    void print() {
+        cout << "segment tree" << endl;
+        for (int i = 0; i < segTree.size(); ++i)
+            cout << segTree[i] << " ";
+        cout << endl;
+
+        cout << "array " << endl;
+        for (int i = 0; i < arr.size(); i++) {
+            cout << arr[i] << " ";
+        }
+        cout << endl;
+    }
+
+    vector<int> segTree;
+    vector<int> arr;
+};
+
 int main() {
-    vector<int> w = {1, 3};
-    Solution solution(w);
-    cout << solution.pickIndex() << endl;
-    cout << solution.pickIndex() << endl;
-    cout << solution.pickIndex() << endl;
-    cout << solution.pickIndex() << endl;
-    cout << solution.pickIndex() << endl;
-    cout << solution.pickIndex() << endl;
+    vector<int> w = {1, 3, 5, 7, 9, 11};
+    // Solution solution(w);
+    // cout << solution.pickIndex() << endl;
+    // cout << solution.pickIndex() << endl;
+    // cout << solution.pickIndex() << endl;
+    // cout << solution.pickIndex() << endl;
+    // cout << solution.pickIndex() << endl;
+    // cout << solution.pickIndex() << endl;
+
+    Solution2 segSolution(w);
+    cout << segSolution.pickIndex() << endl;
+    cout << segSolution.pickIndex() << endl;
+    cout << segSolution.pickIndex() << endl;
+    cout << segSolution.pickIndex() << endl;
+    cout << segSolution.pickIndex() << endl;
+    cout << segSolution.pickIndex() << endl;
+    // cout << segSolution.pickIndex() << endl;
     return 0;
 }```
