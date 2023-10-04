@@ -42,6 +42,19 @@ description: Design a job scheduler that runs jobs at a scheduled interval.
 3. Job executor service will continuously poll the due jobs from DB and insert entries into the queue.
 4. Job executor service execute the business logic and update final result onto file system and update the status as COMPLETED.
 
+## Data Schema
+
+| Column               | Datatype | Description                                                                                 |
+| -------------------- | -------- | ------------------------------------------------------------------------------------------- |
+| TaskID               | String   | Uniquely identifies each task                                                               |
+| UserID               | String   | UUID of user                                                                                |
+| SchedulingType       | String   | {once, daily, weekly, monthly, anually}                                                     |
+| TotalAttempts        | Integer  | maximum number of retries in case a task execution fails.                                   |
+| ResourceRequirements | String   | {Basic, Regular, Premium}                                                                   |
+| ExecutionCap         | Time     | maximum time allowed for task execution.                                                    |
+| DelayTolerance       | Time     | indicates how much delay we can sustain before starting a task.                             |
+| ScriptPath           | String   | The path of the script needs to be executed. The script is a file placed in a file system.  |
+
 ## Deep Dive
 
 ### Job Scheduling Flow

@@ -75,7 +75,7 @@
   * [Daily Temperatures](algorithm/monotonic\_stack/md/daily\_temperatures.md)
   * [Online Stock Span](algorithm/monotonic\_stack/md/online\_stock\_span.md)
 * [Random](algorithm/random/README.md)
-  * [Random Pick With Weight](algorithm/random/md/random_pick_with_weight.md)
+  * [Random Pick With Weight](algorithm/random/md/random\_pick\_with\_weight.md)
 * [Stack](algorithm/stack/README.md)
   * [Removing Stars From String](algorithm/stack/md/removing\_stars\_from\_string.md)
   * [Asteroid Collision](algorithm/stack/md/asteroid\_collision.md)
@@ -123,10 +123,6 @@
 * [AppLovin](company-tags/applovin/README.md)
   * [TODO](company-tags/applovin/todo.md)
   * [Java Basic Questions](company-tags/applovin/java-basic-questions.md)
-  *
-  *
-  *
-  *
 * [Google](company-tags/google/README.md)
   * [Huffman Tree](company-tags/google/md/huffman\_tree.md)
   * [Unique Elements](company-tags/google/md/unique\_elements.md)
