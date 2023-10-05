@@ -64,6 +64,7 @@
   * [Smallest Number Infinite Set](algorithm/heap/md/smallest\_number\_infinite\_set.md)
   * [Total Cost Hire Workers](algorithm/heap/md/total\_cost\_hire\_workers.md)
   * [Kth Largest Element](algorithm/heap/md/kth\_largest\_element.md)
+  * [Meeting Rooms III](company-tags/google/md/meeting_rooms_iii.md)
 * [Intervals](algorithm/intervals/README.md)
   * [Non Overlapping Intervals](algorithm/intervals/md/non\_overlapping\_intervals.md)
   * [Min Arrows Burst Ballons](algorithm/intervals/md/min\_arrows\_burst\_ballons.md)
@@ -126,3 +127,4 @@
 * [Google](company-tags/google/README.md)
   * [Huffman Tree](company-tags/google/md/huffman\_tree.md)
   * [Unique Elements](company-tags/google/md/unique\_elements.md)
+  * [Meeting Rooms III](company-tags/google/md/meeting_rooms_iii.md)
