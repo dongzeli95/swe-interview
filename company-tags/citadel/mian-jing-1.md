@@ -2,7 +2,7 @@
 
 {% embed url="https://www.1point3acres.com/bbs/forum.php?mod=viewthread&tid=831936&ctid=232499" %}
 
-1. What's the probability of not seeing HH in N coin tosses?
+1. **What's the probability of not seeing HH in N coin tosses?**
 
 Ah, now I see where you're headed. You're right. Let's think of this in terms of the Fibonacci sequence.
 
@@ -26,3 +26,25 @@ Now, to find the probability of not seeing HH in a sequence of length ( N ) coin
 P(N) = f(N) / 2^N
 
 This will give you the desired probability.
+
+2. **1000 coins, 1 bad coin (HH), flip 10 H in a roll, what’s th‍‍‍‍‍‍‍‌‍‌‌‌‌‍‍‌‌‌e probability of getting the bad coin? Follow-up: what about 9 heads? What’s a good number of heads that you become confident?**
+
+P(Defective | 10H) = P(10H | Defective) \* P(Defective) / P(10H)
+
+P(Defective) = 1 / 1000
+
+P(10H | Defective) = 1
+
+P(10H) = 1\*1/1000 + (1/2)^10\*999/1000 = 2023 / 1024000
+
+P(Defective | 10H) = 1/1000 / (2023/1024000) = 50%
+
+
+
+**What's a good number of heads that you become confident?**
+
+16.59 = 17
+
+we need to solve for the following equation:
+
+(1 / 1000) / (1/1000+1/2^n\*999/1000) = 99%
