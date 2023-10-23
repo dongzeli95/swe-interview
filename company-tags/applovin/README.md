@@ -1,0 +1,1 @@
+* [Pow](../../algorithm/bit/md/pow.md)
