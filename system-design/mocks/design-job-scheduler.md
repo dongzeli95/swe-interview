@@ -7,7 +7,7 @@ description: Design a job scheduler that runs jobs at a scheduled interval.
 [Link](https://www.linkedin.com/pulse/system-design-distributed-job-scheduler-keep-simple-stupid-ismail/)
 
 * Design a system for payment processing. (monthly/weekly/daily payout etc)
-* Design a code deployment system.&#x20;
+* Design a code deployment system.
 
 ## Functional Requirements
 
@@ -33,6 +33,8 @@ description: Design a job scheduler that runs jobs at a scheduled interval.
 
 <img src="../../.gitbook/assets/file.excalidraw (8).svg" alt="" class="gitbook-drawing">
 
+&#x20;
+
 <img src="../../.gitbook/assets/file.excalidraw (1).svg" alt="" class="gitbook-drawing">
 
 ## E2E
@@ -44,16 +46,16 @@ description: Design a job scheduler that runs jobs at a scheduled interval.
 
 ## Data Schema
 
-| Column               | Datatype | Description                                                                                 |
-| -------------------- | -------- | ------------------------------------------------------------------------------------------- |
-| TaskID               | String   | Uniquely identifies each task                                                               |
-| UserID               | String   | UUID of user                                                                                |
-| SchedulingType       | String   | {once, daily, weekly, monthly, anually}                                                     |
-| TotalAttempts        | Integer  | maximum number of retries in case a task execution fails.                                   |
-| ResourceRequirements | String   | {Basic, Regular, Premium}                                                                   |
-| ExecutionCap         | Time     | maximum time allowed for task execution.                                                    |
-| DelayTolerance       | Time     | indicates how much delay we can sustain before starting a task.                             |
-| ScriptPath           | String   | The path of the script needs to be executed. The script is a file placed in a file system.  |
+| Column               | Datatype | Description                                                                                |
+| -------------------- | -------- | ------------------------------------------------------------------------------------------ |
+| TaskID               | String   | Uniquely identifies each task                                                              |
+| UserID               | String   | UUID of user                                                                               |
+| SchedulingType       | String   | {once, daily, weekly, monthly, anually}                                                    |
+| TotalAttempts        | Integer  | maximum number of retries in case a task execution fails.                                  |
+| ResourceRequirements | String   | {Basic, Regular, Premium}                                                                  |
+| ExecutionCap         | Time     | maximum time allowed for task execution.                                                   |
+| DelayTolerance       | Time     | indicates how much delay we can sustain before starting a task.                            |
+| ScriptPath           | String   | The path of the script needs to be executed. The script is a file placed in a file system. |
 
 ## Deep Dive
 

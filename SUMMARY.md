@@ -53,7 +53,7 @@
   * [House Robber](algorithm/dp/md/house\_robber.md)
   * [Longest Common Subsequence](algorithm/dp/md/longest\_common\_subsequence.md)
   * [Trade Stock With Transaction Fee](algorithm/dp/md/trade\_stock\_with\_transaction\_fee.md)
-  * [Buy And Sell Stock](algorithm/dp/md/buy_and_sell_stock.md)
+  * [Buy And Sell Stock](algorithm/dp/md/buy\_and\_sell\_stock.md)
 * [Greedy](algorithm/greedy/README.md)
   * [Dota2 Senate](algorithm/greedy/dota2-senate.md)
 * [Hashmap](algorithm/hashmap/README.md)
@@ -132,4 +132,3 @@
 * [Google](company-tags/google/README.md)
   * [Huffman Tree](company-tags/google/md/huffman\_tree.md)
   * [Unique Elements](company-tags/google/md/unique\_elements.md)
-  *

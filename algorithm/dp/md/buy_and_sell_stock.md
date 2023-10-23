@@ -1,4 +1,6 @@
-```cpp
+# Buy And Sell Stock
+
+````cpp
 // https://leetcode.com/problems/best-time-to-buy-and-sell-stock
 
 /*
@@ -163,6 +165,45 @@ int maxProfitWithKTrades(vector<int>& prices, int k) {
     return profits[k-1];
 }
 
+int main() {
+    vector<int> prices1 = {7,1,5,3,6,4};
+    assert(maxProfit(prices1) == 5);
+    assert(maxProfitMultipleTimes(prices1) == 7);
+
+    vector<int> prices2 = {7,6,4,3,1};
+    assert(maxProfit(prices2) == 0);
+    assert(maxProfitMultipleTimes(prices2) == 0);
+    assert(maxProfitWithTwoTrades(prices2) == 0);
+
+    vector<int> prices3 = {1,2,3,4,5};
+    assert(maxProfitMultipleTimes(prices3) == 4);
+    assert(maxProfitWithTwoTrades(prices3) == 4);
+
+    vector<int> prices4 = {3, 3, 5, 0, 0, 3, 1, 4};
+    assert(maxProfitWithTwoTrades(prices4) == 6);
+
+    vector<int> prices5 = {2, 4, 1};
+    assert(maxProfitWithKTrades(prices5, 2) == 2);
+
+    vector<int> prices6 = {3, 2, 6, 5, 0, 3};
+    assert(maxProfitWithKTrades(prices6, 2) == 7);
+
+    vector<int> prices7 = {1, 2, 3, 0, 2};
+    assert(maxProfitWithCD(prices7) == 3);
+
+    vector<int> prices8 = {1};
+    assert(maxProfitWithCD(prices8) == 0);
+
+    vector<int> prices9 = {1, 2, 4};
+    assert(maxProfitWithCD(prices9) == 3);
+    return 0;
+}```
+````
+
+<img src="../../../.gitbook/assets/file.excalidraw (9).svg" alt="" class="gitbook-drawing">
+
+```cpp
+
 // https://leetcode.com/problems/best-time-to-buy-and-sell-stock-with-cooldown/
 /*
 
@@ -199,37 +240,4 @@ int maxProfitWithCD(vector<int>& prices) {
 
     return max(sold, reset);
 }
-
-int main() {
-    vector<int> prices1 = {7,1,5,3,6,4};
-    assert(maxProfit(prices1) == 5);
-    assert(maxProfitMultipleTimes(prices1) == 7);
-
-    vector<int> prices2 = {7,6,4,3,1};
-    assert(maxProfit(prices2) == 0);
-    assert(maxProfitMultipleTimes(prices2) == 0);
-    assert(maxProfitWithTwoTrades(prices2) == 0);
-
-    vector<int> prices3 = {1,2,3,4,5};
-    assert(maxProfitMultipleTimes(prices3) == 4);
-    assert(maxProfitWithTwoTrades(prices3) == 4);
-
-    vector<int> prices4 = {3, 3, 5, 0, 0, 3, 1, 4};
-    assert(maxProfitWithTwoTrades(prices4) == 6);
-
-    vector<int> prices5 = {2, 4, 1};
-    assert(maxProfitWithKTrades(prices5, 2) == 2);
-
-    vector<int> prices6 = {3, 2, 6, 5, 0, 3};
-    assert(maxProfitWithKTrades(prices6, 2) == 7);
-
-    vector<int> prices7 = {1, 2, 3, 0, 2};
-    assert(maxProfitWithCD(prices7) == 3);
-
-    vector<int> prices8 = {1};
-    assert(maxProfitWithCD(prices8) == 0);
-
-    vector<int> prices9 = {1, 2, 4};
-    assert(maxProfitWithCD(prices9) == 3);
-    return 0;
-}```
+```
