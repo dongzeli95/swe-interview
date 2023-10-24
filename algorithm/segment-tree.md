@@ -1,12 +1,12 @@
 # Segment Tree
 
-A _segment tree_ is a full binary tree where each node represents an interval. Generally, a node would store one or more properties of an interval that can be queried later.&#x20;
+A _segment tree_ is a full binary tree where each node represents an interval. Generally, a node would store one or more properties of an interval that can be queried later.
 
 ```
 {1, 3, 5, 7, 9, 11}
 ```
 
-<img src="../.gitbook/assets/file.excalidraw.svg" alt="" class="gitbook-drawing">
+<img src="../.gitbook/assets/file.excalidraw (1).svg" alt="" class="gitbook-drawing">
 
 ### BUILD()
 

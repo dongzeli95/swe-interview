@@ -59,6 +59,8 @@ Serving:
 
 ### Push or Pull for metrics collector?
 
+#### Pull
+
 <img src="../../.gitbook/assets/file.excalidraw (11).svg" alt="" class="gitbook-drawing">
 
 1. metrics collector fetch configuration metadata from service discovery. Metadata including: pulling interval, IP addresses, timeout and retry parameters etc
@@ -68,5 +70,15 @@ Serving:
 For scale, we use consistent hashing to map every metrics source by its unique name in the hash ring.&#x20;
 
 This ensure one metrics source server is handled by one collector only.
+
+#### Push
+
+<img src="../../.gitbook/assets/file.excalidraw.svg" alt="" class="gitbook-drawing">
+
+Collection Agent exist within metrics source and aggregate metrics and push those periodically to metrics collector.
+
+Example of pull architecture: Prometheus
+
+Example of push architecture: Amazon CloudWatch, Graphite
 
 ### Data granularity (10m, 20m, 1h, 2days, 1month etc)
