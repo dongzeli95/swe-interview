@@ -81,4 +81,13 @@ Example of pull architecture: Prometheus
 
 Example of push architecture: Amazon CloudWatch, Graphite
 
+|                    | Pull                                                                                                                               | Push                                                                                                         |
+| ------------------ | ---------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------ |
+| Easy debugging     | <mark style="background-color:green;">Pulling metrics can be viewed/tested any time.</mark>                                        |                                                                                                              |
+| Health check       | <mark style="background-color:green;">Can quickly figure out if a monitored server is down.</mark>                                 | <mark style="background-color:red;">If collector doesn't receive metrics, it might be due to network.</mark> |
+| Short-lived jobs   | <mark style="background-color:red;">Short-lived jobs don't last long enough to be pulled. Although we can use push gateway.</mark> |                                                                                                              |
+| Firewall / network | <mark style="background-color:red;">Require more elaborate network infra.</mark>                                                   | <mark style="background-color:green;">Data can be received anywhere.</mark>                                  |
+| Protocol           | HTTP / TCP                                                                                                                         | UDP                                                                                                          |
+| Security           | Monitored servers are defined in config files in advance. Guaranteed to be authentic.                                              | Any client can send metrics. Can be fixed using whitelist or requiring authentication.                       |
+
 ### Data granularity (10m, 20m, 1h, 2days, 1month etc)
