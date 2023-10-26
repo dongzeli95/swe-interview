@@ -128,6 +128,7 @@
 ## Company Tags
 
 * [Citadel](company-tags/citadel/README.md)
+  * [C++ Fundamentals](company-tags/citadel/c++-fundamentals.md)
   * [面经1](company-tags/citadel/mian-jing-1.md)
 * [AppLovin](company-tags/applovin/README.md)
   * [TODO](company-tags/applovin/todo.md)
