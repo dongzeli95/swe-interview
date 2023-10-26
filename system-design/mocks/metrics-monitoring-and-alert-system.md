@@ -31,7 +31,34 @@ I have 1000 server pods, 100 machines per pool, 100 metrics per machine => 10M m
 
 ## Data Schema
 
-time series.
+query pattern: constant heavy write load and read load is spiky.
+
+time series DB, for example: InfluxDB and Prometheus.
+
+cpu.load
+
+<table><thead><tr><th width="365">metric_name</th><th>cpu.load</th></tr></thead><tbody><tr><td>labels</td><td>host:i631,env:prod</td></tr><tr><td>timestamp</td><td>1613707265</td></tr><tr><td>value</td><td>0.29</td></tr></tbody></table>
+
+average cpu load.
+
+| metric\_name | cpu.average.load                      |
+| ------------ | ------------------------------------- |
+| labels       | host:i631,env:prod                    |
+| value\_list  | An array of \<value, timestamp> pairs |
+
+Why not use SQL?
+
+1. Relational DB is not optimized for operations like moving average.
+2. Does not perform well under constant heavy write load.
+
+Why not use NoSQL?
+
+1. Require deep knowledge of internal workings to devise a scalable schema.
+
+Why time series DB?
+
+1. Can easily handle large amount of write requests. InfluxDB with 8 cores and 32 GB can handle over 250,000 writes per second.
+2. Efficient aggregation and analysis of large amount of time-series data by label. Key is to make sure each label is of low cardinality (having small set of values).
 
 ## High Level Design
 
@@ -90,4 +117,38 @@ Example of push architecture: Amazon CloudWatch, Graphite
 | Protocol           | HTTP / TCP                                                                                                                         | UDP                                                                                                          |
 | Security           | Monitored servers are defined in config files in advance. Guaranteed to be authentic.                                              | Any client can send metrics. Can be fixed using whitelist or requiring authentication.                       |
 
-### Data granularity (10m, 20m, 1h, 2days, 1month etc)
+### Scale
+
+What happens if time-series database is unavailable?
+
+Add Kafka between metrics collector and time DB. Then consumers or streming processing services such as Apache Storm, Flink, and Spark, process and push data to the time-series DB.
+
+How to scale Kafka?
+
+1. Configure number of partitions based on throughput requirements.
+2. Partition metrics data by metrics name.
+3. Partition metrics data with tags/labels.
+
+### Downsampling
+
+Downsampling is the process of converting high-resolution data to low-resolution to reduce overall disk usage.
+
+Retention: 7 days, no sampling.
+
+Retention: 30 days, downsample to 1 minute resolution
+
+Retention: 1 year, downsample to 1 hour resolution.
+
+### Alert system
+
+<img src="../../.gitbook/assets/file.excalidraw (12).svg" alt="" class="gitbook-drawing">
+
+1. Load config file(YAML) to cache servers.
+2. Alert manager fetches alert configs from cache.
+3. Based on config rules, alert manager calls query service at predefined interval. If the value violates threshold, an alert event is created.
+   1. Filter, Merge and dedupe alerts.
+   2. Retry: the alert manager checkes alert states and ensures a notification is sent at least once.
+4. The alert store is KV DB, such as Cassandra, keep the state of all alerts: \
+   inactive, pending, firing, resolved
+5. Alerts are inserted into Kafka.
+6. Alert consumers pull alert events from Kafka, process them and send notifications over different channels.
