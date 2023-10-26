@@ -54,7 +54,7 @@
   * [Longest Common Subsequence](algorithm/dp/md/longest\_common\_subsequence.md)
   * [Trade Stock With Transaction Fee](algorithm/dp/md/trade\_stock\_with\_transaction\_fee.md)
   * [Buy And Sell Stock](algorithm/dp/md/buy\_and\_sell\_stock.md)
-  * [Longest Non Decreasing Subarray](algorithm/dp/md/longest_non_decreasing_subarray.md)
+  * [Longest Non Decreasing Subarray](algorithm/dp/md/longest\_non\_decreasing\_subarray.md)
 * [Greedy](algorithm/greedy/README.md)
   * [Dota2 Senate](algorithm/greedy/dota2-senate.md)
 * [Hashmap](algorithm/hashmap/README.md)
@@ -127,6 +127,7 @@
 ## Company Tags
 
 * [Citadel](company-tags/citadel/README.md)
+  * [C++ Fundamentals](company-tags/citadel/c++-fundamentals.md)
   * [面经1](company-tags/citadel/mian-jing-1.md)
 * [AppLovin](company-tags/applovin/README.md)
   * [TODO](company-tags/applovin/todo.md)
