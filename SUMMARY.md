@@ -55,6 +55,7 @@
   * [Trade Stock With Transaction Fee](algorithm/dp/md/trade\_stock\_with\_transaction\_fee.md)
   * [Buy And Sell Stock](algorithm/dp/md/buy\_and\_sell\_stock.md)
   * [Longest Non Decreasing Subarray](algorithm/dp/md/longest_non_decreasing_subarray.md)
+  * [Number Of Good Binary Strings](algorithm/dp/md/number_of_good_binary_strings.md)
 * [Greedy](algorithm/greedy/README.md)
   * [Dota2 Senate](algorithm/greedy/dota2-senate.md)
 * [Hashmap](algorithm/hashmap/README.md)
