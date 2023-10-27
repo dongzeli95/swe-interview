@@ -41,6 +41,7 @@
 * [BFS](algorithm/bfs/README.md)
   * [Rotten Oranges](algorithm/bfs/md/rotten\_oranges.md)
   * [Nearest Exist From Entrance](algorithm/bfs/md/nearest\_exist\_from\_entrance.md)
+  * [Minimum Knight Moves](algorithm/bfs/md/minimum_knight_moves.md)
 * [DFS](algorithm/dfs/README.md)
   * [Reorder Routes Lead City](algorithm/dfs/md/reorder\_routes\_lead\_city.md)
   * [Evaluate Division](algorithm/dfs/md/evaluate\_division.md)
