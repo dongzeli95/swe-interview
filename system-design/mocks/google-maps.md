@@ -23,7 +23,7 @@
 
 1B \* 35 / 7 = 5B minutes per day.
 
-#### <mark style="color:blue;">**QPS:**</mark>&#x20;
+#### <mark style="color:blue;">**QPS:**</mark>
 
 1. Navigation Requests
 
@@ -110,7 +110,7 @@ Response
 
 > By breaking up road networks into routing tiles that can be loaded on demand, the routing algorithms can significantly reduce memory consumption and improve pathfinding performance by only consuming a small subset of the routing tiles at a time, and only loading additional tiles as needed.
 
-Initial dataset contains roads and associated metadata like names, country, longitude and latitude. The data is not organized as graph structure and is not usable by most routing algorithm.&#x20;
+Initial dataset contains roads and associated metadata like names, country, longitude and latitude. The data is not organized as graph structure and is not usable by most routing algorithm.
 
 Each tile contains a list of graph nodes and edges representing the intersections and roads.
 
@@ -120,7 +120,7 @@ It's efficient to store it in **S3** and cache it progressively. We can use some
 
 A road can be represented as a list of connected points: (lat1, lng1), (lat2, lng2)...(latN, lngN). Calculate the geohash for every point, and identify which tiles the road passes through.
 
-For each road segment that crosses multiple tiles, you can split it into smaller segment lie within individual tiles.&#x20;
+For each road segment that crosses multiple tiles, you can split it into smaller segment lie within individual tiles.
 
 ```
 Schema:
@@ -177,13 +177,13 @@ Navigation service obtains the ETA predications, passes the info to ranker to ra
 
 #### Updater Service
 
-Tap into Kafka location update stream and asynchronously update traffic DB and routing tiles DB.&#x20;
+Tap into Kafka location update stream and asynchronously update traffic DB and routing tiles DB.
 
 <mark style="color:blue;">Update routing tiles DB</mark>: responsible for transforming the road dataset with newly found roads and road closures into a updated set of routing tiles.
 
 <mark style="color:blue;">Update traffic DB</mark>: Extracts traffic conditions from the streams of location updates sent by active users. Enable ETA service to provide better estimates.
 
-<img src="../../.gitbook/assets/file.excalidraw (1) (1) (1).svg" alt="" class="gitbook-drawing">
+<img src="../../.gitbook/assets/file.excalidraw (1) (1) (1) (2).svg" alt="" class="gitbook-drawing">
 
 ### Adaptive ETA and rerouting
 

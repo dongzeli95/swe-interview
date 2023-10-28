@@ -41,7 +41,7 @@
 * [BFS](algorithm/bfs/README.md)
   * [Rotten Oranges](algorithm/bfs/md/rotten\_oranges.md)
   * [Nearest Exist From Entrance](algorithm/bfs/md/nearest\_exist\_from\_entrance.md)
-  * [Minimum Knight Moves](algorithm/bfs/md/minimum_knight_moves.md)
+  * [Minimum Knight Moves](algorithm/bfs/md/minimum\_knight\_moves.md)
 * [DFS](algorithm/dfs/README.md)
   * [Reorder Routes Lead City](algorithm/dfs/md/reorder\_routes\_lead\_city.md)
   * [Evaluate Division](algorithm/dfs/md/evaluate\_division.md)
@@ -55,8 +55,8 @@
   * [Longest Common Subsequence](algorithm/dp/md/longest\_common\_subsequence.md)
   * [Trade Stock With Transaction Fee](algorithm/dp/md/trade\_stock\_with\_transaction\_fee.md)
   * [Buy And Sell Stock](algorithm/dp/md/buy\_and\_sell\_stock.md)
-  * [Longest Non Decreasing Subarray](algorithm/dp/md/longest_non_decreasing_subarray.md)
-  * [Number Of Good Binary Strings](algorithm/dp/md/number_of_good_binary_strings.md)
+  * [Longest Non Decreasing Subarray](algorithm/dp/md/longest\_non\_decreasing\_subarray.md)
+  * [Number Of Good Binary Strings](algorithm/dp/md/number\_of\_good\_binary\_strings.md)
 * [Greedy](algorithm/greedy/README.md)
   * [Dota2 Senate](algorithm/greedy/dota2-senate.md)
 * [Hashmap](algorithm/hashmap/README.md)
@@ -106,6 +106,7 @@
 ## System Design
 
 * [Mocks](system-design/mocks/README.md)
+  * [Top K / Ad Click Aggregation](system-design/mocks/top-k-ad-click-aggregation.md)
   * [Design Job Scheduler](system-design/mocks/design-job-scheduler.md)
   * [Distributed Message Queue](system-design/mocks/distributed-message-queue.md)
   * [Google Maps](system-design/mocks/google-maps.md)
