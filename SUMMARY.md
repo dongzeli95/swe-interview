@@ -57,7 +57,7 @@
   * [Buy And Sell Stock](algorithm/dp/md/buy\_and\_sell\_stock.md)
   * [Longest Non Decreasing Subarray](algorithm/dp/md/longest\_non\_decreasing\_subarray.md)
   * [Number Of Good Binary Strings](algorithm/dp/md/number\_of\_good\_binary\_strings.md)
-  * [Delete And Earn](algorithm/dp/md/delete_and_earn.md)
+  * [Delete And Earn](algorithm/dp/md/delete\_and\_earn.md)
 * [Greedy](algorithm/greedy/README.md)
   * [Dota2 Senate](algorithm/greedy/dota2-senate.md)
 * [Hashmap](algorithm/hashmap/README.md)
@@ -122,6 +122,7 @@
 * [DDIA](system-design/ddia/README.md)
   * [Chapter 2: Data Models and Query Languages](system-design/ddia/chapter-2-data-models-and-query-languages.md)
   * [Chapter 5: Replication](system-design/ddia/chapter-5-replication.md)
+  * [Chapter 9: Consistency and Consensus](system-design/ddia/chapter-9-consistency-and-consensus.md)
 
 ## OOD
 
