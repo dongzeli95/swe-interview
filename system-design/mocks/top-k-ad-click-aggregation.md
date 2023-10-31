@@ -63,7 +63,7 @@ Write load is heavy so use NoSQL like Cassandra or time series DB like influxDB
 
 ## High Level Design
 
-<img src="../../.gitbook/assets/file.excalidraw.svg" alt="" class="gitbook-drawing">
+<img src="../../.gitbook/assets/file.excalidraw (1).svg" alt="" class="gitbook-drawing">
 
 ## E2E
 
@@ -84,3 +84,23 @@ Why do we need atomically committed?
 If step 3 / 4 failed, the offset is not committed successfully back to Kafka, we would end up processing the same batch multiple times, leading over-counting data.
 
 Solution, we store the Kafka offset as version for every Kafka partition within the DB, essentially making this process idempotent.
+
+### Streaming vs Batching
+
+<table><thead><tr><th width="172"></th><th width="143">Online Services</th><th width="203">Batch (Offline system)</th><th>Streaming (near real-time system)</th></tr></thead><tbody><tr><td>Responsiveness</td><td>Respond to client quickly</td><td>No response</td><td>No Response</td></tr><tr><td>Input</td><td>User requests</td><td>Bounded input with finite size.</td><td>Infinite streams</td></tr><tr><td>Output</td><td>Response</td><td>Aggregated Metrics / Materialized View</td><td>Aggregated Metrics / Materialized View</td></tr><tr><td>Performance measurement</td><td>Availability, latency</td><td>Throughput</td><td>Throughput, latency</td></tr><tr><td>Example</td><td>Online shopping</td><td>MapReduce</td><td>Flink</td></tr></tbody></table>
+
+## Lamda vs Kappa
+
+Lambda: A system that contains two processing paths (batch and streaming) simultaneously.
+
+Kappa: A system that combines the batch and streaming in one processing path, the key idea is to handle both real-time data processing and continuous data reprocessing using a single stream processing engine. The difference is using a different input, input stream vs static raw data.
+
+|             | Lambda               | Kappa                                                    |
+| ----------- | -------------------- | -------------------------------------------------------- |
+| Scalability | Scale independently  | Scale challenge when reprocessing large amounts of data. |
+| Overhead    | Operational overhead | No operational overhead                                  |
+|             |                      |                                                          |
+
+### Data recalculation
+
+<img src="../../.gitbook/assets/file.excalidraw.svg" alt="" class="gitbook-drawing">

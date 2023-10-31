@@ -75,7 +75,7 @@ Pros:
 
 #### Option 4: [Quadtree](../deep-dive/quadtree.md)
 
-Build a in-memory quadtree by partitioning the two-dimensional space by recursively subdividing it into four quadrants until the content of the grid meet a certain criteria, for example, 100 businesses  maximum.
+Build a in-memory quadtree by partitioning the two-dimensional space by recursively subdividing it into four quadrants until the content of the grid meet a certain criteria, for example, 100 businesses maximum.
 
 #### Geohash vs Quadtree
 
@@ -113,7 +113,7 @@ SELECT * FROM geohash_index WHERE geohash LIKE '9q8zn%'
 
 ### High Level Diagram
 
-<img src="../../.gitbook/assets/file.excalidraw (1) (1) (1) (1).svg" alt="" class="gitbook-drawing">
+<img src="../../.gitbook/assets/file.excalidraw (1) (1) (1) (1) (1).svg" alt="" class="gitbook-drawing">
 
 ### Caching
 
@@ -124,7 +124,7 @@ Caching is not a solid win because:
 
 #### Cache key selection
 
-*   _<mark style="color:blue;">**Location coordinates**</mark>_ (latitude, longitude).&#x20;
+*   _<mark style="color:blue;">**Location coordinates**</mark>_ (latitude, longitude).
 
     Cons:
 
@@ -143,4 +143,3 @@ According to requirements, user can select different radius: 500m, 1km, 2km and 
 #### Memory
 
 Redis storage: 8 bytes x 200M x 3 precisions = 5GB
-

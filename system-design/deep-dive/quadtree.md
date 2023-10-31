@@ -9,9 +9,9 @@ description: >-
 
 ## Overview
 
-Although similar to geohashing, quadtree is a in-memory solution, not a database solution.&#x20;
+Although similar to geohashing, quadtree is a in-memory solution, not a database solution.
 
-<img src="../../.gitbook/assets/file.excalidraw (1) (1) (1) (1) (1).svg" alt="quadtree structure" class="gitbook-drawing">
+<img src="../../.gitbook/assets/file.excalidraw (1) (1) (1) (1) (1) (1).svg" alt="quadtree structure" class="gitbook-drawing">
 
 ## Algorithm
 
@@ -72,4 +72,3 @@ Take a few minutes to build entire quadtree with 200M businesses.
 2. How to update quadtree as businesses are added / removed.
    1. Offline crob job, Incrementally rebuild the quadtree, a small subset at a time.
    2. Update on the fly. More complicated since multiple threads can access the quadtree. Need some locking mechanism.
-
