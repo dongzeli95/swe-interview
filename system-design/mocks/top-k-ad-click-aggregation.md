@@ -64,3 +64,23 @@ Write load is heavy so use NoSQL like Cassandra or time series DB like influxDB
 ## High Level Design
 
 <img src="../../.gitbook/assets/file.excalidraw.svg" alt="" class="gitbook-drawing">
+
+## E2E
+
+1. Log Watcher send logs to Kafka.
+2. DB Writer pull logs from Kafka and store raw data to DB.
+3. Aggregation service pulls commit offset from Kafka with micro-batch data.
+4. Aggregation service aggregates the ad count using Flink.
+5. Aggregation service fetches counter from Cassandra DB.
+6. Aggregation service add the counter and update DB with latest result.
+7. Aggregation service commit offset back to Kafka.
+
+## Deep Dive
+
+### How to make sure aggregated data are atomically committed?
+
+Why do we need atomically committed?
+
+If step 3 / 4 failed, the offset is not committed successfully back to Kafka, we would end up processing the same batch multiple times, leading over-counting data.
+
+Solution, we store the Kafka offset as version for every Kafka partition within the DB, essentially making this process idempotent.
