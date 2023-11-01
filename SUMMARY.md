@@ -42,6 +42,7 @@
   * [Rotten Oranges](algorithm/bfs/md/rotten\_oranges.md)
   * [Nearest Exist From Entrance](algorithm/bfs/md/nearest\_exist\_from\_entrance.md)
   * [Minimum Knight Moves](algorithm/bfs/md/minimum\_knight\_moves.md)
+  * [Network Delay Time](algorithm/bfs/md/network_delay_time.md)
 * [DFS](algorithm/dfs/README.md)
   * [Reorder Routes Lead City](algorithm/dfs/md/reorder\_routes\_lead\_city.md)
   * [Evaluate Division](algorithm/dfs/md/evaluate\_division.md)
@@ -79,7 +80,7 @@
   * [Odd Even Linkedlist](algorithm/linkedlist/md/odd\_even\_linkedlist.md)
 * [Monotonic Stack](algorithm/monotonic\_stack/README.md)
   * [Daily Temperatures](algorithm/monotonic\_stack/md/daily\_temperatures.md)
-  * [Online Stock Span](algorithm/monotonic\_stack/md/online\_stock\_span.md)
+  * [Online Stock Span](algorithm/monotonic\_stack/md/online\_stock\_span.md)d
 * [Random](algorithm/random/README.md)
   * [Random Pick With Weight](algorithm/random/md/random\_pick\_with\_weight.md)
 * [Segment Fenwick](algorithm/segment\_fenwick/README.md)
