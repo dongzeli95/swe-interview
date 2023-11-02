@@ -1,3 +1,7 @@
+---
+description: https://www.uber.com/blog/real-time-exactly-once-ad-event-processing/
+---
+
 # Top K / Ad Click Aggregation
 
 Q:
@@ -89,7 +93,7 @@ Solution, we store the Kafka offset as version for every Kafka partition within 
 
 <table><thead><tr><th width="172"></th><th width="143">Online Services</th><th width="203">Batch (Offline system)</th><th>Streaming (near real-time system)</th></tr></thead><tbody><tr><td>Responsiveness</td><td>Respond to client quickly</td><td>No response</td><td>No Response</td></tr><tr><td>Input</td><td>User requests</td><td>Bounded input with finite size.</td><td>Infinite streams</td></tr><tr><td>Output</td><td>Response</td><td>Aggregated Metrics / Materialized View</td><td>Aggregated Metrics / Materialized View</td></tr><tr><td>Performance measurement</td><td>Availability, latency</td><td>Throughput</td><td>Throughput, latency</td></tr><tr><td>Example</td><td>Online shopping</td><td>MapReduce</td><td>Flink</td></tr></tbody></table>
 
-## Lamda vs Kappa
+### Lambda vs Kappa
 
 Lambda: A system that contains two processing paths (batch and streaming) simultaneously.
 
@@ -155,4 +159,23 @@ No fixed duration. All events for the same user, the window ends when the user h
 
 Tumbling window and sliding window is relevant in our problem.
 
-<mark style="background-color:red;">What's the diff between hopping window and sliding window?</mark>
+**What's the diff between hopping window and sliding window?**
+
+Hopping window uses a fixed window but sliding window only pop expired events out when they are far than the window designed.
+
+### How to scale Kafka?
+
+producer: don't limit the number of producer instances, this can be easily scaled.
+
+consumer: rebalancing mechanism helps to scale consumers by adding or removing nodes.
+
+Rebalancing can be slow, recommend to do during off-peak hours.
+
+1. Hashing Key\
+   Using ad\_id as hashing key for Kafka partition. Same ad on same partition.
+2. Number of partition\
+   Need to pre-allocate enough partitions in advance. If the partition changes, same ads maybe mapped into different partition.
+3. Topics sharding\
+   Shard the data by geography (topic\_north\_america, topic\_eu, topic\_asia etc) or by business type (topic\_web\_ads, topic\_mobile\_ads, etc)
+
+Pros: more throughput, Cons: more complexity
