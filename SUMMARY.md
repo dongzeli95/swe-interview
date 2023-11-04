@@ -59,6 +59,7 @@
   * [Longest Non Decreasing Subarray](algorithm/dp/md/longest\_non\_decreasing\_subarray.md)
   * [Number Of Good Binary Strings](algorithm/dp/md/number\_of\_good\_binary\_strings.md)
   * [Delete And Earn](algorithm/dp/md/delete\_and\_earn.md)
+  * [Knight Probability In Board](algorithm/dp/md/knight_probability_in_board.md)
 * [Greedy](algorithm/greedy/README.md)
   * [Dota2 Senate](algorithm/greedy/dota2-senate.md)
 * [Hashmap](algorithm/hashmap/README.md)
