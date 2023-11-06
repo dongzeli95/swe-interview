@@ -3,3 +3,4 @@
 * [Minimum Knight Moves](./md/minimum_knight_moves.md)
 * [Network Delay Time](./md/network_delay_time.md)
 * [Knight Probability In Board](./md/knight_probability_in_board.md)
+* [Minimum Height Tree](./md/minimum_height_tree.md)

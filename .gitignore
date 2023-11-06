@@ -1,4 +1,5 @@
 # Ignore my_program executable in all subdirectories
+**/.DS_Store
 **/my_program
 **/_book
 **/.vscode
