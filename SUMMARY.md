@@ -95,6 +95,7 @@
 * [Stack](algorithm/stack/README.md)
   * [Removing Stars From String](algorithm/stack/md/removing\_stars\_from\_string.md)
   * [Asteroid Collision](algorithm/stack/md/asteroid\_collision.md)
+  * [Evaluate Reverse Polish Notation](algorithm/stack/evaluate_reverse_polish_notation/md/evaluate_reverse_polish_notation.md)
 * [Prefix Sum](algorithm/prefix\_sum/README.md)
   * [Find The Highest Altitude](algorithm/prefix\_sum/md/find\_the\_highest\_altitude.md)
   * [Find Pivot Index](algorithm/prefix\_sum/md/find\_pivot\_index.md)
