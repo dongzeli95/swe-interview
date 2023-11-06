@@ -85,7 +85,7 @@ for file in "${all_files[@]}"; do
 
     # Step 1: Create/overwrite the .md file and wrap the Python content
     echo "Creating/overwriting $md_file"
-    echo '```python' >> "$md_file"
+    echo '\n```python\n' >> "$md_file"
     if [ -f "$file" ]; then
         cat "$file" >> "$md_file"
     fi
