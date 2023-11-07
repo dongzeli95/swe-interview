@@ -47,6 +47,7 @@
   * [Minimum Height Tree](algorithm/bfs/md/minimum_height_tree.md)
 * [Design](algorithm/design/README.md)
   * [LRU Cache](algorithm/design/lru_cache/md/lru_cache.md)
+  * [Get Random](algorithm/design/md/get_random.md)
   * [LFU Cache](algorithm/design/md/lfu_cache.md)
 * [DFS](algorithm/dfs/README.md)
   * [Reorder Routes Lead City](algorithm/dfs/md/reorder\_routes\_lead\_city.md)
