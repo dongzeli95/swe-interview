@@ -1,4 +1,6 @@
-```cpp
+# LRU Cache
+
+````cpp
 // https://leetcode.com/problems/lru-cache/
 
 /*
@@ -134,9 +136,9 @@ int main() {
 
     return 0;
 }```
+````
 
 ```python
-
 class DDLNode:
     def __init__(self, key, val):
         self.key = key
@@ -226,4 +228,5 @@ def main():
 
 
 if __name__ == "__main__":
-    main()```
+    main()
+```
