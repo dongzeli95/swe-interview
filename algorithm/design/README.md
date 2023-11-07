@@ -1,2 +1,4 @@
-* [Lfu Cache](./md/lfu_cache.md)
-* [Lru Cache](./md/lru_cache.md)
+# Design
+
+* [Lfu Cache](md/lfu\_cache.md)
+* [Lru Cache](md/lfu\_cache.md)

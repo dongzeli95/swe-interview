@@ -6,7 +6,7 @@ A _segment tree_ is a full binary tree where each node represents an interval. G
 {1, 3, 5, 7, 9, 11}
 ```
 
-<img src="../.gitbook/assets/file.excalidraw (1) (1) (1).svg" alt="" class="gitbook-drawing">
+<img src="../.gitbook/assets/file.excalidraw (1) (1) (1) (1).svg" alt="" class="gitbook-drawing">
 
 ### BUILD()
 
