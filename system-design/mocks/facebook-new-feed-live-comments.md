@@ -57,7 +57,21 @@ comments: uid, message, post\_id, parent\_comment, reply\_to
 ## Deep Dive
 
 1. how to scale websocket server?
+
+Before a node can be removed, all existing connections should be allowed to drain. Mark the node at the load balancer so no new connection is route to draining server.
+
 2. what if DB is offline?
+
+We can add a Kafka message queue to make sure the comment is saved when DB is back online.
+
 3. Do we need to separate websocket server with query service?
+
+Yes websocket servers have state where api servers don't.
+
 4. How to scale Kafka?
+
+Add more topics, add more partitions.
+
 5. How to ensure message got sent at-least once or exactly-once?
+
+We&#x20;
