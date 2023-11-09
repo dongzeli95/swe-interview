@@ -26,6 +26,7 @@
   * [Successful Pairs Of Spells Potions](algorithm/binary\_search/md/successful\_pairs\_of\_spells\_potions.md)
 * [Binary Search Tree](algorithm/binary\_search\_tree/README.md)
   * [Delete Node In BST](algorithm/binary\_search\_tree/md/delete\_node\_in\_bst.md)
+  * [Validate Bst](algorithm/binary\_search\_tree/md/validate_bst.md)
 * [Binary Tree](algorithm/binary\_tree/README.md)
   * [Maximum Depth](algorithm/binary\_tree/md/maximum\_depth.md)
   * [Leaf Similar Trees](algorithm/binary\_tree/md/leaf\_similar\_trees.md)
