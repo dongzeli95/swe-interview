@@ -20,6 +20,7 @@
 * [Backtracking](algorithm/backtracking/README.md)
   * [Letter Combination Phone Number](algorithm/backtracking/md/letter\_combination\_phone\_number.md)
   * [Combination Sum Iii](algorithm/backtracking/md/combination\_sum\_iii.md)
+  * [N Queens](algorithm/backtracking/md/n_queens.md)
 * [Binary Search](algorithm/binary\_search/README.md)
   * [Koko Eating Bananas](algorithm/binary\_search/md/koko\_eating\_bananas.md)
   * [Find Peak Element](algorithm/binary\_search/md/find\_peak\_element.md)
