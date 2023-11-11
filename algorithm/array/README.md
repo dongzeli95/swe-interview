@@ -8,3 +8,4 @@ Array related coding questions.
 * [String Compression](./md/string_compression.md)
 * [Greatest Common Divisor Strings](./md/greatest_common_divisor_strings.md)
 * [Max Product Of Three](./md/max_product_of_three.md)
+* [Find Duplicate Num](./md/find_duplicate_num.md)
