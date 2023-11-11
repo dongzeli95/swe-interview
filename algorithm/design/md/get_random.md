@@ -1,4 +1,4 @@
-\n```python\n
+```python
 # https://leetcode.com/problems/insert-delete-getrandom-o1/
 
 # Implement the RandomizedSet class:
