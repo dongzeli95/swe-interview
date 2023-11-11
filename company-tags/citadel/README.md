@@ -8,7 +8,31 @@
 
 [delete\_and\_earn.md](../../algorithm/dp/md/delete\_and\_earn.md "mention")
 
+[maximum\_path\_sum.md](../../algorithm/binary\_tree/md/maximum\_path\_sum.md "mention")
 
+[lfu\_cache.md](../../algorithm/design/md/lfu\_cache.md "mention")
+
+[lru\_cache.md](../../algorithm/design/lru\_cache/md/lru\_cache.md "mention")
+
+[knight-probability-in-board.md](../../algorithm/dp/knight-probability-in-board.md "mention")
+
+[robot\_room\_cleaner.md](../../algorithm/dfs/md/robot\_room\_cleaner.md "mention")
+
+[minimum\_height\_tree.md](../../algorithm/bfs/md/minimum\_height\_tree.md "mention")
+
+[evaluate\_reverse\_polish\_notation.md](../../algorithm/stack/evaluate\_reverse\_polish\_notation/md/evaluate\_reverse\_polish\_notation.md "mention")
+
+[get\_random.md](../../algorithm/design/md/get\_random.md "mention")
+
+[validate\_bst.md](../../algorithm/binary\_search\_tree/md/validate\_bst.md "mention")
+
+[find\_duplicate\_num.md](../../algorithm/array/md/find\_duplicate\_num.md "mention")
+
+[permutations.md](../../algorithm/backtracking/md/permutations.md "mention")
+
+[buy\_and\_sell\_stock.md](../../algorithm/dp/md/buy\_and\_sell\_stock.md "mention")
+
+[house\_robber.md](../../algorithm/dp/md/house\_robber.md "mention")
 
 [subarray\_sum\_k.md](../../algorithm/prefix\_sum/md/subarray\_sum\_k.md "mention")
 
