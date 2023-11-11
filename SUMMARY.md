@@ -39,6 +39,7 @@
   * [Longest Zigzag Path](algorithm/binary\_tree/md/longest\_zigzag\_path.md)
   * [Count Good Nodes](algorithm/binary\_tree/md/count\_good\_nodes.md)
   * [Path Sum III](algorithm/binary\_tree/md/path\_sum\_iii.md)
+  * [Maximum Path Sum](algorithm/binary\_tree/md/maximum_path_sum.md)
 * [Bit](algorithm/bit/README.md)
   * [Min Flips](algorithm/bit/md/min\_flips.md)
   * [Single Number](algorithm/bit/md/single\_number.md)

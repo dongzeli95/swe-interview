@@ -7,3 +7,4 @@
 * [Maximum Depth](./md/maximum_depth.md)
 * [Leaf Similar Trees](./md/leaf_similar_trees.md)
 * [Binary Tree Max Path Sum](./md/binary_tree_max_path_sum.md)
+* [Maximum Path Sum](./md/maximum_path_sum.md)
