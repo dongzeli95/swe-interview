@@ -23,6 +23,7 @@
 
 import copy
 
+# Time: O(N!), Space: O(N^2)
 def update_mark(mark, row, col, n):
     # Invalidate the same column after row.
     for j in range(row+1, n):
