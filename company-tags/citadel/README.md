@@ -14,7 +14,7 @@
 
 [lru\_cache.md](../../algorithm/design/lru\_cache/md/lru\_cache.md "mention")
 
-[Broken link](broken-reference "mention")
+[knight\_probability\_in\_board.md](../../algorithm/bfs/md/knight\_probability\_in\_board.md "mention")
 
 [robot\_room\_cleaner.md](../../algorithm/dfs/md/robot\_room\_cleaner.md "mention")
 
@@ -37,3 +37,7 @@
 [subarray\_sum\_k.md](../../algorithm/prefix\_sum/md/subarray\_sum\_k.md "mention")
 
 [n\_queens.md](../../algorithm/backtracking/md/n\_queens.md "mention")
+
+[range\_addition.md](../../algorithm/prefix\_sum/md/range\_addition.md "mention")
+
+[minimum\_costs\_using\_train\_line.md](../../algorithm/dp/md/minimum\_costs\_using\_train\_line.md "mention")
