@@ -23,6 +23,16 @@ Q:
 3. Read: 50 QPS
 4. Write: 5 QPS
 
+Redis PubSub
+
+1 server can have 100GB storage and 100k push per second.
+
+N users commenting on M posts = N\*M channels
+
+20 bytes per channel = 20M\*N channels
+
+N = 1M, M = 1M = 20\*10^12 / 10^9 = 20\* 10^3 = 20000GB = 200 servers.
+
 ## API
 
 Send live comments

@@ -14,7 +14,7 @@
 
 [lru\_cache.md](../../algorithm/design/lru\_cache/md/lru\_cache.md "mention")
 
-[knight-probability-in-board.md](../../algorithm/dp/knight-probability-in-board.md "mention")
+[Broken link](broken-reference "mention")
 
 [robot\_room\_cleaner.md](../../algorithm/dfs/md/robot\_room\_cleaner.md "mention")
 
