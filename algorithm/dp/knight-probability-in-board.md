@@ -1,2 +1,0 @@
-# Knight Probability In Board
-

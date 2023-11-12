@@ -7,3 +7,4 @@
 * [Longest Non Decreasing Subarray](./md/longest_non_decreasing_subarray.md)
 * [Number Of Good Binary Strings](./md/number_of_good_binary_strings.md)
 * [Delete And Earn](./md/delete_and_earn.md)
+* [Minimum Costs Using Train Line](./md/minimum_costs_using_train_line.md)
