@@ -41,6 +41,62 @@
 [range\_addition.md](../../algorithm/prefix\_sum/md/range\_addition.md "mention")
 
 [minimum\_costs\_using\_train\_line.md](../../algorithm/dp/md/minimum\_costs\_using\_train\_line.md "mention")
+
+[smallest\_range\_ii.md](../../algorithm/greedy/md/smallest\_range\_ii.md "mention")
 * [Fibonacci](./md/fibonacci.md)
 * [Pi](./md/pi.md)
 * [Probability](./md/probability.md)
+
+
+## Python
+
+```python
+nums = [1,2,3]
+nums.append(1)
+nums.pop()
+nums.sort()
+
+# Dictionary
+dict = {'a':1,'b':2,'c':3}
+dict.keys() # returns list of keys of dictionary
+dict.values() # returns list of values of dictionary
+
+dict.get('a') # returns value for any corresponding key
+dict.items() # returns [('a',1),('b',2),('c',3)]
+dict.pop(KEY) # pops key-value pair with that key
+
+# A double-ended queue, or deque, has the feature of adding and removing elements from either end.
+from collections import deque
+
+queue = deque(['name','age','DOB'])
+
+queue.append("append_from_right") # Append from right
+queue.pop() # Pop from right
+
+queue.appendleft("fromLeft") # Append from left
+queue.popleft() # Pop from left
+
+# min heap
+nums = [5, 7, 9, 1, 3]
+heapq.heapify(nums) # converts list into heap. Can be converted back to list by list(nums).
+heapq.heappush(nums,element) # Push an element into the heap
+heapq.heappop(nums)
+
+# max heap
+nums = [5, 7, 9, 1, 3]
+nums = [-num for num in nums]  # Negate all elements
+heapq.heapify(nums)  #
+largest_element = -heapq.heappop(nums)
+
+
+text = 'Python is a fun programming language'
+
+# split the text from space
+print(text.split(' '))
+name = "M3onica Gell22er "
+print(name.isalnum()) # Output : False
+#The isalpha() method returns True if all characters in the string are alphabets. If not, it returns False
+name = "Monica"
+print(name.isalpha()) #output true
+
+```
