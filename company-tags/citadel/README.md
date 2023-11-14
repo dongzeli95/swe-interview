@@ -41,3 +41,6 @@
 [range\_addition.md](../../algorithm/prefix\_sum/md/range\_addition.md "mention")
 
 [minimum\_costs\_using\_train\_line.md](../../algorithm/dp/md/minimum\_costs\_using\_train\_line.md "mention")
+* [Fibonacci](./md/fibonacci.md)
+* [Pi](./md/pi.md)
+* [Probability](./md/probability.md)
