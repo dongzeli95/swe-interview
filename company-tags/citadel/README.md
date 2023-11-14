@@ -43,7 +43,9 @@
 [minimum\_costs\_using\_train\_line.md](../../algorithm/dp/md/minimum\_costs\_using\_train\_line.md "mention")
 
 [smallest\_range\_ii.md](../../algorithm/greedy/md/smallest\_range\_ii.md "mention")
-
+* [Fibonacci](./md/fibonacci.md)
+* [Pi](./md/pi.md)
+* [Probability](./md/probability.md)
 
 
 ## Python
