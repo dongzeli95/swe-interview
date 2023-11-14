@@ -1,5 +1,8 @@
+# Fibonacci
 
-```python
+<figure><img src="../../../.gitbook/assets/Screenshot 2023-11-14 at 8.56.16 AM.png" alt=""><figcaption></figcaption></figure>
+
+````python
 def fib(n):
     F = [[1, 1],
          [1, 0]]
@@ -47,3 +50,4 @@ def power(F, n):
 if __name__ == "__main__":
     n = 7
     print(fib(n))```
+````
