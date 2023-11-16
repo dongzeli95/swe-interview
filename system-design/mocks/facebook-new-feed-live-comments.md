@@ -85,3 +85,45 @@ Add more topics, add more partitions.
 5. How to ensure message got sent at-least once or exactly-once?
 
 We&#x20;
+
+### Redis Pub/Sub Server
+
+<mark style="color:blue;">**Memory**</mark>:
+
+1M posts -> 1M channels
+
+From one user to other users.
+
+20 bytes to track each users on post using hash table and linked list.
+
+On average, each user has around 100 friends.
+
+1M channels \* 20 bytes \* 100 friends / 10^9 = 2GB
+
+We need 1 **Redis Pub/Sub** servers with 100 GB
+
+<mark style="color:orange;">**QPS**</mark>:
+
+how many comments on post a day?
+
+1M DAU \* 10%\*5 = 500000 comments
+
+5\*10^5 / 10^6 = 0.5 QPS
+
+0.5 QPS \* 100users on a post = 50 QPS
+
+A modern server with a gigabit network can handle 100k push per second.
+
+#### Distributed Redis Pub/Sub server
+
+Use some service discovery component like etcd, ZooKeeper to:
+
+1. Keep a list of servers, a simple UI or API to update it.
+
+```
+Key: /config/pub_sub_ring
+Value: ["p_1", "p_2", "p_3", "p_4"]
+```
+
+2. Given a channel key (post id), websocket server need to figure out which redis pub/sub server to talk to for push and subscribe.
+
