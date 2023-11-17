@@ -2,3 +2,4 @@
 * [Smallest Number Infinite Set](./md/smallest_number_infinite_set.md)
 * [Total Cost Hire Workers](./md/total_cost_hire_workers.md)
 * [Kth Largest Element](./md/kth_largest_element.md)
+* [K Closest Points Origin](./md/k_closest_points_origin.md)
