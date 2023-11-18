@@ -2,3 +2,4 @@
 * [Combination Sum Iii](./md/combination_sum_iii.md)
 * [N Queens](./md/n_queens.md)
 * [Permutations](./md/permutations.md)
+* [Combination Sum](./md/combination_sum.md)
