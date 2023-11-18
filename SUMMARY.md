@@ -24,6 +24,7 @@
   * [Combination Sum Iii](algorithm/backtracking/md/combination\_sum\_iii.md)
   * [N Queens](algorithm/backtracking/md/n\_queens.md)
   * [Permutations](algorithm/backtracking/md/permutations.md)
+  * [Combination Sum](algorithm/backtracking/md/combination_sum.md)
 * [Binary Search](algorithm/binary\_search/README.md)
   * [Koko Eating Bananas](algorithm/binary\_search/md/koko\_eating\_bananas.md)
   * [Find Peak Element](algorithm/binary\_search/md/find\_peak\_element.md)
