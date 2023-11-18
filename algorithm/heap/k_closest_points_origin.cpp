@@ -62,16 +62,74 @@ vector<vector<int>> kClosest(vector<vector<int>>& points, int k) {
     return res;
 }
 
+// Quick Select
+// Since we are expect to reduce number of elements to process by roughly half, 
+// the average time complexity T(n) satisfies T(n) = O(n) + T(n/2) This solves to T(n) = O(n).
+// The worst case time complexity is O(n^2) which occurs when the randomly selected pivot is the smallest
+// or largest element in the current subarray. The probability of worst case reduces exponentially with length of input array.
+// Time: amortized O(n), Space: O(1)
+// 
+int partitionPivot(vector<vector<int>>& points, int left, int right, int pivot_idx) {
+    int idx = left;
+    vector<int> pivot = points[pivot_idx];
+
+    swap(points[pivot_idx], points[right]);
+    for (int i = left; i < right; i++) {
+        if (calc(points[i]) < calc(points[right])) {
+            swap(points[idx++], points[i]);
+        }
+    }
+    swap(points[idx], points[right]);
+    return idx;
+}
+
+vector<vector<int>> kClosestWithQuickSelect(vector<vector<int>>& points, int k) {
+    if (points.size() <= k) {
+        return points;
+    }
+
+    int n = points.size();
+    int left = 0, right = n-1;
+    while (left <= right) {
+        int pivot_idx = left + rand() % (right-left+1);
+        int new_pivot = partitionPivot(points, left, right, pivot_idx);
+        if (new_pivot == k-1) {
+            return vector<vector<int>>{points.begin(), points.begin()+k};
+        } else if (new_pivot > k-1) {
+            right = new_pivot-1;
+        } else {
+            left = new_pivot+1;
+        }
+    }
+
+    return {};
+}
+
 int main() {
     vector<vector<int>> points = { {1, 3}, {-2, 2} };
     vector<vector<int>> res = kClosest(points, 1);
     for (vector<int>& i : res) {
         cout << i[0] << " " << i[1] << endl;
     }
+    res = kClosestWithQuickSelect(points, 1);
+    for (vector<int>& i : res) {
+        cout << i[0] << " " << i[1] << endl;
+    }
+
 
     points = {{3, 3}, {5, -1}, {-2, 4}};
     res = kClosest(points, 2);
     for (vector<int>& i : res) {
+        cout << i[0] << " " << i[1] << endl;
+    }
+    res = kClosestWithQuickSelect(points, 2);
+    for (vector<int>& i : res) {
+        cout << i[0] << " " << i[1] << endl;
+    }
+
+    vector<vector<int>> points2 {{1, 3}, {-2, 2}, {2, -2}};
+    vector<vector<int>> res2 = kClosestWithQuickSelect(points2, 2);
+    for (vector<int>& i : res2) {
         cout << i[0] << " " << i[1] << endl;
     }
 
