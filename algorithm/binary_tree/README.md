@@ -9,3 +9,4 @@
 * [Binary Tree Max Path Sum](./md/binary_tree_max_path_sum.md)
 * [Maximum Path Sum](./md/maximum_path_sum.md)
 * [Move Zero](./md/move_zero.md)
+* [Diameter Binary Tree](./md/diameter_binary_tree.md)
