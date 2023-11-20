@@ -14,3 +14,4 @@
 
 [sliding-window](../algorithm/sliding-window/ "mention")
 
+[moving\_average.md](../algorithm/design/md/moving\_average.md "mention")
