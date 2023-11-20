@@ -14,4 +14,6 @@
 
 [sliding-window](../algorithm/sliding-window/ "mention")
 
+[num\_substrings\_contains\_three\_char.md](../algorithm/two\_pointers/md/num\_substrings\_contains\_three\_char.md "mention")
+
 [moving\_average.md](../algorithm/design/md/moving\_average.md "mention")
