@@ -126,6 +126,7 @@
   * [Container With Most Water](algorithm/two\_pointers/md/container\_with\_most\_water.md)
   * [Max Number K Sum Pairs](algorithm/two\_pointers/md/max\_number\_k\_sum\_pairs.md)
   * [Is Subsequence](algorithm/two\_pointers/md/is\_subsequence.md)
+  * [Num Substrings Contains Three Char](algorithm/two\_pointers/md/num_substrings_contains_three_char.md)
 * [Trie](algorithm/trie/README.md)
   * [Prefix Tree](algorithm/trie/md/prefix\_tree.md)
   * [Search Suggestions System](algorithm/trie/md/search\_suggestions\_system.md)
