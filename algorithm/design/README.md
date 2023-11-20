@@ -1,3 +1,4 @@
 * [Lfu Cache](./md/lfu_cache.md)
 * [Lru Cache](./md/lru_cache.md)
 * [Get Random](./md/get_random.md)
+* [Moving Average](./md/moving_average.md)
