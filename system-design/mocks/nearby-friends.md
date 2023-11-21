@@ -26,7 +26,7 @@ description: >-
 
 ## Scale
 
-* 100M active daily users.&#x20;
+* 100M active daily users.
 * 10% concurrent user = 10M
 * User report location every 30 seconds.
 * QPS = 10M / 30s = 334000
@@ -40,7 +40,7 @@ description: >-
 
 ## High Level Diagram
 
-<img src="../../.gitbook/assets/file.excalidraw (2).svg" alt="Architecture" class="gitbook-drawing">
+<img src="../../.gitbook/assets/file.excalidraw (2) (1).svg" alt="Architecture" class="gitbook-drawing">
 
 ## Websocket Diagram
 
@@ -79,7 +79,7 @@ We trade memory for simpler architecture in this case.
   * Request: Client send latitude, longitude and timestamp.
   * Response: Friend location with timestamp.
 
-&#x20;   User subscribe to all of his/her friends' channels on connection.
+User subscribe to all of his/her friends' channels on connection.
 
 * Periodic location update
   * Request: Client send latitude, longitude and timestamp.
@@ -90,13 +90,13 @@ We trade memory for simpler architecture in this case.
   * Request: friend ID
   * Response: friend's location with timestamp
 
-&#x20;   Subscribe to friend's channel.
+Subscribe to friend's channel.
 
 * Unsubscribe a friend
   * Request: friend ID
   * Response: Nothing.
 
-&#x20;   Unsubscribe to a friend's channel.
+Unsubscribe to a friend's channel.
 
 ## Data Model
 
@@ -112,25 +112,25 @@ Use TTL to automatically purge inactive user's location, this helps prevent user
 
 ### API servers
 
-stateless servers, auto-scale the clusters based on CPU, load or I/O.&#x20;
+stateless servers, auto-scale the clusters based on CPU, load or I/O.
 
 ### Websocket servers
 
 > Effective auto-scaling of stateful servers is the job of a good load balancer.
 
-They are stateful. Before a node can be removed, all existing connections should be allowed to drain. Mark the node at the load balancer so no new websocket connections will be routed to the draining server.&#x20;
+They are stateful. Before a node can be removed, all existing connections should be allowed to drain. Mark the node at the load balancer so no new websocket connections will be routed to the draining server.
 
 ### User database
 
-The user database holds two distinct sets of data: user profiles and friendships. Data is horizontally scalable by sharing based on User ID.&#x20;
+The user database holds two distinct sets of data: user profiles and friendships. Data is horizontally scalable by sharing based on User ID.
 
 ### Location Cache
 
-<mark style="color:blue;">**Memory**</mark>:&#x20;
+<mark style="color:blue;">**Memory**</mark>:
 
 10M active users \* 100 bytes = 1GB
 
-<mark style="color:orange;">**QPS**</mark>:&#x20;
+<mark style="color:orange;">**QPS**</mark>:
 
 10M active users, update every 30s = 334k per seconds.
 
@@ -140,7 +140,7 @@ Read replicas are not enough because the write QPS is large.
 
 ### Redis Pub/Sub Server
 
-<mark style="color:blue;">**Memory**</mark>:&#x20;
+<mark style="color:blue;">**Memory**</mark>:
 
 1B users \* 10% = 100M users = 100M channels.
 
@@ -152,7 +152,7 @@ On average, each user has around 100 friends.
 
 We need **2 Redis Pub/Sub** servers with 100 GB
 
-<mark style="color:orange;">**QPS**</mark>:&#x20;
+<mark style="color:orange;">**QPS**</mark>:
 
 10M active users + update every 30 seconds = 334k QPS.
 

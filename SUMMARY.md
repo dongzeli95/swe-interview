@@ -126,7 +126,7 @@
   * [Container With Most Water](algorithm/two\_pointers/md/container\_with\_most\_water.md)
   * [Max Number K Sum Pairs](algorithm/two\_pointers/md/max\_number\_k\_sum\_pairs.md)
   * [Is Subsequence](algorithm/two\_pointers/md/is\_subsequence.md)
-  * [Num Substrings Contains Three Char](algorithm/two\_pointers/md/num_substrings_contains_three_char.md)
+  * [Num Substrings Contains Three Char](algorithm/two\_pointers/md/num\_substrings\_contains\_three\_char.md)
 * [Trie](algorithm/trie/README.md)
   * [Prefix Tree](algorithm/trie/md/prefix\_tree.md)
   * [Search Suggestions System](algorithm/trie/md/search\_suggestions\_system.md)
@@ -136,6 +136,7 @@
 ## System Design
 
 * [Mocks](system-design/mocks/README.md)
+  * [Distributed Search](system-design/mocks/distributed-search.md)
   * [News Feed Search](system-design/mocks/news-feed-search.md)
   * [Top K / Ad Click Aggregation](system-design/mocks/top-k-ad-click-aggregation.md)
   * [Design Job Scheduler](system-design/mocks/design-job-scheduler.md)
@@ -146,6 +147,7 @@
   * [Metrics monitoring and alert system](system-design/mocks/metrics-monitoring-and-alert-system.md)
   * [Facebook New Feed Live Comments](system-design/mocks/facebook-new-feed-live-comments.md)
 * [Deep-Dive](system-design/deep-dive/README.md)
+  * [Back of Envelope](system-design/deep-dive/back-of-envelope.md)
   * [Message Queue](system-design/deep-dive/message-queue.md)
   * [FAQ](system-design/deep-dive/faq.md)
   * [Geohash](system-design/deep-dive/geospatial-indexing/geohash.md)

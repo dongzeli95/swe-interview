@@ -53,7 +53,7 @@ comments: uid, message, post\_id, parent\_comment, reply\_to
 
 ## High Level Design
 
-<img src="../../.gitbook/assets/file.excalidraw.svg" alt="" class="gitbook-drawing">
+<img src="../../.gitbook/assets/file.excalidraw (2).svg" alt="" class="gitbook-drawing">
 
 ## E2E
 
