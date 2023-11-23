@@ -1,5 +1,11 @@
 # Distributed Search
 
+## [O2 search engine](https://betterprogramming.pub/how-we-built-o2-the-distributed-search-engine-based-on-apache-lucene-382e060a5328)
+
+## [Search engine](https://medium.com/double-pointer/system-design-interview-search-engine-edb66b64fd5e)
+
+## [Search System: Design that scales](https://blog.devgenius.io/search-system-design-that-scales-2fdf407a2d34)
+
 ## Functional Requirement
 
 User should get relevant content based on their search queries.
@@ -49,3 +55,27 @@ Extracts and filters terms from the partitions assigned to it by the cluster man
 #### Reducers:
 
 combines mappings for various terms to generate a summarized index.
+
+## Deep Dive
+
+### Indexing
+
+indexing is the organization and manipulation of data that's done to faciliate fast and accurate information retrieval.
+
+### Inverted Index
+
+An inverted index is a hashmap that employs a document-term matrix.
+
+key: term, value: list of \[doc, freq, location]
+
+doc: a list of documents in which term appeared.
+
+freq: a list that counts frequency with which the term appears in each document.
+
+loc: a two-dimensional list that pinpoints the position of the term in each document.
+
+* [ ] How much computer memory, RAM is required to keep the index. We keep the index in the RAM to support low latency search.
+* [ ] How quickly we can find a word from an inverted index.
+* [ ] How efficiently the index can be updated if we add or remove a document.
+* [ ] How critical it is for service to remain reliable.
+* [ ] How resilient the system can be against SEO?
