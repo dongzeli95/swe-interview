@@ -10,3 +10,4 @@
 * [Maximum Path Sum](./md/maximum_path_sum.md)
 * [Move Zero](./md/move_zero.md)
 * [Diameter Binary Tree](./md/diameter_binary_tree.md)
+* [Sum Root Leaf Number](./md/sum_root_leaf_number.md)
