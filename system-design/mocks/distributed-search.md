@@ -2,6 +2,13 @@
 
 ## [O2 search engine](https://betterprogramming.pub/how-we-built-o2-the-distributed-search-engine-based-on-apache-lucene-382e060a5328)
 
+1. Separate base-search for storing index and keep them in k8s StatefulSet -> Low Latency. (hard drive storing search index)
+2. Reorder using L2 ranking in midway search. midway search communicates with Redis cluster for information. This information contains key: product\_id, value: float array for product feature.
+
+
+
+<figure><img src="../../.gitbook/assets/Screenshot 2023-11-23 at 8.15.45 AM.png" alt=""><figcaption></figcaption></figure>
+
 ## [Search engine](https://medium.com/double-pointer/system-design-interview-search-engine-edb66b64fd5e)
 
 ## [Search System: Design that scales](https://blog.devgenius.io/search-system-design-that-scales-2fdf407a2d34)
@@ -73,6 +80,14 @@ doc: a list of documents in which term appeared.
 freq: a list that counts frequency with which the term appears in each document.
 
 loc: a two-dimensional list that pinpoints the position of the term in each document.
+
+### How efficiently the index can be updated if we add or remove a document?
+
+The minimum part of the index is the Lucene segment. No way we can update a single document in place. The only option is commit a new index segment containing new and updated documents. Each new segment affect search latency since it adds computations.
+
+To keep latency low, you have to index commits less often. which means there is a trade-off between latency and index update delay. Twitter engineers made a search engine called EarlyBird which solves this by implementing in-memory search in the not-yet committed segments.
+
+In practice, we can use cache to make search results more stable.&#x20;
 
 * [ ] How much computer memory, RAM is required to keep the index. We keep the index in the RAM to support low latency search.
 * [ ] How quickly we can find a word from an inverted index.
