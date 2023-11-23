@@ -44,6 +44,7 @@
   * [Maximum Path Sum](algorithm/binary\_tree/md/maximum\_path\_sum.md)
   * [Move Zero](algorithm/binary\_tree/md/move\_zero.md)
   * [Diameter Binary Tree](algorithm/binary\_tree/md/diameter\_binary\_tree.md)
+  * [Sum Root Leaf Number](algorithm/binary\_tree/md/sum_root_leaf_number.md)
 * [Bit](algorithm/bit/README.md)
   * [Min Flips](algorithm/bit/md/min\_flips.md)
   * [Single Number](algorithm/bit/md/single\_number.md)
