@@ -26,3 +26,9 @@
 
 [traversal.md](../algorithm/binary\_tree/md/traversal.md "mention")
 
+[combination\_sum.md](../algorithm/backtracking/md/combination\_sum.md "mention")
+
+[binary\_tree\_vertical\_order.md](../algorithm/binary\_tree/md/binary\_tree\_vertical\_order.md "mention")
+
+[valid\_word\_abbreviations.md](../algorithm/string/md/valid\_word\_abbreviations.md "mention")
+
