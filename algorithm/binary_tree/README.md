@@ -12,3 +12,4 @@
 * [Diameter Binary Tree](./md/diameter_binary_tree.md)
 * [Sum Root Leaf Number](./md/sum_root_leaf_number.md)
 * [Traversal](./md/traversal.md)
+* [Binary Tree Vertical Order](./md/binary_tree_vertical_order.md)

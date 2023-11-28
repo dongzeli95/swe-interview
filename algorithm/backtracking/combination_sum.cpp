@@ -2,8 +2,75 @@
 #include <iostream>
 #include <cassert>
 #include <set>
+#include <unordered_map>
 
 using namespace std;
+
+// https://leetcode.com/problems/combination-sum/
+/*
+Given an array of distinct integers candidates and a target integer target, 
+return a list of all unique combinations of candidates where the chosen numbers sum to target. 
+You may return the combinations in any order.
+
+The same number may be chosen from candidates an unlimited number of times. 
+Two combinations are unique if the frequency of at least one of the chosen numbers is different.
+The test cases are generated such that the number of unique combinations that sum up to target is less than 150 combinations for the given input.
+
+Ex1:
+Input: candidates = [2,3,6,7], target = 7
+Output: [[2,2,3],[7]]
+Explanation:
+2 and 3 are candidates, and 2 + 2 + 3 = 7. Note that 2 can be used multiple times.
+7 is a candidate, and 7 = 7.
+These are the only two combinations.
+
+Ex2:
+Input: candidates = [2,3,5], target = 8
+Output: [[2,2,2,2],[2,3,3],[3,5]]
+
+Ex3:
+Input: candidates = [2], target = 1
+Output: []
+*/
+
+// Let N be the number of candidates.
+// T target value, M minimal value among candidates.
+// Time: O(N^(T/M+1)), Space: O(T/M) depth
+
+// n-nary tree, the maximum number of nodes of T/M height is N^(T/M+1)
+void helper(vector<int>& candidates, int target, int idx, 
+            vector<int>& curr,
+            vector<vector<int>>& res) {
+    if (target == 0) {
+        res.push_back(curr);
+        return;
+    }
+
+    int n = candidates.size();
+
+    if (target < 0 || idx >= n) {
+        return;
+    }
+
+    int multiplier = 0;
+    while (multiplier*candidates[idx] <= target) {
+        for (int i = 0; i < multiplier; i++) {
+            curr.push_back(candidates[idx]);
+        }
+        helper(candidates, target-multiplier*candidates[idx], idx+1, curr, res);
+        for (int i = 0; i < multiplier; i++) {
+            curr.pop_back();
+        }
+        multiplier++;
+    }
+}
+
+vector<vector<int>> combinationSum(vector<int>& candidates, int target) {
+    vector<vector<int>> res;
+    vector<int> curr;
+    helper(candidates, target, 0, curr, res);
+    return res;
+}
 
 // https://leetcode.com/problems/combination-sum-ii/
 // Given a collection of candidate numbers(candidates) and a target number(target), 
@@ -146,9 +213,18 @@ int main() {
     // vector<vector<int>> res3 = {};
     // assert(combinationSum3(4, 1) == res3);
 
-    vector<int> candidates = {10, 1, 2, 7, 6, 1, 5};
-    int target = 8;
-    vector<vector<int>> res = combinationSum2(candidates, target);
+    // vector<int> candidates = {10, 1, 2, 7, 6, 1, 5};
+    // int target = 8;
+    // vector<vector<int>> res = combinationSum2(candidates, target);
+    // for (vector<int> i : res) {
+    //     for (int j = 0; j < i.size(); j++) {
+    //         cout << i[j] << ", ";
+    //     }
+    //     cout << endl;
+    // }
+
+    vector<int> candidates = {2, 3, 6, 7};
+    vector<vector<int>> res = combinationSum(candidates, 7);
     for (vector<int> i : res) {
         for (int j = 0; j < i.size(); j++) {
             cout << i[j] << ", ";
