@@ -1,5 +1,7 @@
 # Meta
 
+[System Design Primer](https://github.com/donnemartin/system-design-primer/tree/master)
+
 [word\_break\_ii.md](../algorithm/dfs/md/word\_break\_ii.md "mention")
 
 [decode\_ways.md](../algorithm/dp/md/decode\_ways.md "mention")
@@ -21,3 +23,14 @@
 [find\_peak\_element.md](../algorithm/binary\_search/md/find\_peak\_element.md "mention")
 
 [random\_pick\_with\_weight.md](../algorithm/random/md/random\_pick\_with\_weight.md "mention")
+
+[can\_place\_flowers.md](../algorithm/greedy/md/can\_place\_flowers.md "mention")
+
+[traversal.md](../algorithm/binary\_tree/md/traversal.md "mention")
+
+[combination\_sum.md](../algorithm/backtracking/md/combination\_sum.md "mention")
+
+[binary\_tree\_vertical\_order.md](../algorithm/binary\_tree/md/binary\_tree\_vertical\_order.md "mention")
+
+[valid\_word\_abbreviations.md](../algorithm/string/md/valid\_word\_abbreviations.md "mention")
+
