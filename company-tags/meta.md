@@ -34,3 +34,9 @@
 
 [valid\_word\_abbreviations.md](../algorithm/string/md/valid\_word\_abbreviations.md "mention")
 
+[asteroid\_collision.md](../algorithm/stack/md/asteroid\_collision.md "mention")
+
+[basic\_calculator\_ii.md](../algorithm/stack/md/basic\_calculator\_ii.md "mention")
+
+[range\_sum\_bst.md](../algorithm/binary\_search\_tree/md/range\_sum\_bst.md "mention")
+
