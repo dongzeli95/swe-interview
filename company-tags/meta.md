@@ -40,3 +40,9 @@
 
 [range\_sum\_bst.md](../algorithm/binary\_search\_tree/md/range\_sum\_bst.md "mention")
 
+[meeting\_rooms\_ii.md](../algorithm/greedy/md/meeting\_rooms\_ii.md "mention")
+
+[next\_permutation.md](../algorithm/array/md/next\_permutation.md "mention")
+
+[merge\_k\_sorted\_list.md](../algorithm/heap/md/merge\_k\_sorted\_list.md "mention")
+
