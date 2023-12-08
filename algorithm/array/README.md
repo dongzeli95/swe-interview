@@ -10,3 +10,4 @@ Array related coding questions.
 * [Max Product Of Three](./md/max_product_of_three.md)
 * [Find Duplicate Num](./md/find_duplicate_num.md)
 * [Valid Palindrome Ii](./md/valid_palindrome_ii.md)
+* [Next Permutation](./md/next_permutation.md)
