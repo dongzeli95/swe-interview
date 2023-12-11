@@ -46,3 +46,9 @@
 
 [merge\_k\_sorted\_list.md](../algorithm/heap/md/merge\_k\_sorted\_list.md "mention")
 
+[find\_peak\_element.md](../algorithm/binary\_search/md/find\_peak\_element.md "mention")
+
+[moving\_average.md](../algorithm/design/md/moving\_average.md "mention")
+
+[simplify\_path.md](../algorithm/stack/md/simplify\_path.md "mention")
+
