@@ -1,5 +1,7 @@
 # Distributed Search
 
+## [https://www.youtube.com/watch?v=0LTXCcVRQi0\&t=2s](https://www.youtube.com/watch?v=0LTXCcVRQi0\&t=2s)
+
 ## [O2 search engine](https://betterprogramming.pub/how-we-built-o2-the-distributed-search-engine-based-on-apache-lucene-382e060a5328)
 
 1. Separate base-search for storing index and keep them in k8s StatefulSet -> Low Latency. (hard drive storing search index)
