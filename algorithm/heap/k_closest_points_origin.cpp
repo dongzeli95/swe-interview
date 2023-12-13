@@ -71,8 +71,6 @@ vector<vector<int>> kClosest(vector<vector<int>>& points, int k) {
 // 
 int partitionPivot(vector<vector<int>>& points, int left, int right, int pivot_idx) {
     int idx = left;
-    vector<int> pivot = points[pivot_idx];
-
     swap(points[pivot_idx], points[right]);
     for (int i = left; i < right; i++) {
         if (calc(points[i]) < calc(points[right])) {
