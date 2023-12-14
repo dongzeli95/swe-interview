@@ -1,6 +1,81 @@
 # Distributed Search
 
-## [https://www.youtube.com/watch?v=0LTXCcVRQi0\&t=2s](https://www.youtube.com/watch?v=0LTXCcVRQi0\&t=2s)
+{% embed url="https://www.youtube.com/watch?v=0LTXCcVRQi0&t=2s" %}
+
+## Functional Requirements:
+
+1. User enters search query
+2. Search engine finds relevant feeds.
+3. User can see a list of feeds.
+
+## High Level Design
+
+<img src="../../.gitbook/assets/file.excalidraw.svg" alt="" class="gitbook-drawing">
+
+## Scale
+
+Database:
+
+1. 1 Trilion pages
+2. 100B unique pages
+3. Each updated once every 10 days.
+4. Average page is 2MB.
+
+### Blob Storage Size
+
+100B pages \* (2MB / page) = 200PB
+
+### Database Storage Size
+
+URL: 50B
+
+hash: 16B
+
+Blob: 16B
+
+Last Updated: 8B
+
+Title: 60B
+
+Priority: 4B
+
+Description: 150B
+
+100B pages \* 340B / page = 31.4 TB
+
+### Sharding
+
+Sharding by url.
+
+Use global index to map hash onto a url.
+
+Use inverted index to map searched words onto feeds.
+
+
+
+## API
+
+1. Get page by URL
+2. Get page by hash
+3. Search for a word.
+
+## Schema
+
+url
+
+site content
+
+title&#x20;
+
+description
+
+hash
+
+&#x20;last\_updated
+
+priority
+
+
 
 ## [O2 search engine](https://betterprogramming.pub/how-we-built-o2-the-distributed-search-engine-based-on-apache-lucene-382e060a5328)
 
@@ -45,9 +120,9 @@ One document storage = 100KB + 1000\*100B = 200KB
 
 ## High Level Design
 
-<img src="../../.gitbook/assets/file.excalidraw.svg" alt="" class="gitbook-drawing">
-
 <img src="../../.gitbook/assets/file.excalidraw (1).svg" alt="" class="gitbook-drawing">
+
+<img src="../../.gitbook/assets/file.excalidraw (1) (1).svg" alt="" class="gitbook-drawing">
 
 ### How indexing work?
 
