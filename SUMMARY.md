@@ -116,6 +116,7 @@
 * [Random](algorithm/random/README.md)
   * [Random Pick With Weight](algorithm/random/md/random\_pick\_with\_weight.md)
   * [Random Pick Index](algorithm/random/md/random_pick_index.md)
+  * [Shuffle An Array](algorithm/random/md/shuffle_an_array.md)
 * [Segment Fenwick](algorithm/segment\_fenwick/README.md)
   * [Longest Increasing Subsequence II](algorithm/segment\_fenwick/md/longest\_increasing\_subsequence\_ii.md)
 * [Stack](algorithm/stack/README.md)
