@@ -56,3 +56,5 @@
 
 [top\_k\_frequent\_elements.md](../algorithm/heap/md/top\_k\_frequent\_elements.md "mention")
 
+[shuffle\_an\_array.md](../algorithm/random/md/shuffle\_an\_array.md "mention")
+
