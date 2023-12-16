@@ -58,3 +58,5 @@
 
 [shuffle\_an\_array.md](../algorithm/random/md/shuffle\_an\_array.md "mention")
 
+[k\_radius\_subarray\_averages.md](../algorithm/sliding\_window/md/k\_radius\_subarray\_averages.md "mention")
+
