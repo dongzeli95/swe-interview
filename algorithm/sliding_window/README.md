@@ -2,3 +2,4 @@
 * [Max Consecutive Ones III](./md/max_consecutive_ones_iii.md)
 * [Longest Subarray Deleting Element](./md/longest_subarray_deleting_element.md)
 * [Minimum Window Substring](./md/minimum_window_substring.md)
+* [K Radius Subarray Averages](./md/k_radius_subarray_averages.md)

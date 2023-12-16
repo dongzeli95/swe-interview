@@ -137,6 +137,7 @@
   * [Max Consecutive Ones III](algorithm/sliding\_window/md/max\_consecutive\_ones\_iii.md)
   * [Longest Subarray Deleting Element](algorithm/sliding\_window/md/longest\_subarray\_deleting\_element.md)
   * [Minimum Window Substring](algorithm/sliding\_window/md/minimum\_window\_substring.md)
+  * [K Radius Subarray Averages](algorithm/sliding\_window/md/k_radius_subarray_averages.md)
 * [String](algorithm/string/README.md)
   * [Valid Word Abbreviations](algorithm/string/md/valid_word_abbreviations.md)
 * [Two Pointers](algorithm/two\_pointers/README.md)
