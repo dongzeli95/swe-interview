@@ -60,3 +60,5 @@
 
 [k\_radius\_subarray\_averages.md](../algorithm/sliding\_window/md/k\_radius\_subarray\_averages.md "mention")
 
+[min\_add\_parentheses.md](../algorithm/stack/md/min\_add\_parentheses.md "mention")
+
