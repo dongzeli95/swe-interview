@@ -4,3 +4,4 @@
 * [Min Remove Parentheses](./md/min_remove_parentheses.md)
 * [Basic Calculator Ii](./md/basic_calculator_ii.md)
 * [Simplify Path](./md/simplify_path.md)
+* [Min Add Parentheses](./md/min_add_parentheses.md)

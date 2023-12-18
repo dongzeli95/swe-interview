@@ -127,6 +127,7 @@
   * [Min Remove Parentheses](algorithm/stack/md/min_remove_parentheses.md)
   * [Basic Calculator Ii](algorithm/stack/md/basic_calculator_ii.md)
   * [Simplify Path](algorithm/stack/md/simplify_path.md)
+  * [Min Add Parentheses](algorithm/stack/md/min_add_parentheses.md)
 * [Prefix Sum](algorithm/prefix\_sum/README.md)
   * [Find The Highest Altitude](algorithm/prefix\_sum/md/find\_the\_highest\_altitude.md)
   * [Find Pivot Index](algorithm/prefix\_sum/md/find\_pivot\_index.md)
