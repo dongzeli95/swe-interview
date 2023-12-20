@@ -1,4 +1,6 @@
-```cpp
+# Word Break Ii
+
+````cpp
 // https://leetcode.com/problems/word-break-ii/
 
 // Given a string s and a dictionary of strings wordDict, add spaces in s to construct a sentence where each word is a valid dictionary word.
@@ -32,11 +34,11 @@ using namespace std;
 // In this case "bb" substring will be evaluated twice: once after "a a" and another one after "aa"
 // For memorization helps eliminate those duplicate calculations.
 // Time complexity without memorization: O(2^n)
-// Time complexity with memorization: O(n^3), where n is the length of the string
+// Time complexity with memorization: O(2^n), where n is the length of the string
 // we have N^2 substring and for each substring we have to check if it is in the dictionary
 // For each list of strings we have to copy it, so it is N^3
 
-// Space: Stack: O(n), Heap: O(n^3)?
+// Time: O(2^n), Space: O(n*2^n)
 vector<string> dfsWithMemo(string& s, int idx, unordered_set<string>& dict,
     unordered_map<int, vector<string>>& cache) {
     // Base case
@@ -144,3 +146,4 @@ int main() {
 
     return 0;
 }```
+````
