@@ -75,6 +75,10 @@ How does it work?
 
 ## Deep Dive
 
+### Why use Lucene instead of Elasticsearch?
+
+Give possibility to make improvements on whatever level.
+
 ### Why separation of search phases?
 
 Independent layers allow you to scale them independently.&#x20;
@@ -87,6 +91,13 @@ To keep latency low, you have to index commits less often. which means there is 
 
 On Elasticsearch, it employs techniques like merging smaller segments into larger ones, which can improve search performance but also introduce latency during merge process.
 
-## Why introduce S3 and CDN for storing indexes?
+### Why introduce S3 and CDN for storing indexes?
 
 To save the network bandwidth limitation for downloading indices from indexer to search layer.
+
+### Why personalized ranking related to search engine?
+
+It affect where you cache your search results. Previously we cache search result for "microwave" query for users in Moscow and resue these results for further requests.\
+Now we want more refined cache. Bob prefer "Toschiba" and Alice prefer "Panasonic" in our ranking.&#x20;
+
+We stopped using cache on search backend, but rather on ranking.
