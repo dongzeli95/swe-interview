@@ -15,6 +15,11 @@ import random
 # pi_estimate = estimate_pi(1000000)
 # print(f"Estimated Pi: {pi_estimate}")
 
+# Monte Carlo simulations are a class of computational algorithms that use repeated random sampling to obtain numerical results. In the context of estimating Pi (π), 
+# a common approach is to simulate random points inside a square and count how many fall inside a quarter circle inscribed within that square. 
+# The ratio of points inside the quarter circle to the total number of points, multiplied by 4, gives an approximation of pi.
+# This method is based on the principle that the area of the circle is pi*r^2 and area of square is 4*r^2.
+
 def estimate_pi(num_samples):
     inside_circle = 0
 
