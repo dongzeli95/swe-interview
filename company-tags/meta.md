@@ -34,3 +34,31 @@
 
 [valid\_word\_abbreviations.md](../algorithm/string/md/valid\_word\_abbreviations.md "mention")
 
+[asteroid\_collision.md](../algorithm/stack/md/asteroid\_collision.md "mention")
+
+[basic\_calculator\_ii.md](../algorithm/stack/md/basic\_calculator\_ii.md "mention")
+
+[range\_sum\_bst.md](../algorithm/binary\_search\_tree/md/range\_sum\_bst.md "mention")
+
+[meeting\_rooms\_ii.md](../algorithm/greedy/md/meeting\_rooms\_ii.md "mention")
+
+[next\_permutation.md](../algorithm/array/md/next\_permutation.md "mention")
+
+[merge\_k\_sorted\_list.md](../algorithm/heap/md/merge\_k\_sorted\_list.md "mention")
+
+[moving\_average.md](../algorithm/design/md/moving\_average.md "mention")
+
+[simplify\_path.md](../algorithm/stack/md/simplify\_path.md "mention")
+
+[find\_peak\_element.md](../algorithm/binary\_search/md/find\_peak\_element.md "mention")
+
+[random\_pick\_index.md](../algorithm/random/md/random\_pick\_index.md "mention")
+
+[top\_k\_frequent\_elements.md](../algorithm/heap/md/top\_k\_frequent\_elements.md "mention")
+
+[shuffle\_an\_array.md](../algorithm/random/md/shuffle\_an\_array.md "mention")
+
+[k\_radius\_subarray\_averages.md](../algorithm/sliding\_window/md/k\_radius\_subarray\_averages.md "mention")
+
+[min\_add\_parentheses.md](../algorithm/stack/md/min\_add\_parentheses.md "mention")
+
