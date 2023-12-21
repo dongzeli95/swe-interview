@@ -80,6 +80,10 @@ bool isValid(string abbreviation, string word) {
             return false;
         }
 
+        if (i >= n && j >= m && i-n != j-m) {
+            return false;
+        }
+
         if (j < m && i < n && word[j] != abbreviation[i]) {
             return false;
         }
@@ -87,6 +91,8 @@ bool isValid(string abbreviation, string word) {
         i++;
         j++;
     }
+
+    if (j < m) return false;
 
     return true;
 }

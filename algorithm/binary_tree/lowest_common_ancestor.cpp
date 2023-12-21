@@ -78,6 +78,20 @@ TreeNode* lowestCommonAncestor(TreeNode* root, TreeNode* p, TreeNode* q) {
     return res;
 }
 
+TreeNode* lca2(TreeNode* root, TreeNode* p, TreeNode* q) {
+    if (!root || p == root || q == root) {
+        return root;
+    }
+
+    TreeNode* left = lca2(root->left, p, q);
+    TreeNode* right = lca2(root->right, p, q);
+    if (left && right) {
+        return root;
+    }
+
+    return left ? left : right;
+}
+
 int main() {
     // Test case 1: root = [3,5,1,6,2,0,8,null,null,7,4], p = 5, q = 1
     TreeNode* root1 = new TreeNode(3);
