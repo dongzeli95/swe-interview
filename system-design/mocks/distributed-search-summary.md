@@ -24,7 +24,23 @@ Search API: 3M DAU = 3\*10^6 / 10^6 = 3 QPS \* 10(peak) = 30 QPS
 
 How does each component work?
 
-#### Search component:
+### Indexer component:
+
+build reverse index / lucene index. It gets JSON document as an input and release index segments as an output.
+
+#### Inverted Index:
+
+An inverted index is a hashmap that employs a document-term matrix.
+
+key: term, value: list of \[doc, freq, location]
+
+doc: a list of documents in which term appeared.
+
+freq: a list that counts frequency with which the term appears in each document.
+
+loc: a two-dimensional list that pinpoints the position of the term in each document.
+
+### Search component:
 
 posting lists traversal, text relevancy scores computation, data extraction from DocValue fields.
 
@@ -56,3 +72,21 @@ How does it work?
 3. This is a combination of TF and IDF. It is used to reduce the weight of terms that occur very frequently in the document set and increase the weight of terms that occur rarely. TF-IDF is one of the most traditional methods for computing text relevancy.
 4. BM25: \
    A more advanced and widely used algorithm in modern search engines. It improves upon the basic TF-IDF model by incorporating probabilistic models and handling limitations like term saturation.
+
+## Deep Dive
+
+### Why separation of search phases?
+
+Independent layers allow you to scale them independently.&#x20;
+
+### How efficiently the index can be updated if we add or remove a document?
+
+The minimum part of the index is the Lucene segment. No way we can update a single document in place. The only option is commit a new index segment containing new and updated documents. Each new segment affect search latency since it adds computations.
+
+To keep latency low, you have to index commits less often. which means there is a trade-off between latency and index update delay. Twitter engineers made a search engine called EarlyBird which solves this by implementing in-memory search in the not-yet committed segments.
+
+On Elasticsearch, it employs techniques like merging smaller segments into larger ones, which can improve search performance but also introduce latency during merge process.
+
+## Why introduce S3 and CDN for storing indexes?
+
+To save the network bandwidth limitation for downloading indices from indexer to search layer.
