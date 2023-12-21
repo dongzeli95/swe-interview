@@ -20,6 +20,7 @@
   * [Find Duplicate Num](algorithm/array/md/find\_duplicate\_num.md)
   * [Valid Palindrome Ii](algorithm/array/md/valid\_palindrome\_ii.md)
   * [Next Permutation](algorithm/array/md/next_permutation.md)
+  * [Rearrange Array By Sign](algorithm/array/md/rearrange_array_by_sign.md)
 * [Backtracking](algorithm/backtracking/README.md)
   * [Letter Combination Phone Number](algorithm/backtracking/md/letter\_combination\_phone\_number.md)
   * [Combination Sum Iii](algorithm/backtracking/md/combination\_sum\_iii.md)
