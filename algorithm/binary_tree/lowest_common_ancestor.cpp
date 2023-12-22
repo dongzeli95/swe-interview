@@ -92,6 +92,74 @@ TreeNode* lca2(TreeNode* root, TreeNode* p, TreeNode* q) {
     return left ? left : right;
 }
 
+// https://leetcode.com/problems/lowest-common-ancestor-of-a-binary-tree-iii/
+/*
+Given two nodes of a binary tree p and q, return their lowest common ancestor (LCA).
+
+Each node will have a reference to its parent node. The definition for Node is below:
+
+class Node {
+    public int val;
+    public Node left;
+    public Node right;
+    public Node parent;
+}
+According to the definition of LCA on Wikipedia: 
+"The lowest common ancestor of two nodes p and q in a tree T is the lowest node that has both p and q as descendants 
+(where we allow a node to be a descendant of itself)."
+
+Ex1:
+Input: root = [3,5,1,6,2,0,8,null,null,7,4], p = 5, q = 1
+Output: 3
+Explanation: The LCA of nodes 5 and 1 is 3.
+
+Ex2:
+Input: root = [3,5,1,6,2,0,8,null,null,7,4], p = 5, q = 4
+Output: 5
+Explanation: The LCA of nodes 5 and 4 is 5 since a node can be a descendant of itself according to the LCA definition.
+
+Ex3:
+Input: root = [1,2], p = 1, q = 2
+Output: 1
+
+*/
+
+class Node {
+public:
+    int val;
+    Node* left;
+    Node* right;
+    Node* parent;
+};
+
+// Time: O(logN), Space: O(logN)
+Node* lca_iii(Node* p, Node* q) {
+    unordered_map<int, Node*> m;
+    while (p) {
+        m[p->val] = p;
+        p = p->parent;
+    }
+
+    while (q) {
+        if (m.count(q->val)) {
+            return q;
+        }
+        q = q->parent;
+    }
+
+    return nullptr;
+}
+
+// Time: O(logN), Space: O(1)
+Node* lca_iii_trick(Node* p, Node* q) {
+    Node* a = p, * b = q;
+    while (a != b) {
+        a = (a == nullptr ? q : a->parent);
+        b = (b == nullptr ? p : b->parent);
+    }
+    return a;
+}
+
 int main() {
     // Test case 1: root = [3,5,1,6,2,0,8,null,null,7,4], p = 5, q = 1
     TreeNode* root1 = new TreeNode(3);
