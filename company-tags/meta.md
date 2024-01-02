@@ -4,6 +4,8 @@
 
 [word\_break\_ii.md](../algorithm/dfs/md/word\_break\_ii.md "mention")
 
+[palindrome\_linkedlist.md](../algorithm/linkedlist/md/palindrome\_linkedlist.md "mention")
+
 [decode\_ways.md](../algorithm/dp/md/decode\_ways.md "mention")
 
 [lru\_cache.md](../algorithm/design/lru\_cache/md/lru\_cache.md "mention")
