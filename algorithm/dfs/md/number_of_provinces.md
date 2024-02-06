@@ -25,7 +25,7 @@ Output: 3
 using namespace std;
 
 // Time: O(N^2), we need n^2 time to construct graph, and also dense graph can have N^2 number of edges
-// Space: O(N)
+// Space: O(N^2)
 void dfs(int curr, unordered_map<int, vector<int>>& graph, unordered_set<int>& visited) {
     for (int next : graph[curr]) {
         if (visited.count(next)) continue;
@@ -57,6 +57,33 @@ int findCircleNum(vector<vector<int>>& isConnected) {
         if (visited.count(i)) continue;
         visited.insert(i);
         dfs(i, graph, visited);
+        res++;
+    }
+
+    return res;
+}
+
+// Time: O(N^2), Space: O(N)
+void dfs(vector<vector<int>>& isConnected, int curr, unordered_set<int>& visited) {
+    for (int i = 0; i < isConnected[curr].size(); i++) {
+        int neighbor = i;
+        if (visited.count(neighbor) || isConnected[curr][neighbor] == 0) continue;
+        visited.insert(neighbor);
+        dfs(isConnected, neighbor, visited);
+    }
+}
+
+int findCircleNum(vector<vector<int>>& isConnected) {
+    int n = isConnected.size();
+    int res = 0;
+    unordered_set<int> visited;
+
+    for (int i = 0; i < n; i++) {
+        if (visited.count(i)) {
+            continue;
+        }
+        visited.insert(i);
+        dfs(isConnected, i, visited);
         res++;
     }
 
