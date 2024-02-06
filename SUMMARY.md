@@ -86,6 +86,7 @@
   * [Delete And Earn](algorithm/dp/md/delete\_and\_earn.md)
   * [Minimum Costs Using Train Line](algorithm/dp/md/minimum\_costs\_using\_train\_line.md)
   * [Decode Ways](algorithm/dp/md/decode\_ways.md)
+  * [Trapping Rain Water](algorithm/dp/md/trapping_rain_water.md)
 * [Greedy](algorithm/greedy/README.md)
   * [Dota2 Senate](algorithm/greedy/dota2-senate.md)
   * [Smallest Range Ii](algorithm/greedy/md/smallest\_range\_ii.md)
