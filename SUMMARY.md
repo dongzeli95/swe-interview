@@ -159,6 +159,7 @@
 
 ## System Design
 
+* [Operating System](system-design/operating-system.md)
 * [Mocks](system-design/mocks/README.md)
   * [Distributed Search Summary](system-design/mocks/distributed-search-summary.md)
   * [Design Web Crawler](system-design/mocks/design-web-crawler.md)
@@ -176,6 +177,7 @@
 * [Deep-Dive](system-design/deep-dive/README.md)
   * [Back of Envelope](system-design/deep-dive/back-of-envelope.md)
   * [Message Queue](system-design/deep-dive/message-queue.md)
+  * [Redis Sorted Set](system-design/deep-dive/redis-sorted-set.md)
   * [FAQ](system-design/deep-dive/faq.md)
   * [Geohash](system-design/deep-dive/geospatial-indexing/geohash.md)
   * [Quadtree](system-design/deep-dive/quadtree.md)

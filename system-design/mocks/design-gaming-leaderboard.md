@@ -78,6 +78,10 @@ Cons:
   * Can query percentile of a user's position instead. top 10%, 20% etc.
   * Assuming score distributions is similar across all shards. Run a cron job to analyzes the distribution of score to percentile and cache the result.
 
+3. Redis Sorted Set
+
+*
+
 
 
 What if score service is down?&#x20;
