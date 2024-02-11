@@ -155,6 +155,7 @@
   * [Search Suggestions System](algorithm/trie/md/search\_suggestions\_system.md)
 * [Union Find](algorithm/union\_find/README.md)
   * [Accounts Merge](algorithm/union\_find/md/accounts\_merge.md)
+* [Scheduler](company-tags/rabbit/md/scheduler.md)
 
 ## System Design
 
