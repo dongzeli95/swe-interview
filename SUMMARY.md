@@ -156,6 +156,7 @@
 * [Union Find](algorithm/union\_find/README.md)
   * [Accounts Merge](algorithm/union\_find/md/accounts\_merge.md)
 * [Scheduler](company-tags/rabbit/md/scheduler.md)
+* [SchedulerC++](company-tags/rabbit/md/scheduler_cpp.md)
 
 ## System Design
 
