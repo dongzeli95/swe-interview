@@ -20,6 +20,12 @@
 2. Highly scalable
 3. Real time.
 
+## Scale
+
+5M DAU, 10 matches per day -> 50M matches per day -> 600 QPS -> peak 600x5 = 3000 QPS.
+
+Top 10 player -> 50 users/s -> 50 QPS if user only see leaderboard when first open the game.
+
 ## High Level Architecture
 
 <img src="../../.gitbook/assets/file.excalidraw (16).svg" alt="" class="gitbook-drawing">
@@ -80,9 +86,51 @@ Cons:
 
 3. Redis Sorted Set
 
-*
+A sorted set is implemented by: hash table and a skip list.  hash table maps users to scores and the skip list maps scores to users. In sorted set, users are sorted by scores.
+
+**ZADD:** insert user into set if they don't exist. Otherwise, update the score for user. It takes O(logn) to execute.
+
+**ZINCRBY**: increment the score of the user by specified increment, O(logn) to execute.
+
+**ZRANGE/ZREVRANGE:** fetch a range of users sorted by score. It takes O(logn+m), m is the number of entries to fetch.&#x20;
+
+**ZRANK/ZREVRANK**: fetch position of any user in ascending/descending order.
+
+#### Add a point to user:
+
+```
+ZINCRBY leaderboard_feb_2021 1 'mary1934'
+```
+
+#### Fetches top 10 global leaderboard
+
+```
+ZREVRANGE leaderboard_feb_2021 0 9 WITHSCORES
+```
+
+#### Fetch user relative position on leaderboard
+
+```
+ZREVRANK leaderboard_feb_2021 'mary1934'
+```
+
+#### Fetch n positions above/below user's position
+
+```
+ZREVRANGE leaderboard_feb_2021 pos-5 pos+5
+```
+
+#### Storage requirements
+
+24 character name: 24 bytes + score 4 bytes = 28 bytes.
+
+one leaderboard entry per MAU = 28 bytes \* 25 million = 700M bytes = 700MB
+
+peak QPS is 3000 QPS, both are acceptable for a single Redis server.
 
 
+
+## Scale Up
 
 What if score service is down?&#x20;
 
