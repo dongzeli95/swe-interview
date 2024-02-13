@@ -128,18 +128,58 @@ one leaderboard entry per MAU = 28 bytes \* 25 million = 700M bytes = 700MB
 
 peak QPS is 3000 QPS, both are acceptable for a single Redis server.
 
-
+<img src="../../.gitbook/assets/file.excalidraw (17).svg" alt="" class="gitbook-drawing">
 
 ## Scale Up
 
-What if score service is down?&#x20;
+### What if score service is down?
 
 Load balancer in front of score service and deploy service onto kubernetes. Use auto scaling.
 
-What if DB is down?&#x20;
+### What if DB is down?
 
 Figure out read / write throughput?
 
 If read throughput, then we need to add read replicas, add in-memory cache?
 
-If write throughput, we might need to consider add message queue like Kafka or SQS to throttle the write throughput.
+### What if we grows DAU 100 times?
+
+500M DAU -> data size: 65GB, QPS = 250,000
+
+We need data sharding:
+
+#### <mark style="color:purple;">Fixed partition</mark>
+
+We break up score by range. \[1, 100], \[101, 200], \[201, 300] ... \[901, 1000]
+
+Need to make sure even distribution of scores across leaderboard.
+
+When we insert/update score for a user, we need to know which shard they are in.&#x20;
+
+#### Option1:
+
+calculating user current score from MySQL DB, not very performant.
+
+#### Option 2
+
+use a secondary cache to maintain mapping between user id and shard id.
+
+**Fetching top 10 player**
+
+fetch top 10 players from the shard with highest scores.
+
+**Fetching rank of a user**
+
+calculate rank within local shard + total number of players in shards with higher scores. We can use _info keyspace_ command in O(1)
+
+#### <mark style="color:purple;">Hash partition</mark>
+
+Redis cluster provides hash slot to shard data automatically across multiple Redis nodes. We can compute hash slot by: CRC16(key) % 16384
+
+The first node contains hash slots \[0, 5500], second: \[5501, 11000], third: \[11001, 16383]
+
+Cons:
+
+1. For returning top k results, we need to use scatter-gather to merge the results. need to be sorted.
+2. If we have a lot of partitions, the query has to wait for the slowest partition.
+3. doesn't provide straightforward solution for determining the rank of a specific user.
