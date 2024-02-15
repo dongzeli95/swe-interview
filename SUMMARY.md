@@ -75,6 +75,8 @@
   * [Course Schedule Ii](algorithm/dfs/md/course\_schedule\_ii.md)
   * [Robot Room Cleaner](algorithm/dfs/md/robot\_room\_cleaner.md)
   * [Word Break Ii](algorithm/dfs/md/word\_break\_ii.md)
+  * [Number Coins In Tree Nodes](algorithm/dfs/md/number_coins_in_tree_nodes.md)
+  * [Maximum Increasing Cells](algorithm/dfs/md/maximum_increasing_cells.md)
   * [Number Coins In Tree Nodes](algorithm/dfs/md/number\_coins\_in\_tree\_nodes.md)
 * [DP](algorithm/dp/README.md)
   * [Domino And Tromino Tiling](algorithm/dp/md/domino\_and\_tromino\_tiling.md)
