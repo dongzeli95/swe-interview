@@ -75,8 +75,8 @@
   * [Course Schedule Ii](algorithm/dfs/md/course\_schedule\_ii.md)
   * [Robot Room Cleaner](algorithm/dfs/md/robot\_room\_cleaner.md)
   * [Word Break Ii](algorithm/dfs/md/word\_break\_ii.md)
-  * [Number Coins In Tree Nodes](algorithm/dfs/md/number_coins_in_tree_nodes.md)
-  * [Maximum Increasing Cells](algorithm/dfs/md/maximum_increasing_cells.md)
+  * [Number Coins In Tree Nodes](algorithm/dfs/md/number\_coins\_in\_tree\_nodes.md)
+  * [Maximum Increasing Cells](algorithm/dfs/md/maximum\_increasing\_cells.md)
   * [Number Coins In Tree Nodes](algorithm/dfs/md/number\_coins\_in\_tree\_nodes.md)
 * [DP](algorithm/dp/README.md)
   * [Domino And Tromino Tiling](algorithm/dp/md/domino\_and\_tromino\_tiling.md)
@@ -158,7 +158,7 @@
 * [Union Find](algorithm/union\_find/README.md)
   * [Accounts Merge](algorithm/union\_find/md/accounts\_merge.md)
 * [Scheduler](company-tags/rabbit/md/scheduler.md)
-* [SchedulerC++](company-tags/rabbit/md/scheduler_cpp.md)
+* [SchedulerC++](company-tags/rabbit/md/scheduler\_cpp.md)
 
 ## System Design
 
@@ -177,6 +177,7 @@
   * [Metrics monitoring and alert system](system-design/mocks/metrics-monitoring-and-alert-system.md)
   * [Design Gaming Leaderboard](system-design/mocks/design-gaming-leaderboard.md)
   * [Facebook New Feed Live Comments](system-design/mocks/facebook-new-feed-live-comments.md)
+  * [Dog Sitting App](system-design/mocks/dog-sitting-app.md)
 * [Deep-Dive](system-design/deep-dive/README.md)
   * [Back of Envelope](system-design/deep-dive/back-of-envelope.md)
   * [Message Queue](system-design/deep-dive/message-queue.md)
