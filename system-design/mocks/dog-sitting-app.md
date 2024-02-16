@@ -47,11 +47,11 @@ How many dogsitters and how many dogowners?
 
 How many bookings per day?
 
-100K\*0.7 = 70K&#x20;
+1M\*24\*0.2 = 4M&#x20;
 
-70\*10^3 / 10^5 = 0.7 QPS not very high = peak = 7 QPS.
+4\*10^6 / 10^5 = 40 QPS not very high = peak = 80 QPS.
 
-Reserve dogsitters: 7 QPS -> Order book page 70 QPS -> View listings 700 QPS.
+Reserve dogsitters: 80 QPS -> Order book page 800 QPS -> View listings 8000 QPS.
 
 ## Data Schema
 
@@ -67,6 +67,10 @@ description:
 
 date
 
+start\_time
+
+end\_time
+
 is\_available
 
 version
@@ -77,8 +81,8 @@ version
 * **dogsitter\_id**
 * **dogowner\_id**
 * **payout**
-* **start\_date**
-* **end\_date**
+* **start\_time**
+* **end\_time**
 * **status: Pending, Cancelled, Rejected, Paid -> Refunded**
 
 <mark style="color:purple;">Rate table:</mark>
