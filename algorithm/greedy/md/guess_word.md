@@ -83,7 +83,22 @@ void findSecretWord(vector<string>& words, Master& master) {
     }
 }
 
-//Using weight and sort
+// Using weight and sort
+// 2. We eliminate more words by choosing words that are more similar to the rest of the wordlist
+
+// If guess("xyz") > 0 then we can eliminate words that are dissimilar to "xyz" (see above).
+// But we can elminate words that are similar to "xyz" if guess("xyz") is == 0. 
+// For large wordlists, the overwhelming fraction of words in wordlist will have a score of 0. 
+// (Fun problem : compute this fraction for a randomly generated wordlist of size N.)
+
+// Given guess() returns 0 most of the time for large wordlists, we can, 
+// on average eliminate more words per guess by choosing words that are more similar to the rest ofthe corpus.
+
+// We can do this by sorting the words in order of "similarity to the rest of the corpus".
+// You can do this pretty much any reasonable way and pass the LeetCode testcases.
+// But just as an example, here's a solution in which we assign each letter at each position a "weight" 
+// equal to the number of times that letter occurs at that position across entire wordlist. 
+// Each word's similarity to the rest of the corpus is then the sum of these weights for its letters.
 int match(string s1, string s2) {
     int res = 0;
     for (int i = 0; i < 6; i++) {
