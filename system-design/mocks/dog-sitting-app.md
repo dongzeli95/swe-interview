@@ -4,6 +4,10 @@ Questions:
 
 1. If this app is location based, how much is the radius we are considering?
 2. For booking, what preferences/filters we are considering?&#x20;
+3. Do we care about payments?
+4. Do we care about canceling the booking mechanism?
+5. Do we deal with logistic throughout entire dogsitting session?
+6. Do we consider differnt dog sitting types like boarding, drop-in or dog-walking?
 
 ## Functional Requirement
 
@@ -15,7 +19,7 @@ Questions:
 
 1. Low latency
 2. Highly available
-3. Consistency for booking operation, both parties should be informed.
+3. High concurrency, a lot of dog owners might try to book the same dog sitter.
 
 ## High Level Design
 
@@ -28,6 +32,20 @@ Receives reservation request and reserves dog sitters. It also tracks for listin
 ### Listing Service
 
 Dog sitter can view record of upcoming reservation, cancel a reservation etc.
+
+## Scale
+
+How many dogsitters and how many dogowners?
+
+65M dog owners. 100K dog sitters.&#x20;
+
+How many bookings per day?
+
+100K\*0.7 = 70K&#x20;
+
+70\*10^3 / 10^5 = 0.7 QPS not very high = peak = 7 QPS.
+
+Reserve dogsitters: 7 QPS -> Order book page 70 QPS -> View listings 700 QPS.
 
 ## Data Schema
 
@@ -46,6 +64,18 @@ date
 is\_available
 
 version
+
+Reservation table:
+
+### Reservation Table
+
+* **id**
+* **dogsitter\_id**
+* **dogowner\_id**
+* **payout**
+* **start\_date**
+* **end\_date**
+* **status: Pending, Cancelled, Rejected, Paid -> Refunded**
 
 <mark style="color:purple;">Rate table:</mark>
 
@@ -211,3 +241,7 @@ Cons:
 
 * The db constraint cannot be version controlled easily like application code.
 * Not all db support constraints, if we do data migration in the future, it might cause problems.
+
+## Scale
+
+### Database sharding
