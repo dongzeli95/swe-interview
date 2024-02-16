@@ -194,3 +194,20 @@ Cons:
 * Poor performance when data contention is heavy.
 * Why? \
   When there are a lot of clients try to reserve the same hotel room, only one of them will succeed and the rest of client requests will have to retry.
+
+#### Option 3: Database constraints
+
+Instead of using is\_available, we can use availablity initialized to 1, and we add the following DB constraint:
+
+```
+CONSTRAINT `check_availability` CHECK (availability >= 0)
+```
+
+Pros:
+
+* Easy to implement, works well when data contention is low.
+
+Cons:
+
+* The db constraint cannot be version controlled easily like application code.
+* Not all db support constraints, if we do data migration in the future, it might cause problems.
