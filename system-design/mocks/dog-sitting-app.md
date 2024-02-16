@@ -29,9 +29,15 @@ Questions:
 
 Receives reservation request and reserves dog sitters. It also tracks for listing inventory as listings are reserved or reservations are cancelled.
 
+Dogsitter and dogowner can both cancel a reservation, view upcoming reservations etc.
+
 ### Listing Service
 
-Dog sitter can view record of upcoming reservation, cancel a reservation etc.
+Search a list of listings based on time, location.
+
+### Listing Management Service
+
+Create, update, and delete listings for dogowner.
 
 ## Scale
 
@@ -142,7 +148,7 @@ WHERE user_id IN ${user_list}
 ```
 
 ```
-v1/booking POST
+v1/reserve POST
 json {
   uid
   listing_id
@@ -265,3 +271,7 @@ What if data is growing 100 times and it cannot fit in one server. Suppose we ha
 ### Cache
 
 Listing data only cares about current and future listing so we can set TTL to expire old data automatically.&#x20;
+
+<img src="../../.gitbook/assets/file.excalidraw (20).svg" alt="" class="gitbook-drawing">
+
+### CDN for static file like images, videos etc.
