@@ -279,3 +279,15 @@ Listing data only cares about current and future listing so we can set TTL to ex
 <img src="../../.gitbook/assets/file.excalidraw (20).svg" alt="" class="gitbook-drawing">
 
 ### CDN for static file like images, videos etc.
+
+#### Data consistency across different micro-services
+
+1. Two phase commit:
+
+2PC is a database protocol used to guarantee atomic transaction commit across multiple nodes, either all nodes succeeded or all nodes failed. 2PC is blocking and a single node failure would block the process until the node has recovered.
+
+2. Saga
+
+Saga is a sequence of local transactions. Each transaction updates and publishes a message to trigger the next transaction step. If a step fails, saga executes compensating transactions to undo changes.&#x20;
+
+2PC works as a single commit to perform ACID transaction while Saga consists of multiple steps and rely on eventual consistency.&#x20;
