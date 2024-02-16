@@ -37,7 +37,7 @@ Dog sitter can view record of upcoming reservation, cancel a reservation etc.
 
 How many dogsitters and how many dogowners?
 
-65M dog owners. 100K dog sitters.&#x20;
+1.5M dog owners. 1M dog sitters.&#x20;
 
 How many bookings per day?
 
@@ -65,9 +65,7 @@ is\_available
 
 version
 
-Reservation table:
-
-### Reservation Table
+<mark style="color:purple;">Reservation table:</mark>
 
 * **id**
 * **dogsitter\_id**
@@ -242,6 +240,28 @@ Cons:
 * The db constraint cannot be version controlled easily like application code.
 * Not all db support constraints, if we do data migration in the future, it might cause problems.
 
+#### How to hold reservation for 10 minutes?
+
+Use pessimistic lock with a timeout of 10 minutes?
+
+<img src="../../.gitbook/assets/file.excalidraw (1).svg" alt="" class="gitbook-drawing">
+
 ## Scale
 
-### Database sharding
+Most of the components here are stateless, we can simply scale by adding more servers. but DB contains all the states so it might become the bottleneck.
+
+A single MySQL server can handle roughly 2000 read QPS. modern server can have 512 GB RAM.
+
+### Geohash index table
+
+The memory is only around 2GB so it can fit on a single MySQL server, we can add read replicas to handle the large amount of read QPS.
+
+### Listing table
+
+Size of the table: # dogsitter \* 3 types of listing \* 365 = 100k\*3\*365 = 109,500,000 = 109M rows, this can fit into a single server but it would become single point of failures we can add replications across multiple regions and availability zones.
+
+What if data is growing 100 times and it cannot fit in one server. Suppose we have 70\*1000 = 70k QPS. We can shard the table by listing\_id to 32 shards, and each shard will have 2000 QPS which is acceptable for MySQL's load.
+
+### Cache
+
+Listing data only cares about current and future listing so we can set TTL to expire old data automatically.&#x20;
