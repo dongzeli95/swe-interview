@@ -38,6 +38,7 @@ Explanation: Since there are two words, you can guess both.
 
 using namespace std;
 
+// Using score
 int match(string s1, string s2) {
     int res = 0;
     for (int i = 0; i < 6; i++) {
@@ -65,6 +66,57 @@ void findSecretWord(vector<string>& words, Master& master) {
                 mxScore = s;
             }
         }
+        int matches = master.guess(candidate);
+        if (matches == 6) {
+            break;
+        }
+
+        vector<string> filter;
+        for (int i = 0; i < possibleWords.size(); i++) {
+            if (candidate == possibleWords[i]) continue;
+            if (match(possibleWords[i], candidate) != matches) continue;
+            filter.push_back(possibleWords[i]);
+        }
+
+        possibleWords = filter;
+    }
+}
+
+//Using weight and sort
+int match(string s1, string s2) {
+    int res = 0;
+    for (int i = 0; i < 6; i++) {
+        if (s1[i] == s2[i]) res++;
+    }
+    return res;
+}
+
+void findSecretWord(vector<string>& words, Master& master) {
+    vector<string> possibleWords = words;
+    vector<vector<int>> weights(6, vector<int>(26, 0));
+    for (int i = 0; i < words.size(); i++) {
+        for (int j = 0; j < words[i].size(); j++) {
+            int idx = words[i][j] - 'a';
+            weights[j][idx]++;
+        }
+    }
+
+    auto compare = [&weights](const std::string& a, const std::string& b) {
+        int weightA = 0, weightB = 0;
+        for (int i = 0; i < a.size(); ++i) {
+            weightA += weights[i][a[i] - 'a'];
+        }
+        for (int i = 0; i < b.size(); ++i) {
+            weightB += weights[i][b[i] - 'a'];
+        }
+
+        return weightA > weightB;
+        };
+
+    sort(possibleWords.begin(), possibleWords.end(), compare);
+
+    while (true) {
+        string candidate = possibleWords[0];
         int matches = master.guess(candidate);
         if (matches == 6) {
             break;
