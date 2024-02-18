@@ -13,3 +13,4 @@
 * [Sum Root Leaf Number](./md/sum_root_leaf_number.md)
 * [Traversal](./md/traversal.md)
 * [Binary Tree Vertical Order](./md/binary_tree_vertical_order.md)
+* [Height Tree Removal Queries](./md/height_tree_removal_queries.md)
