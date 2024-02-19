@@ -5,3 +5,4 @@
 * [Can Place Flowers](./md/can_place_flowers.md)
 * [Meeting Rooms II](./md/meeting_rooms_ii.md)
 * [Guess Word](./md/guess_word.md)
+* [Minimum Replacement](./md/minimum_replacement.md)
