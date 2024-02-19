@@ -184,6 +184,7 @@
   * [Design Gaming Leaderboard](system-design/mocks/design-gaming-leaderboard.md)
   * [Facebook New Feed Live Comments](system-design/mocks/facebook-new-feed-live-comments.md)
   * [Dog Sitting App](system-design/mocks/dog-sitting-app.md)
+  * [Design Chat App (WhatsApp)](system-design/mocks/design-chat-app-whatsapp.md)
 * [Deep-Dive](system-design/deep-dive/README.md)
   * [Back of Envelope](system-design/deep-dive/back-of-envelope.md)
   * [Message Queue](system-design/deep-dive/message-queue.md)
