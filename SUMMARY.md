@@ -110,6 +110,7 @@
   * [K Closest Points Origin](algorithm/heap/md/k\_closest\_points\_origin.md)
   * [Merge K Sorted List](algorithm/heap/md/merge\_k\_sorted\_list.md)
   * [Top K Frequent Elements](algorithm/heap/md/top\_k\_frequent\_elements.md)
+  * [Meeting Room III](company-tags/google/md/meeting_rooms_iii.md)
 * [Intervals](algorithm/intervals/README.md)
   * [Non Overlapping Intervals](algorithm/intervals/md/non\_overlapping\_intervals.md)
   * [Min Arrows Burst Ballons](algorithm/intervals/md/min\_arrows\_burst\_ballons.md)
