@@ -1,5 +1,19 @@
 # Metrics monitoring and alert system
 
+## Topics
+
+1. How to collect the metrics data?
+   1. Push or Pull, tradeoff?
+2. How to transmit data from sources to monitoring system?
+3. How to store incoming data?
+4. How to do alert?
+5. How to do visualization?
+6. What's the read/write data access pattern?
+7. What type of DB to use and the trade off?
+8. How to scale when time-series DB is unavailable? Scale through Kafka.
+   1. How to scale Kafka?
+9. Data encoding and compression? Downsampling strategy?
+
 ## Functional Requirement
 
 * can ingest large amount of metrics data points.
