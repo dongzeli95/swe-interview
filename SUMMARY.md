@@ -168,6 +168,7 @@
 
 * [Operating System](system-design/operating-system.md)
 * [Mocks](system-design/mocks/README.md)
+  * [Design ChatGPT](system-design/mocks/design-chatgpt.md)
   * [Distributed Search Summary](system-design/mocks/distributed-search-summary.md)
   * [Design Web Crawler](system-design/mocks/design-web-crawler.md)
   * [Distributed Search](system-design/mocks/distributed-search.md)
