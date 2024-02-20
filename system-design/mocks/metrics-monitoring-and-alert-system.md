@@ -114,7 +114,7 @@ This ensure one metrics source server is handled by one collector only.
 
 #### Push
 
-<img src="../../.gitbook/assets/file.excalidraw (1) (1) (1) (1) (1) (1) (1).svg" alt="" class="gitbook-drawing">
+<img src="../../.gitbook/assets/file.excalidraw (1) (1) (1) (1) (1) (1) (1) (1).svg" alt="" class="gitbook-drawing">
 
 Collection Agent exist within metrics source and aggregate metrics and push those periodically to metrics collector.
 

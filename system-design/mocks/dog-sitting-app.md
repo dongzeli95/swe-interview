@@ -254,7 +254,7 @@ Cons:
 
 Use pessimistic lock with a timeout of 10 minutes?
 
-<img src="../../.gitbook/assets/file.excalidraw (1) (1).svg" alt="" class="gitbook-drawing">
+<img src="../../.gitbook/assets/file.excalidraw (1) (1) (1).svg" alt="" class="gitbook-drawing">
 
 ## Scale
 

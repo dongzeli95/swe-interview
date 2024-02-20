@@ -120,9 +120,9 @@ One document storage = 100KB + 1000\*100B = 200KB
 
 ## High Level Design
 
-<img src="../../.gitbook/assets/file.excalidraw (1) (1) (1).svg" alt="" class="gitbook-drawing">
-
 <img src="../../.gitbook/assets/file.excalidraw (1) (1) (1) (1).svg" alt="" class="gitbook-drawing">
+
+<img src="../../.gitbook/assets/file.excalidraw (1) (1) (1) (1) (1).svg" alt="" class="gitbook-drawing">
 
 ### How indexing work?
 
