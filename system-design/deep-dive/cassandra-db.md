@@ -1,3 +1,7 @@
+---
+description: https://discord.com/blog/how-discord-stores-billions-of-messages
+---
+
 # Cassandra DB
 
 ## 2017 Discord Use Case

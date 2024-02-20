@@ -123,13 +123,15 @@ Message Table
 
 ```
 Message {
-  uid
-  sender
-  receiver
-  conversation_id
+  channel_id bigint,
+  bucket int, // partition based on time, channel_id + bucket to be primary key
+  message_id,
+  author_id,
+  content text,
   status: SENT, READ, RECEIVED, RECALLED
   created_at
   is_deleted
+  PRIMARY_KEY((channel_id, bucket), message_id)
 }
 ```
 
