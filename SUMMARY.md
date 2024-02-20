@@ -51,6 +51,7 @@
   * [Traversal](algorithm/binary\_tree/md/traversal.md)
   * [Binary Tree Vertical Order](algorithm/binary\_tree/md/binary\_tree\_vertical\_order.md)
   * [Height Tree Removal Queries](algorithm/binary\_tree/md/height\_tree\_removal\_queries.md)
+  * [Count Nodes Avg Subtree](algorithm/binary\_tree/md/count_nodes_avg_subtree.md)
 * [Bit](algorithm/bit/README.md)
   * [Min Flips](algorithm/bit/md/min\_flips.md)
   * [Single Number](algorithm/bit/md/single\_number.md)

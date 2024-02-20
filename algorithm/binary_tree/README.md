@@ -14,3 +14,4 @@
 * [Traversal](./md/traversal.md)
 * [Binary Tree Vertical Order](./md/binary_tree_vertical_order.md)
 * [Height Tree Removal Queries](./md/height_tree_removal_queries.md)
+* [Count Nodes Avg Subtree](./md/count_nodes_avg_subtree.md)
