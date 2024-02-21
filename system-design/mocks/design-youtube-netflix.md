@@ -115,6 +115,7 @@ video_URI
 privacy_level
 default_lang
 first_clip_id
+clips_mapping: {0: clipid0, 1: clipid1...}
 
 Channel Table
 id
@@ -132,6 +133,7 @@ clip_offset (sort key)
 next_clip_id
 video_id
 author_id
+clip_path: this can be a S3 path where we have different encoding and resolution url there.
 
 Clip Encodings (Store it in CDN storage)
 clip_id
@@ -180,3 +182,65 @@ total = 6\*500\*60 = 180000 MB per minute = 180GB per minute = 180\*24\*60 = 259
 DynamoDB Limitations: 1000WCU/s, 3000RCU/s.
 
 1. Use Redis cache to store frequent read data, viral video posted by big influencers.
+
+## How to deduplicate video?
+
+Assume 50 out of 500 hours of videos uploaded to Youtube are duplicates. Considering the one minute of video requires 6MB of storage space, the duplicated content will take up following storage space:
+
+```
+(50*60) mins * 6MB/min = 18GB
+```
+
+If we avoid video duplication, we can save up to 9.5 perabytes of storage space.
+
+There is also copyright issue, No content creator would want their content plagiarized.&#x20;
+
+Options:
+
+1. Locality-sensitve hashing.
+2. Block matching algorithms, phase correlation
+3. AI
+
+Ateliere's proprietary FrameDNA™ AI/ML technology revolutionizes video management by fingerprinting each frame upon ingest. This allows for an accurate comparison of video files. This advanced technology not only helps in identifying duplicate content but also assists in detecting any alterations or tampering within the video files. Additionally, the system's efficient storage management capabilities ensure that only the most relevant and original content is preserved, optimizing storage resources and reducing unnecessary duplication.
+
+## Adaptive Streaming
+
+While the content is being served, the bandwidth of the user is also being monitored. Since the video is divided into chunks of different qualities, each video clip can be provided based on changing network conditions.
+
+<figure><img src="../../.gitbook/assets/Screenshot 2024-02-20 at 4.58.41 PM.png" alt=""><figcaption></figcaption></figure>
+
+The adaptive bitrate algorithm can bsed on four parameters:
+
+1. End-to-end available bandwidth (from a CDN/servers to a specific client)
+2. The device capabilities of the user.
+3. Encoding techniques used.
+4. The buffer space at the client.
+
+## Recommendation
+
+Youtube recommends video to user based on their profile, taking into account factors such as their interests, view and search history, subscribed channels, related topics to already viewed content and activities on content such as comments and likes.
+
+Youtube filters videos in two phases:
+
+1. <mark style="color:purple;">Candidate generation</mark>: millions of Youtube videos are filtered down to hundreds based on the user's history and current context.
+2. <mark style="color:purple;">Ranking</mark>: The ranking phase rates videos based on their feature and according to the user's interests and history. Hundreds of videos are filtered and ranked down to a few dozen videos during the phase.
+
+<figure><img src="../../.gitbook/assets/Screenshot 2024-02-20 at 5.36.34 PM.png" alt=""><figcaption></figcaption></figure>
+
+3. <mark style="color:purple;">Collaborative Filtering</mark>
+
+A technique used in recommendation systems, works by predicting a user's interests based on preferences of many users.
+
+User-based collaborative filtering: The approach recommends items by finding similar users. For example, if user X likes items A, B and C and user Y likes item A, B and D. The system infer that X might also like item D because Y likes it.
+
+<figure><img src="../../.gitbook/assets/Screenshot 2024-02-20 at 5.40.56 PM.png" alt=""><figcaption></figcaption></figure>
+
+[https://blog.hootsuite.com/how-the-youtube-algorithm-works/](https://blog.hootsuite.com/how-the-youtube-algorithm-works/)
+
+2005-2011: Optimizing for clicks & views
+
+2012: Optimizing for watch time
+
+2015-2016: Optimizing for satisfaction: Shares, likes and Dislikes, not interested button.
+
+[https://static.googleusercontent.com/media/research.google.com/en//pubs/archive/45530.pdf](https://static.googleusercontent.com/media/research.google.com/en/pubs/archive/45530.pdf)
