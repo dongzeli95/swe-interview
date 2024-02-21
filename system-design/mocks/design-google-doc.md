@@ -122,6 +122,18 @@ Edit Table
 }
 ```
 
+## Scale
+
+DAU: 1B users. 10 write, 10 read
+
+QPS: 1B\*10 / 10^5 = 100k
+
+Storage: 2\*365\*1B\*100kb = 800\*10^11kb = 8\*10^13kb = 20PB / year.
+
+## Final Diagram
+
+<img src="../../.gitbook/assets/file.excalidraw (28).svg" alt="" class="gitbook-drawing">
+
 ## What DB to use?
 
 For editing table, we need db that optimize for write requests: Cassandra
@@ -165,3 +177,42 @@ a family of data structures for sets, maps, ordered lists, counters that can be 
 | PositionalIndex | unique position, can be float       | 4.5     |
 
 The example below depicts that a user from site ID `123e4567-e89b-12d3` is inserting a character with a value of `A` at a `PositionalIndex` of `1.5`. Although a new character is added, the positional indexes of existing characters are preserved using fractional indices. Therefore, the order dependency between operations is avoided. As shown below, an `insert()` between `O` and `T` didn’t affect the position of `T`.
+
+Cons: [https://core.ac.uk/download/pdf/189163265.pdf](https://core.ac.uk/download/pdf/189163265.pdf)
+
+* There are interleaving anomalies.
+
+3. Lock
+
+Locks require us to segment documents into small sections where user could lock a portion and edit it. This will help developers come up with easy solution and avoid complexities like OT and CRDTs.&#x20;
+
+Pros:
+
+* Easy to implement.
+
+Cons:
+
+* Poor user experience: two users may want to add characters to the same sectin of the document, but their operations may not necessaily conflict.
+
+## Do we need processing queue in client or server side?
+
+### Client
+
+Pros:
+
+* Easy to implement&#x20;
+
+Cons:
+
+* No centralized QPS control, imagine if a doc have millions of people editing it altogether, it would cause problem.
+
+### Server side
+
+Pros:
+
+* Centralized QPS throttle and control
+
+Cons:
+
+* Additional component to the system add complexity.
+* significant delay if changes are piling up in the queue?
