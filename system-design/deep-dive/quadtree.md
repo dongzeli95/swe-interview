@@ -11,7 +11,7 @@ description: >-
 
 Although similar to geohashing, quadtree is a in-memory solution, not a database solution.
 
-<img src="../../.gitbook/assets/file.excalidraw (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1).svg" alt="quadtree structure" class="gitbook-drawing">
+<img src="../../.gitbook/assets/file.excalidraw (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1).svg" alt="quadtree structure" class="gitbook-drawing">
 
 ## Algorithm
 

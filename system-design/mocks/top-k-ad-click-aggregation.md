@@ -67,7 +67,7 @@ Write load is heavy so use NoSQL like Cassandra or time series DB like influxDB
 
 ## High Level Design
 
-<img src="../../.gitbook/assets/file.excalidraw (1) (1) (1) (1) (1) (1) (1).svg" alt="" class="gitbook-drawing">
+<img src="../../.gitbook/assets/file.excalidraw (1) (1) (1) (1) (1) (1) (1) (1).svg" alt="" class="gitbook-drawing">
 
 ## E2E
 
@@ -107,7 +107,7 @@ Kappa: A system that combines the batch and streaming in one processing path, th
 
 ### Data recalculation
 
-<img src="../../.gitbook/assets/file.excalidraw (1) (1) (1) (1) (1) (1).svg" alt="" class="gitbook-drawing">
+<img src="../../.gitbook/assets/file.excalidraw (1) (1) (1) (1) (1) (1) (1).svg" alt="" class="gitbook-drawing">
 
 ### Time
 

@@ -189,6 +189,7 @@
   * [Dog Sitting App](system-design/mocks/dog-sitting-app.md)
   * [Design Chat App (WhatsApp)](system-design/mocks/design-chat-app-whatsapp.md)
   * [Design Youtube/Netflix](system-design/mocks/design-youtube-netflix.md)
+  * [Design Google Doc](system-design/mocks/design-google-doc.md)
 * [Deep-Dive](system-design/deep-dive/README.md)
   * [Back of Envelope](system-design/deep-dive/back-of-envelope.md)
   * [Message Queue](system-design/deep-dive/message-queue.md)
