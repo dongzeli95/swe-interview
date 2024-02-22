@@ -10,3 +10,4 @@
 * [Number Coins In Tree Nodes](./md/number_coins_in_tree_nodes.md)
 * [Maximum Increasing Cells](./md/maximum_increasing_cells.md)
 * [Scheduler](./md/scheduler.md)
+* [Detonate Maximum Bombs](./md/detonate_maximum_bombs.md)
