@@ -6,3 +6,4 @@
 * [Meeting Rooms II](./md/meeting_rooms_ii.md)
 * [Guess Word](./md/guess_word.md)
 * [Minimum Replacement](./md/minimum_replacement.md)
+* [Longest Palindrome Two Letter Words](./md/longest_palindrome_two_letter_words.md)
