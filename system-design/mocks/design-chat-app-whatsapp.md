@@ -123,13 +123,15 @@ Message Table
 
 ```
 Message {
-  uid
-  sender
-  receiver
-  conversation_id
+  channel_id bigint,
+  bucket int, // partition based on time, channel_id + bucket to be primary key
+  message_id,
+  author_id,
+  content text,
   status: SENT, READ, RECEIVED, RECALLED
   created_at
   is_deleted
+  PRIMARY_KEY((channel_id, bucket), message_id)
 }
 ```
 
@@ -185,4 +187,18 @@ WhatsApp handles 10M connections on a single server
 2B / 10M = 200 servers
 
 <img src="../../.gitbook/assets/file.excalidraw (27).svg" alt="" class="gitbook-drawing">
+
+## How to scale Redis Pub/Sub?
+
+Modern Redis server capability:
+
+100GB memory, gigabit network handle about 100,000 subscribers push.
+
+max 10k connections.
+
+1M QPS / 10^5 = 10 Redis.
+
+2B Users -> 20B channels \* 20 bytes = 400\*10^9 bytes / GB = 400 GB
+
+We need 4 Redis servers with each Redis server has 100GB.
 
