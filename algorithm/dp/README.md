@@ -10,3 +10,5 @@
 * [Minimum Costs Using Train Line](./md/minimum_costs_using_train_line.md)
 * [Decode Ways](./md/decode_ways.md)
 * [Trapping Rain Water](./md/trapping_rain_water.md)
+* [Count Fertile Pyramids](./md/count_fertile_pyramids.md)
+* [Minimum Time Finish Race](./md/minimum_time_finish_race.md)

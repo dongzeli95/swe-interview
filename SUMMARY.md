@@ -92,6 +92,8 @@
   * [Minimum Costs Using Train Line](algorithm/dp/md/minimum\_costs\_using\_train\_line.md)
   * [Decode Ways](algorithm/dp/md/decode\_ways.md)
   * [Trapping Rain Water](algorithm/dp/md/trapping\_rain\_water.md)
+  * [Count Fertile Pyramids](algorithm/dp/md/count_fertile_pyramids.md)
+  * [Minimum Time Finish Race](algorithm/dp/md/minimum_time_finish_race.md)
 * [Greedy](algorithm/greedy/README.md)
   * [Dota2 Senate](algorithm/greedy/dota2-senate.md)
   * [Smallest Range Ii](algorithm/greedy/md/smallest\_range\_ii.md)
