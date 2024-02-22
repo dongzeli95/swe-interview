@@ -101,6 +101,7 @@
   * [Meeting Rooms II](algorithm/greedy/md/meeting\_rooms\_ii.md)
   * [Guess the word](algorithm/greedy/md/guess_word.md)
   * [Minimum Replacement](algorithm/greedy/md/minimum_replacement.md)
+  * [Longest Palindrome Two Letter Words](algorithm/greedy/md/longest_palindrome_two_letter_words.md)
 * [Hashmap](algorithm/hashmap/README.md)
   * [Equal Row Column Pairs](algorithm/hashmap/md/equal\_row\_column\_pairs.md)
   * [Two Strings Close](algorithm/hashmap/md/two\_strings\_close.md)
