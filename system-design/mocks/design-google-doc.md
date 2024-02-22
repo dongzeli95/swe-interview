@@ -160,6 +160,9 @@ Cons:
 
 2. Conflict-free Replicated Data Type (CRDT)
 
+* Operation-based
+* State-based
+
 The conflict-free replicated data type (CRDT) was developed in an effort to improve OT.&#x20;
 
 a family of data structures for sets, maps, ordered lists, counters that can be concurrently edited by multiple users, which automatically resolve conflicts in sensible ways. CRDTs have been implemented in Riak 2.0.
