@@ -45,14 +45,19 @@ using namespace std;
 
 // dp[i] = minimum time using t
 // dp[i] = min(dp[i-j]+changeTime+dp[j]), 1 <= j <= i
+
+// Time: O(max(numLapse^2, tires)), Space: O(numLapse)
 int minimumFinishTime(vector<vector<int>>& tires, int changeTime, int numLaps) {
     vector<long long> dp(numLaps + 1, INT_MAX);
 
     for (int j = 0; j < tires.size(); j++) {
         int f = tires[j][0];
         int r = tires[j][1];
-        int curr_r = 1;
+        long long curr_r = 1;
         long long lapseTime = 0;
+        dp[0] = 0;
+
+        // This is amortized constant time complexity
         for (int i = 1; i <= numLaps; i++) {
             lapseTime += f * curr_r;
             dp[i] = min(dp[i], lapseTime);
