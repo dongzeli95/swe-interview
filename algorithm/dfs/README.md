@@ -11,3 +11,4 @@
 * [Maximum Increasing Cells](./md/maximum_increasing_cells.md)
 * [Scheduler](./md/scheduler.md)
 * [Detonate Maximum Bombs](./md/detonate_maximum_bombs.md)
+* [Find All Possible Recipes](./md/find_all_possible_recipes.md)

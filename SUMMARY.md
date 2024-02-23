@@ -81,6 +81,7 @@
   * [Maximum Increasing Cells](algorithm/dfs/md/maximum\_increasing\_cells.md)
   * [Number Coins In Tree Nodes](algorithm/dfs/md/number\_coins\_in\_tree\_nodes.md)
   * [Detonate Maximum Bombs](algorithm/dfs/md/detonate\_maximum\_bombs.md)
+  * [Find All Possible Recipes](algorithm/dfs/md/find_all_possible_recipes.md)
 * [DP](algorithm/dp/README.md)
   * [Domino And Tromino Tiling](algorithm/dp/md/domino\_and\_tromino\_tiling.md)
   * [House Robber](algorithm/dp/md/house\_robber.md)
