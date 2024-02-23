@@ -5,3 +5,4 @@
 * [Basic Calculator Ii](./md/basic_calculator_ii.md)
 * [Simplify Path](./md/simplify_path.md)
 * [Min Add Parentheses](./md/min_add_parentheses.md)
+* [Parentheses String Valid](./md/parentheses_string_valid.md)
