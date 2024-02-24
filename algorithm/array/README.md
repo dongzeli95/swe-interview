@@ -13,3 +13,4 @@ Array related coding questions.
 * [Next Permutation](./md/next_permutation.md)
 * [Rearrange Array By Sign](./md/rearrange_array_by_sign.md)
 * [Removing Min Max Elements](./md/removing_min_max_elements.md)
+* [Find Original Array From Doubled](./md/find_original_array_from_doubled.md)
