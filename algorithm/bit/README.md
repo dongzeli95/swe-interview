@@ -2,3 +2,4 @@
 * [Single Number](./md/single_number.md)
 * [Pow](./md/pow.md)
 * [Min Flips To Make Ab](./md/min_flips_to_make_ab.md)
+* [Find Unique Binary Str](./md/find_unique_binary_str.md)
