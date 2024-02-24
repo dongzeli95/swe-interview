@@ -1,5 +1,7 @@
 # Design Google Doc
 
+## [Figma Multiplayer Doc](https://www.figma.com/blog/how-figmas-multiplayer-technology-works/)
+
 ## Topics:
 
 1. How to allow concurrent editing from multiple users?
