@@ -12,3 +12,4 @@ Array related coding questions.
 * [Valid Palindrome Ii](./md/valid_palindrome_ii.md)
 * [Next Permutation](./md/next_permutation.md)
 * [Rearrange Array By Sign](./md/rearrange_array_by_sign.md)
+* [Removing Min Max Elements](./md/removing_min_max_elements.md)
