@@ -1,10 +1,20 @@
 # Distributed Message Queue
 
+## Topics:
+
+1. Producer delivery ack mechanism: at least, at most, exactly once.
+2. Consumer receipt: at least, at most, exactly once.
+3. Ordering guarantee.
+4. Retries?
+5. Consumer rebalancing?
+6. Topics? Partitions? Brokers? Replicas?
+7. Message consumption: push or pull?
+
 ## Functional Requirement
 
 * Able to send task to message queue and get immediate response. (producer)
 * Able to subscribe and fetch task from message queue. (consumer)
-* Support topic? Yes
+* Support topic? Yes so message can be consumed repeatedly.
 * Support ordering? Yes
 * Delivery guarantee - Messages can be consumed repeatedly or only once.
   * at-least once, at-most once or exactly once, configurable.
@@ -51,7 +61,12 @@ For WAL, a file cannot grow infinitely, we need segments. New messages are appen
 
 ## High Level Diagram
 
-<img src="../../.gitbook/assets/file.excalidraw (7).svg" alt="" class="gitbook-drawing">
+<img src="../../.gitbook/assets/file.excalidraw.svg" alt="Basic version" class="gitbook-drawing">
+
+1. Scale message queue -> cluster of brokers coordinated by zookeeper for leader election.
+2. Consumer -> consumer groups for better read throughput.
+
+<img src="../../.gitbook/assets/file.excalidraw (7).svg" alt="Fully scaled" class="gitbook-drawing">
 
 ### Components
 
@@ -86,10 +101,12 @@ Consumer
 1. A new consumer wants to join group-1 and subscribes to Topic-A, finding the coordinator broker of group-1.
 2. The coordinator confirms that consumer has joined and assign partition to consumer.
 3. Consumer fetches messages from last consumed offset, managed by state storage.
-4. Consumer processes messages and commits offset back to broker.&#x20;
+4. Consumer processes messages and commits offset back to broker.
    1. Delivery semantics:\
       order of data processing\
       offset commiting
+
+##
 
 ## Questions
 
