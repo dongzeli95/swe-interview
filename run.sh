@@ -40,7 +40,7 @@ if [ ! -f "$file_name" ]; then
 fi
 
 # Compile main.cpp using g++
-g++ -std=c++11 "$file_name" -o my_program
+g++ -std=c++17 "$file_name" -o my_program
 
 # Check if the compilation was successful
 if [ $? -eq 0 ]; then
