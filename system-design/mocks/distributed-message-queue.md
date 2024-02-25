@@ -181,7 +181,7 @@ Provide strong message durability but latency is high almoist 2.5 times the orig
 2. At least once
    1. Producer ack = 1 or ack = all
    2. Consumer commit after processing data. Same data maybe processed twice.
-3. Exactly once (payment, trading, accounting)
+3. [Exactly once](https://youtu.be/Ki2D2o9aVl8) (payment, trading, accounting)
    1. Ack = all
    2. idempotency key for message data.
    3. Use transaction coordinator to track pending status + abort marker if something goes wrong.
