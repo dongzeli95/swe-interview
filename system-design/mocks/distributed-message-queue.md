@@ -1,5 +1,7 @@
 # Distributed Message Queue
 
+## [Confluent Kafka Doc](https://docs.confluent.io/kafka/design/delivery-semantics.html)
+
 ## Topics:
 
 1. Producer delivery ack mechanism: at least, at most, exactly once.
@@ -106,7 +108,18 @@ Consumer
       order of data processing\
       offset commiting
 
-##
+## Consumer Delivery - Push vs Pull
+
+## Consumer Rebalancing
+
+## Producer Ack
+
+1. In-sync replicas
+2. Ack 0
+3. Ack 1
+4. Ack all
+
+## Consumer Receipt
 
 ## Questions
 
