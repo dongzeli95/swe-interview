@@ -99,6 +99,7 @@
   * [Trapping Rain Water](algorithm/dp/md/trapping\_rain\_water.md)
   * [Count Fertile Pyramids](algorithm/dp/md/count\_fertile\_pyramids.md)
   * [Minimum Time Finish Race](algorithm/dp/md/minimum\_time\_finish\_race.md)
+  * [Knapsack](algorithm/dp/md/knapsack.md)
 * [Greedy](algorithm/greedy/README.md)
   * [Dota2 Senate](algorithm/greedy/dota2-senate.md)
   * [Smallest Range Ii](algorithm/greedy/md/smallest\_range\_ii.md)
