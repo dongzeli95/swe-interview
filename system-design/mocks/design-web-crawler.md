@@ -81,3 +81,34 @@ Duplicate eliminator: dedup testing on incoming URLs and documents.
 
 1. We are crawling using a library but not from browser, avoid additional network hops.
 2. DNS resolver is synchronous and not work with multi-thread worker architecture.
+
+### URL Frontier
+
+Front queues are for priorities, Back queues for politeness.
+
+1. Priority
+
+How to set priority:
+
+* How frequently the site is changing?
+
+2. Politeness
+
+Put the url from same site onto same back queue to make sure we don't overwhelm it.
+
+One back queue is associated with one worker thread.
+
+3. Freshness
+
+
+
+<img src="../../.gitbook/assets/file.excalidraw (30).svg" alt="" class="gitbook-drawing">
+
+Partition metadata table
+
+| Host           | Back queue ID |
+| -------------- | ------------- |
+| digit.com      | 5             |
+| techcrunch.com | 1             |
+| youtube.com    | 17            |
+
