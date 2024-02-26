@@ -79,4 +79,5 @@ Duplicate eliminator: dedup testing on incoming URLs and documents.
 
 ### Why we need DNS resolver:
 
-We are crawling using a library but not fro
+1. We are crawling using a library but not from browser, avoid additional network hops.
+2. DNS resolver is synchronous and not work with multi-thread worker architecture.
