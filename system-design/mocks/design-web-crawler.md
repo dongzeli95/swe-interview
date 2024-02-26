@@ -1,5 +1,13 @@
 # Design Web Crawler
 
+## Topics
+
+1. Politeness / Crawl Rate
+2. DNS query
+3. Distributed Crawling
+4. Priority Crawling
+5. Duplicate detection
+
 ## Functional Requirements
 
 1. Crawling: The system should scrape www, spanning from a queue of seed URLs provided initially by the system admin.\
