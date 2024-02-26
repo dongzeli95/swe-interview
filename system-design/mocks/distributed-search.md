@@ -38,24 +38,6 @@ One document storage = 100KB + 1000\*100B = 200KB
 
 100B pages \* (2MB / page) = 200PB
 
-### Database Storage Size
-
-URL: 50B
-
-hash: 16B
-
-Blob: 16B
-
-Last Updated: 8B
-
-Title: 60B
-
-Priority: 4B
-
-Description: 150B
-
-100B pages \* 340B / page = 31.4 TB
-
 ### Sharding
 
 Sharding by url.
@@ -74,19 +56,13 @@ Use inverted index to map searched words onto feeds.
 
 ## Schema
 
-url
-
-site content
-
-title&#x20;
-
-description
-
-hash
-
-&#x20;last\_updated
-
-priority
+| Name                   | Description                            |
+| ---------------------- | -------------------------------------- |
+| Term                   | list of term to                        |
+| \[doc, freq, location] |                                        |
+| doc                    | identifier of the document             |
+| freq                   | frequency of the term in the document  |
+| location               | positions of the term in the document. |
 
 
 
@@ -150,6 +126,16 @@ The minimum part of the index is the Lucene segment. No way we can update a sing
 To keep latency low, you have to index commits less often. which means there is a trade-off between latency and index update delay. Twitter engineers made a search engine called EarlyBird which solves this by implementing in-memory search in the not-yet committed segments.
 
 In practice, we can use cache to make search results more stable.&#x20;
+
+
+
+## Appendix
+
+Lucene using LSM tree (Log structured merge tree)
+
+Before segments are flushed or commited, data is stored in memory and is unsearchable.
+
+[EarlyBird Paper](https://cs.uwaterloo.ca/\~jimmylin/publications/Busch\_etal\_ICDE2012.pdf)
 
 * [ ] How much computer memory, RAM is required to keep the index. We keep the index in the RAM to support low latency search.
 * [ ] How quickly we can find a word from an inverted index.
