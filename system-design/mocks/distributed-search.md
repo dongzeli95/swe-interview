@@ -8,18 +8,31 @@
 2. Search engine finds relevant feeds.
 3. User can see a list of feeds.
 
-## High Level Design
+## Non-functional Requirement
 
-<img src="../../.gitbook/assets/file.excalidraw (2).svg" alt="" class="gitbook-drawing">
+* Highly available
+* Low latency
+* Low cost
 
 ## Scale
 
-Database:
+### QPS
 
-1. 1 Trilion pages
-2. 100B unique pages
-3. Each updated once every 10 days.
-4. Average page is 2MB.
+DAU is 3M for search. The number of requests a single server can handle is 1000.
+
+3k servers.
+
+### Storage
+
+The size of a single document: 100 KB
+
+Number of unique terms from a document: 1000
+
+Index table storage: 100 bytes per term
+
+One document storage = 100KB + 1000\*100B = 200KB
+
+6000 documents a day = 6000\*200KB = 12\*10^5KB = 12\*10^8 = 1.2GB
 
 ### Blob Storage Size
 
@@ -89,34 +102,6 @@ priority
 ## [Search engine](https://medium.com/double-pointer/system-design-interview-search-engine-edb66b64fd5e)
 
 ## [Search System: Design that scales](https://blog.devgenius.io/search-system-design-that-scales-2fdf407a2d34)
-
-## Functional Requirement
-
-User should get relevant content based on their search queries.
-
-## Non-functional Requirement
-
-* Highly available
-* Low latency
-* Low cost
-
-## Scale
-
-DAU: 3M = 3\*10^6 = 3 QPS = 30 QPS
-
-one server can handle 1000 requests concurrently = 1 server
-
-### Storage
-
-The size of a single document: 100 KB
-
-Number of unique terms from a document: 1000
-
-Index table storage: 100 bytes per term
-
-One document storage = 100KB + 1000\*100B = 200KB
-
-6000 documents a day = 6000\*200KB = 12\*10^5KB = 12\*10^8 = 1.2GB
 
 ## High Level Design
 
