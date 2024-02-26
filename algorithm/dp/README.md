@@ -12,3 +12,4 @@
 * [Trapping Rain Water](./md/trapping_rain_water.md)
 * [Count Fertile Pyramids](./md/count_fertile_pyramids.md)
 * [Minimum Time Finish Race](./md/minimum_time_finish_race.md)
+* [Knapsack](./md/knapsack.md)
