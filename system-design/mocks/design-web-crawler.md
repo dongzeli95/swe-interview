@@ -73,3 +73,10 @@ Duplicate eliminator: dedup testing on incoming URLs and documents.
    The extractor sends the newly discovered URLs to scheduler. Save then in DB and sets value for priority.
 7. Recrawling\
    Once a cycle is complete, the crawler goes back to first point and repeats the same process until URL frontier query is empty.\
+
+
+## Deep dive
+
+### Why we need DNS resolver:
+
+We are crawling using a library but not fro
