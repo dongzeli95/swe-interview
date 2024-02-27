@@ -31,7 +31,9 @@ ad_id, click_timestamp, user_id, ip, country
 1. Highly available
 2. Highly scalable
 3. Low latency, real-time experience
-4. Properly handle delayed or duplicate events.
+4. Reliability - event cannot be lost.
+5. Accuracy: exactly-once or idempotency.
+6. Properly handle delayed or duplicate events.
 
 ## Scale
 
