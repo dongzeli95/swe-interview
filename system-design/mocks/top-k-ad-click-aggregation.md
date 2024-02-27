@@ -132,7 +132,7 @@ We can also consider to store ORC, parquet in S3/GCS and add hive metastore cata
 
 ## High Level Design
 
-<img src="../../.gitbook/assets/file.excalidraw (5).svg" alt="" class="gitbook-drawing">
+<img src="../../.gitbook/assets/file.excalidraw (1) (1) (1) (1) (1) (1) (1) (1) (1).svg" alt="" class="gitbook-drawing">
 
 ## E2E
 
@@ -246,6 +246,14 @@ Rebalancing can be slow, recommend to do during off-peak hours.
 Pros: more throughput, Cons: more complexity
 
 
+
+### How to make sure downstream consumers also have exact-once guarantee?
+
+We can introduce additional Kafka layer to publish on topics.
+
+1. Producer: ack = all or ack = 1
+2. Consumer: read\_committed for transaction
+3. Use UUID for idempotency key.
 
 ## Appendix:
 

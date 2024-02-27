@@ -84,7 +84,7 @@ Response
 
 ## High Level Diagram
 
-<img src="../../.gitbook/assets/file.excalidraw (5) (1).svg" alt="" class="gitbook-drawing">
+<img src="../../.gitbook/assets/file.excalidraw (5).svg" alt="" class="gitbook-drawing">
 
 ## E2E
 
