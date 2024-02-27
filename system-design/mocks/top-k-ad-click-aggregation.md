@@ -45,11 +45,40 @@ Assume a single ad click event occupies 0.1KB storage. Daily storage requirement
 
 ## API
 
-Aggregate the number of clicks of ad\_id in the last M minutes\
-GET /v1/ads/{:ad\_id}/aggregated\_count
+Aggregate the number of clicks of ad\_id in the last M minutes
 
-Return top N most clicked ad\_ids in the last M minutes\
-GET /v1/ads/popular\_ads
+```
+GET /v1/ads/{:ad_id}/aggregated_count
+
+Request: json 
+{
+  from: start minute
+  to: end minute
+  filter: an identifier for different filtering strategy, filter = 001 filters out non-US clicks.
+}
+
+Response: {
+  ad_id
+  count
+}
+```
+
+Return top N most clicked ad\_ids in the last M minutes
+
+```
+GET /v1/ads/popular_ads
+
+Request: json
+{
+  topn: top n most clicked ads
+  window: aggregation window size in minutes
+  filter
+}
+
+Response {
+  ad_ids: [] list of most clicked ads.
+}
+```
 
 ## Data Schema
 
@@ -63,7 +92,41 @@ Aggregated data
 | ------ | ------------- | ----- |
 |        |               |       |
 
+Support ad filtering we can add additional filter\_id to above table.
+
+| filter\_id | region | ip   | user\_id |
+| ---------- | ------ | ---- | -------- |
+| 0012       | US     | 0012 | \*       |
+|            |        |      |          |
+
+Most clicked ads
+
+| window\_size                        | updated\_at        | most\_clicked\_ads  |
+| ----------------------------------- | ------------------ | ------------------- |
+| The aggregation window size in mins | update time minute | most\_clicked\_ads: |
+|                                     |                    |                     |
+
+### Raw data vs Aggregated data
+
+| Raw Data                                                                                                                                                                 | Aggregated Data                                                                                                                                 |
+| ------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ----------------------------------------------------------------------------------------------------------------------------------------------- |
+| <ol><li><mark style="background-color:green;">Full Data set</mark></li><li><mark style="background-color:green;">Support data filter and recalculation.</mark></li></ol> | <mark style="background-color:red;">Data loss, this is derived data. 10 entries might aggregated to 1 entry.</mark>                             |
+| <ol><li><mark style="background-color:red;">Huge data storage</mark></li><li><mark style="background-color:red;">Slow query</mark></li></ol>                             | <ol><li><mark style="background-color:green;">Smaller data set</mark></li><li><mark style="background-color:green;">Fast query</mark></li></ol> |
+|                                                                                                                                                                          |                                                                                                                                                 |
+
+We store both.
+
+It's a good idea to keep raw data. If something goes wrong, we could use the raw data for debugging. If the aggregated data is corrupted due to a bad bug, we can recalculate the aggregated data from raw data.
+
+Aggregated data should be stored as well. The raw data set is huge, the large size makes querying raw data very inefficient.&#x20;
+
+We can also move old data to cold storage to reduce cost.
+
+### DB Choice
+
 Write load is heavy so use NoSQL like Cassandra or time series DB like influxDB
+
+We can also consider to store ORC, parquet in S3/GCS and add hive metastore catalog on top of it. We can use query engine like Presto/BigQuery to query the result.
 
 ## High Level Design
 
