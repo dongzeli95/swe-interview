@@ -242,3 +242,9 @@ Rebalancing can be slow, recommend to do during off-peak hours.
    Shard the data by geography (topic\_north\_america, topic\_eu, topic\_asia etc) or by business type (topic\_web\_ads, topic\_mobile\_ads, etc)
 
 Pros: more throughput, Cons: more complexity
+
+
+
+## Appendix:
+
+[Uber ad event processing architecture](https://www.uber.com/blog/real-time-exactly-once-ad-event-processing/)
