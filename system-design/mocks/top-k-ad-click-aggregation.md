@@ -170,7 +170,7 @@ Kappa: A system that combines the batch and streaming in one processing path, th
 
 ### Data recalculation
 
-<img src="../../.gitbook/assets/file.excalidraw (1) (1) (1) (1) (1) (1) (1) (1).svg" alt="" class="gitbook-drawing">
+<img src="../../.gitbook/assets/file.excalidraw (4).svg" alt="" class="gitbook-drawing">
 
 ### Time
 

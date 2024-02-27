@@ -177,7 +177,7 @@ Value: ["p_1", "p_2", "p_3", "p_4"]
 
 2. For client (websocket servers) to subscribe to any updates to the "Value" (a list of Redis Pub/Sub servers)
 
-<img src="../../.gitbook/assets/file.excalidraw (4).svg" alt="" class="gitbook-drawing">
+<img src="../../.gitbook/assets/file.excalidraw (4) (1).svg" alt="" class="gitbook-drawing">
 
 ## FAQ
 
