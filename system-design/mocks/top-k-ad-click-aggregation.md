@@ -4,6 +4,16 @@ description: https://www.uber.com/blog/real-time-exactly-once-ad-event-processin
 
 # Top K / Ad Click Aggregation
 
+## Topics:
+
+1. DB Choice: Pinot or Cassandra or BigData infra.
+2. Raw data vs aggregated data?
+3. Exact-once processing
+4. Batch vs streaming
+5. Kappa vs Lambda
+6. How to manage aggregation window?
+7. How to do recalculation and reconciliation?
+
 Q:
 
 1.  How are those ad click events stored and fetched?
