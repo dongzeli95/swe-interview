@@ -83,7 +83,7 @@ Use inverted index to map searched words onto feeds.
 
 <img src="../../.gitbook/assets/file.excalidraw (1) (1) (1) (1) (1) (1).svg" alt="" class="gitbook-drawing">
 
-<img src="../../.gitbook/assets/file.excalidraw (1) (1) (1) (1) (1) (1) (1).svg" alt="" class="gitbook-drawing">
+<img src="../../.gitbook/assets/file.excalidraw (3).svg" alt="" class="gitbook-drawing">
 
 ### How indexing work?
 

@@ -48,7 +48,7 @@ User1's friends: User2, User3 and User4
 
 User5's friends: User4, User6
 
-<img src="../../.gitbook/assets/file.excalidraw (3).svg" alt="" class="gitbook-drawing">
+<img src="../../.gitbook/assets/file.excalidraw (3) (1).svg" alt="" class="gitbook-drawing">
 
 We assign channel to every user who uses "nearby" feature. A user would, upon app initialization, subscribe to each friend's channel regardless whether the friend is online or not.
 
