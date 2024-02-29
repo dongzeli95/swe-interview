@@ -36,6 +36,13 @@ Output: []
 // Let N be the number of candidates.
 // T target value, M minimal value among candidates.
 // Time: O(N^(T/M+1)), Space: O(T/M) depth
+/*
+As we illustrated before, the execution of the backtracking is unfolded as a DFS traversal in a n-ary tree.
+The total number of steps during the backtracking would be the number of nodes in the tree.
+
+The maximal depth of the tree, would be T/M where we keep on adding the smallest element to the combination.
+The maximal number of nodes in N-ary tree of height T/M is N^(T/M+1)
+*/
 
 // n-nary tree, the maximum number of nodes of T/M height is N^(T/M+1)
 void helper(vector<int>& candidates, int target, int idx, 
@@ -99,6 +106,11 @@ Output:
 ]
 */
 
+// n: number of candidates
+// Time: O(2^n*target), target the longest length for combination list, we have to copy list to result.
+// Space:
+//  a. Stack: O(target)
+//  b. Result vector: O(2^n)
 void dfs2(vector<int>& candidates, 
             int idx, 
             vector<int>& curr,
