@@ -133,6 +133,7 @@
   * [Top K Frequent Elements](algorithm/heap/md/top\_k\_frequent\_elements.md)
   * [Meeting Room III](company-tags/google/md/meeting\_rooms\_iii.md)
   * [Num Flowers Bloom](algorithm/heap/md/num_flowers_bloom.md)
+  * [Find Median From Stream](algorithm/heap/md/find_median_from_stream.md)
 * [Intervals](algorithm/intervals/README.md)
   * [Non Overlapping Intervals](algorithm/intervals/md/non\_overlapping\_intervals.md)
   * [Min Arrows Burst Ballons](algorithm/intervals/md/min\_arrows\_burst\_ballons.md)
@@ -267,3 +268,4 @@
   * [Find Original Array From Doubled](algorithm/array/md/find_original_array_from_doubled.md)
   * [Num Flowers Bloom](algorithm/heap/md/num_flowers_bloom.md)
   * [Distribute Coins](algorithm/binary\_tree/md/distribute_coins.md)
+  * [Find Median From Stream](algorithm/heap/md/find_median_from_stream.md)
