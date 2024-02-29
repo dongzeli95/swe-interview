@@ -13,6 +13,7 @@
 2. User can join group chat.
 3. Message delivery acknowledgement: sent, delivered and read.
 4. Push notification
+5. User status: whether use are online or offline.
 
 ### Optional:
 
@@ -107,6 +108,10 @@ Send message
 /send
 request: uid, room_id, message, type?, media_object?, document?
 response: emit("message sent", channel="xxx", to=uid)
+
+/join_group
+/leave_group
+get_all_group(uid)
 ```
 
 Acknowledgement Handler on client
@@ -125,7 +130,7 @@ Message Table
 Message {
   channel_id bigint,
   bucket int, // partition based on time, channel_id + bucket to be primary key
-  message_id,
+  message_id, // snowflake id
   author_id,
   content text,
   status: SENT, READ, RECEIVED, RECALLED
@@ -157,8 +162,13 @@ Conversation {
 }
 
 UserConversation {
-  uid
-  conversation_id
+  uid // partition key
+  conversation_id // sort key
+}
+
+ConversationUser {
+  conversation_id //partition_key
+  uid // sort_key
 }
 ```
 
@@ -201,4 +211,22 @@ max 10k connections.
 2B Users -> 20B channels \* 20 bytes = 400\*10^9 bytes / GB = 400 GB
 
 We need 4 Redis servers with each Redis server has 100GB.
+
+## How to maintain message ordering?
+
+the message might be sent&#x20;
+
+To adjust incorrect device clocks, one approach is to log three timestamps:
+
+1. The time at which the event occurred, according to the device lock.
+2. The time at which the event was sent to the server, according to device clock.
+3. The time at which the event was received by the server, according to server clock.
+
+offset = 3-2
+
+real time = 1+offset
+
+## [Erlang/Elixir](https://dashbit.co/blog/you-may-not-need-redis-with-elixir)?
+
+Decentralized approach regarding pubsub message delivery (at-most-once), Presence(join room, leave room) and caching..
 

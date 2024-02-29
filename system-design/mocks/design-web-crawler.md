@@ -1,5 +1,13 @@
 # Design Web Crawler
 
+## Topics
+
+1. Politeness / Crawl Rate
+2. DNS query
+3. Distributed Crawling
+4. Priority Crawling
+5. Duplicate detection
+
 ## Functional Requirements
 
 1. Crawling: The system should scrape www, spanning from a queue of seed URLs provided initially by the system admin.\
@@ -65,3 +73,42 @@ Duplicate eliminator: dedup testing on incoming URLs and documents.
    The extractor sends the newly discovered URLs to scheduler. Save then in DB and sets value for priority.
 7. Recrawling\
    Once a cycle is complete, the crawler goes back to first point and repeats the same process until URL frontier query is empty.\
+
+
+## Deep dive
+
+### Why we need DNS resolver:
+
+1. We are crawling using a library but not from browser, avoid additional network hops.
+2. DNS resolver is synchronous and not work with multi-thread worker architecture.
+
+### URL Frontier
+
+Front queues are for priorities, Back queues for politeness.
+
+1. Priority
+
+How to set priority:
+
+* How frequently the site is changing?
+
+2. Politeness
+
+Put the url from same site onto same back queue to make sure we don't overwhelm it.
+
+One back queue is associated with one worker thread.
+
+3. Freshness
+
+
+
+<img src="../../.gitbook/assets/file.excalidraw (30).svg" alt="" class="gitbook-drawing">
+
+Partition metadata table
+
+| Host           | Back queue ID |
+| -------------- | ------------- |
+| digit.com      | 5             |
+| techcrunch.com | 1             |
+| youtube.com    | 17            |
+

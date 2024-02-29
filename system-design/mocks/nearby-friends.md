@@ -48,7 +48,7 @@ User1's friends: User2, User3 and User4
 
 User5's friends: User4, User6
 
-<img src="../../.gitbook/assets/file.excalidraw (3).svg" alt="" class="gitbook-drawing">
+<img src="../../.gitbook/assets/file.excalidraw (3) (1).svg" alt="" class="gitbook-drawing">
 
 We assign channel to every user who uses "nearby" feature. A user would, upon app initialization, subscribe to each friend's channel regardless whether the friend is online or not.
 
@@ -177,7 +177,7 @@ Value: ["p_1", "p_2", "p_3", "p_4"]
 
 2. For client (websocket servers) to subscribe to any updates to the "Value" (a list of Redis Pub/Sub servers)
 
-<img src="../../.gitbook/assets/file.excalidraw (4).svg" alt="" class="gitbook-drawing">
+<img src="../../.gitbook/assets/file.excalidraw (4) (1).svg" alt="" class="gitbook-drawing">
 
 ## FAQ
 
