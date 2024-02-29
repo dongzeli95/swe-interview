@@ -8,3 +8,4 @@
 * [Minimum Replacement](./md/minimum_replacement.md)
 * [Longest Palindrome Two Letter Words](./md/longest_palindrome_two_letter_words.md)
 * [Largest Palindromic Num](./md/largest_palindromic_num.md)
+* [Find Missing Observations](./md/find_missing_observations.md)
