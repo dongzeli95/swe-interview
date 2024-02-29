@@ -13,3 +13,4 @@
 * [Count Fertile Pyramids](./md/count_fertile_pyramids.md)
 * [Minimum Time Finish Race](./md/minimum_time_finish_race.md)
 * [Knapsack](./md/knapsack.md)
+* [Count Unique Char Substrs](./md/count_unique_char_substrs.md)
