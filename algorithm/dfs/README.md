@@ -12,3 +12,4 @@
 * [Scheduler](./md/scheduler.md)
 * [Detonate Maximum Bombs](./md/detonate_maximum_bombs.md)
 * [Find All Possible Recipes](./md/find_all_possible_recipes.md)
+* [Min Fuel Report Capital](./md/min_fuel_report_capital.md)

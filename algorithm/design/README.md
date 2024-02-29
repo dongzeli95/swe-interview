@@ -3,3 +3,4 @@
 * [Get Random](./md/get_random.md)
 * [Moving Average](./md/moving_average.md)
 * [Rle Iterator](./md/rle_iterator.md)
+* [Design Hashmap](./md/design_hashmap.md)
