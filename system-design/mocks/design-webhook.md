@@ -8,6 +8,8 @@
 4. How to validate webhook url ownership?
 5. How to make sure webhook request are secure?
 6. Rate limiting and VPC before sending the request?
+7. Why to use Kafka vs SQS? Pros and Cons?
+8. How to filter different event types, can we use Topic from Kafka?
 
 ## Qs:
 
@@ -83,6 +85,8 @@ WebhookTask Table
 
 <img src="../../.gitbook/assets/file.excalidraw (29).svg" alt="Initial Approach without MQ" class="gitbook-drawing">
 
+<img src="../../.gitbook/assets/file.excalidraw.svg" alt="" class="gitbook-drawing">
+
 ### E2E
 
 1. Client register a webhook with a url
@@ -94,7 +98,29 @@ WebhookTask Table
 
 ## Deep Dive
 
-###
+### How to handle failure?
+
+Consumer APIs may fail, may timeout, in order to make sure the webhook is sent successfully at least once, we introduces message queue in the middle to decouple the webhook delivery with webhook registration process.&#x20;
+
+#### Benefits:
+
+1. We have retry support, if consumer API timeout or fail, we can reprocess the task again later.
+2. Webhook registration service doesn't have to wait for the webhook task to be delivered in order to register next webhook.
+3. If there are traffic burst, message queue can help smoothen out the load such that workers are not overwhelmed, and we can scale up number of workers to  catch up on consumption speed.
+
+### How to do retry?
+
+Depending on which message queue we are using, there are different mechanisms.&#x20;
+
+For traditional message queue like SQS, if the task failed to process for whatever reason, the worker don't acknowledge the message within the visibility timeout period, SQS assumes the message processing failed, and other worker will be able to see this task again for retry.&#x20;
+
+For Kafka, the worker only commit offset after the task is successfully processed. So if consumer worker dead, some other consumer will be able to start processing from the previous commit offset which will ensure the retry.
+
+### What happen if retry doesn't work? DLQ!
+
+In SQS, if the configured maximum receive count for a message is reached without being successfully processed, SQS will move the message into a dead letter queue. We can investigate and fix issue and playback the messages later.
+
+
 
 How to validate request is delivered to the right user?
 
