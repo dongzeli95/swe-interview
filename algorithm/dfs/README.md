@@ -13,3 +13,5 @@
 * [Detonate Maximum Bombs](./md/detonate_maximum_bombs.md)
 * [Find All Possible Recipes](./md/find_all_possible_recipes.md)
 * [Min Fuel Report Capital](./md/min_fuel_report_capital.md)
+* [Similar String Groups](./md/similar_string_groups.md)
+* [Walls Gates](./md/walls_gates.md)
