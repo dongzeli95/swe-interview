@@ -256,6 +256,7 @@
   * [Pw3](company-tags/instacart/md/pw3.md)
 * [OpenAI](company-tags/openai/README.md)
   * [Spreadsheet](company-tags/openai/md/spreadsheet.md)
+  * [Iterator](company-tags/openai/md/iterator.md)
 * [Microsoft]
   * [Min Moves Spread Stones](algorithm/backtracking/md/min_moves_spread_stones.md)
   * [Inorder Successor](algorithm/binary_search_tree/md/inorder_successor.md)
