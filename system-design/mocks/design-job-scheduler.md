@@ -6,8 +6,16 @@ description: Design a job scheduler that runs jobs at a scheduled interval.
 
 [Link](https://www.linkedin.com/pulse/system-design-distributed-job-scheduler-keep-simple-stupid-ismail/)
 
-* Design a system for payment processing. (monthly/weekly/daily payout etc)
-* Design a code deployment system.
+[Medium Link2](https://medium.com/@mesutpiskin/building-a-distributed-job-scheduler-for-microservices-8b7ab2ce5f91)
+
+## Topics:
+
+1. RDBMS vs NoSQL?
+2. SQS vs Kafka?
+3. How to handle at-least once?
+4. How to make sure no concurrent worker working on same job? Task idempotency?
+5. Execution Cap?
+6. How to do prioritization? Using different queue?
 
 ## Functional Requirements
 
@@ -45,6 +53,26 @@ description: Design a job scheduler that runs jobs at a scheduled interval.
 4. Job executor service execute the business logic and update final result onto file system and update the status as COMPLETED.
 
 ## Data Schema
+
+```
+Job History Table
+job_id
+execution_id
+status
+worker_id
+retry_cnt
+
+Job Execution Table
+next_execution ?? why we need this?
+job_id
+
+Job Table
+user_id (partition_key)
+job_id (sort key)
+retry_cnt
+created
+interval: 3hr, -1
+```
 
 | Column               | Datatype | Description                                                                                |
 | -------------------- | -------- | ------------------------------------------------------------------------------------------ |

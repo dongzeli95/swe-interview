@@ -17,14 +17,14 @@ description: 'Reviews:'
 9. Real-time leaderboard
 10. Payment System
 11. Stock Exchange
-12. Design Youtube/Netflix (P1)
-13. Design Google Doc (P1)
-14. Design Chat App (P0)
+12. ~~Design Youtube/Netflix (P1)~~
+13. ~~Design Google Doc (P1)~~
+14. ~~Design Chat App (P0)~~
 15. Design Instagram (P1)
 16. Design Twitter (P0)
 17. Design TinyURL (P0)
 18. Design Distributed Search (P1)
-19. Design ChatGPT (P0)
+19. ~~Design ChatGPT (P0)~~
 20. Design Task Scheduler (P1)
 
 
