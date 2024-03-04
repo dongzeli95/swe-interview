@@ -116,9 +116,41 @@ For traditional message queue like SQS, if the task failed to process for whatev
 
 For Kafka, the worker only commit offset after the task is successfully processed. So if consumer worker dead, some other consumer will be able to start processing from the previous commit offset which will ensure the retry.
 
-### What happen if retry doesn't work? DLQ!
+We can handle errors with exponential backoff. Each request that results in a non-200 response code or time out will be re-attempted over the course of 10 minutes. Client can see the error in the console UI.
+
+### How to verify webhook url ownership?
+
+Send a request to client webhook url served as a verification request.
+
+The verification request will be a GET request with a challenge parameter, which is a random string.
+
+```
+https://www.example.com/webhook?challenge=xxxx
+```
+
+client app should echo back the challenge parameter as the body of its response. Once we receives a valid response, the endpoint is considered a valid webhook, we can start sending notifications to those urls.&#x20;
+
+client app have ten seconds to responde to the verification request. We will not perform automatic retry for verficiation requests.
+
+### What happen if retry doesn't work?
+
+#### If issue comes from our end?
 
 In SQS, if the configured maximum receive count for a message is reached without being successfully processed, SQS will move the message into a dead letter queue. We can investigate and fix issue and playback the messages later.
+
+#### If issue comes from client end?
+
+If client webhook url returns more than a percentage of errors in the past 10 minutes, or 5% failure rate.  We can disable client's webhook and notify them through email. They can re-enable their webhook in console UI.
+
+### How to scale?
+
+1. Do load test to figure out the bottleneck.
+
+#### Potential bottlenecks:
+
+* API/Webhook delivery servers: deploy on k8s and use auto scale.
+* Cassandra DB: figure out partition key and sort key to do partition and increase on write throughput?
+* Kafka: Add more specific topics and more partitions within the topic.
 
 
 
@@ -142,8 +174,6 @@ Why we don't make web-hook call to customer directly?
 why we need extra logging and monitoring?
 
 Web-hook is hard to know where it failed, client won't be able to know. You will have to know.
-
-### Segment different topics?
 
 ### Security issue?
 
