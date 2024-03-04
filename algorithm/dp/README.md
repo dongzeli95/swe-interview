@@ -14,3 +14,4 @@
 * [Minimum Time Finish Race](./md/minimum_time_finish_race.md)
 * [Knapsack](./md/knapsack.md)
 * [Count Unique Char Substrs](./md/count_unique_char_substrs.md)
+* [Count All Valid Pickup](./md/count_all_valid_pickup.md)

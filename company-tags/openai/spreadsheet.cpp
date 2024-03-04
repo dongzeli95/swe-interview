@@ -67,6 +67,28 @@ public:
     // Values
     unordered_map<string, int> values;
 
+    bool hasCycleUtil(string key, unordered_map<string, int>& visited) {
+        for (auto p : parents[key]) {
+            if (visited.count(p)) {
+                if (visited[p] == 1) continue;
+                else if (visited[p] == 2) return true;
+            } else {
+                visited[p] = 1;
+                if (hasCycleUtil(p, visited)) {
+                    return true;
+                }
+            }
+        }
+
+        visited[key] = 2;
+        return false;
+    }
+
+    bool hasCyclic(string key) {
+        unordered_map<string, int> visited;
+        return hasCycleUtil(key, visited);
+    }
+
     // Time: O(1)
     int getCell(string key) {
         if (!values.count(key)) {
@@ -82,10 +104,22 @@ public:
     // b. children->val
     // c. val->val
     // d. children -> children
-
     // Time: O(n)
-    void setCell(string key, variant<int, pair<string, string>> val) {
+    bool setCell(string key, variant<int, pair<string, string>> val) {
+        // Connect parent and check cycle first.
         pair<int, vector<string>> value = parse(val);
+        for (auto i : value.second) {
+            parents[i].insert(key);
+        }
+        if (hasCyclic(key)) {
+            for (auto i : value.second) {
+                parents[i].erase(key);
+            }
+
+            return false;
+        }
+
+
         if (!m.count(key)) {
             m[key] = val;
             values[key] = value.first;
@@ -93,7 +127,7 @@ public:
                 parents[i].insert(key);
             }
 
-            return;
+            return true;
         }
 
         variant<int, pair<string, string>> prevVal = m[key];
@@ -113,6 +147,8 @@ public:
         // Update downstream parent values using BFS.
         int valueDiff = value.first - prevValue.first;
         updateParentValues(key, valueDiff);
+
+        return true;
     }
 
     pair<int, vector<string>> parse(variant<int, pair<string, string>> val) {
@@ -195,6 +231,13 @@ int main() {
     cout << "G: " << ss.getCell("G") << endl; // 3
     cout << "F: " << ss.getCell("F") << endl; // 2
 
+    // Cycle detection
+    cout << ss.setCell("D", make_pair("C", "A")) << endl; // 0
+    cout << "B: " << ss.getCell("B") << endl; // 4
+    cout << "C: " << ss.getCell("C") << endl; // 7
+    cout << "D: " << ss.getCell("D") << endl; // 1
+    cout << "G: " << ss.getCell("G") << endl; // 3
+    cout << "F: " << ss.getCell("F") << endl; // 2
 
 
     // Cell A = Cell(6);
