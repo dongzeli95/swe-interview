@@ -1,15 +1,10 @@
-# Spreadsheet
-
-<figure><img src="../../../.gitbook/assets/Screenshot 2024-02-25 at 1.51.48 PM.png" alt=""><figcaption></figcaption></figure>
-
-<figure><img src="../../../.gitbook/assets/Screenshot 2024-02-25 at 1.51.55 PM.png" alt=""><figcaption></figcaption></figure>
-
-<pre class="language-cpp"><code class="lang-cpp"><strong>#include &#x3C;string>
-</strong>#include &#x3C;map>
-#include &#x3C;iostream>
-#include &#x3C;queue>
-#include &#x3C;variant>
-#include &#x3C;unordered_set>
+```cpp
+#include <string>
+#include <map>
+#include <iostream>
+#include <queue>
+#include <variant>
+#include <unordered_set>
 
 using namespace std;
 
@@ -20,7 +15,7 @@ using namespace std;
 
 class SpreadSheetBFS {
 public:
-    map&#x3C;string, variant&#x3C;int, pair&#x3C;string, string>>> m;
+    map<string, variant<int, pair<string, string>>> m;
     SpreadSheetBFS() {}
 
     // Time: O(n)
@@ -33,12 +28,12 @@ public:
     }
 
     // Time: O(1)
-    void setCell(string key, variant&#x3C;int, pair&#x3C;string, string>> val) {
+    void setCell(string key, variant<int, pair<string, string>> val) {
         m[key] = val;
     }
 
     int bfs(string key) {
-        queue&#x3C;string> q;
+        queue<string> q;
         q.push(key);
 
         int res = 0;
@@ -46,11 +41,11 @@ public:
             string curr = q.front();
             q.pop();
 
-            if (holds_alternative&#x3C;int>(m[curr])) {
-                res += std::get&#x3C;int>(m[curr]);
+            if (holds_alternative<int>(m[curr])) {
+                res += std::get<int>(m[curr]);
             }
             else {
-                auto&#x26; children = get&#x3C;pair&#x3C;string, string>>(m[curr]);
+                auto& children = get<pair<string, string>>(m[curr]);
                 if (!children.first.empty()) {
                     q.push(children.first);
                 }
@@ -66,12 +61,34 @@ public:
 
 class SpreadSheetBFSWithCache {
 public:
-    map&#x3C;string, variant&#x3C;int, pair&#x3C;string, string>>> m;
+    map<string, variant<int, pair<string, string>>> m;
 
     // Parent relationship
-    unordered_map&#x3C;string, unordered_set&#x3C;string>> parents;
+    unordered_map<string, unordered_set<string>> parents;
     // Values
-    unordered_map&#x3C;string, int> values;
+    unordered_map<string, int> values;
+
+    bool hasCycleUtil(string key, unordered_map<string, int>& visited) {
+        for (auto p : parents[key]) {
+            if (visited.count(p)) {
+                if (visited[p] == 1) continue;
+                else if (visited[p] == 2) return true;
+            } else {
+                visited[p] = 1;
+                if (hasCycleUtil(p, visited)) {
+                    return true;
+                }
+            }
+        }
+
+        visited[key] = 2;
+        return false;
+    }
+
+    bool hasCyclic(string key) {
+        unordered_map<string, int> visited;
+        return hasCycleUtil(key, visited);
+    }
 
     // Time: O(1)
     int getCell(string key) {
@@ -88,10 +105,22 @@ public:
     // b. children->val
     // c. val->val
     // d. children -> children
-
     // Time: O(n)
-    void setCell(string key, variant&#x3C;int, pair&#x3C;string, string>> val) {
-        pair&#x3C;int, vector&#x3C;string>> value = parse(val);
+    bool setCell(string key, variant<int, pair<string, string>> val) {
+        // Connect parent and check cycle first.
+        pair<int, vector<string>> value = parse(val);
+        for (auto i : value.second) {
+            parents[i].insert(key);
+        }
+        if (hasCyclic(key)) {
+            for (auto i : value.second) {
+                parents[i].erase(key);
+            }
+
+            return false;
+        }
+
+
         if (!m.count(key)) {
             m[key] = val;
             values[key] = value.first;
@@ -99,11 +128,11 @@ public:
                 parents[i].insert(key);
             }
 
-            return;
+            return true;
         }
 
-        variant&#x3C;int, pair&#x3C;string, string>> prevVal = m[key];
-        pair&#x3C;int, vector&#x3C;string>> prevValue = parse(prevVal);
+        variant<int, pair<string, string>> prevVal = m[key];
+        pair<int, vector<string>> prevValue = parse(prevVal);
 
         m[key] = val;
         // Invalidate previous parent relationship or keep track of value diff.
@@ -119,20 +148,22 @@ public:
         // Update downstream parent values using BFS.
         int valueDiff = value.first - prevValue.first;
         updateParentValues(key, valueDiff);
+
+        return true;
     }
 
-    pair&#x3C;int, vector&#x3C;string>> parse(variant&#x3C;int, pair&#x3C;string, string>> val) {
-        if (holds_alternative&#x3C;int>(val)) {
-            return {get&#x3C;int>(val), {}};
+    pair<int, vector<string>> parse(variant<int, pair<string, string>> val) {
+        if (holds_alternative<int>(val)) {
+            return {get<int>(val), {}};
         } else {
-            auto&#x26; children = get&#x3C;pair&#x3C;string, string>>(val);
+            auto& children = get<pair<string, string>>(val);
             int value = values[children.first] + values[children.second];
             return {value, {children.first, children.second}};
         }
     }
 
     void updateParentValues(string key, int diff) {
-        queue&#x3C;string> q;
+        queue<string> q;
         q.push(key);
 
         while (!q.empty()) {
@@ -156,12 +187,12 @@ int main() {
     // ss.setCell("B", 7);
     // ss.setCell("C", make_pair("A", "B"));
 
-    // cout &#x3C;&#x3C; "A: " &#x3C;&#x3C; ss.getCell("A") &#x3C;&#x3C; endl; // 6
-    // cout &#x3C;&#x3C; "B: " &#x3C;&#x3C; ss.getCell("B") &#x3C;&#x3C; endl; // 7
-    // cout &#x3C;&#x3C; "C: " &#x3C;&#x3C; ss.getCell("C") &#x3C;&#x3C; endl; // 13
+    // cout << "A: " << ss.getCell("A") << endl; // 6
+    // cout << "B: " << ss.getCell("B") << endl; // 7
+    // cout << "C: " << ss.getCell("C") << endl; // 13
 
     // ss.setCell("A", 13);
-    // cout &#x3C;&#x3C; "C: " &#x3C;&#x3C; ss.getCell("C") &#x3C;&#x3C; endl; // 20
+    // cout << "C: " << ss.getCell("C") << endl; // 20
 
     // // C -> B, G
     // ss.setCell("C", make_pair("B", "G"));
@@ -170,23 +201,23 @@ int main() {
     // ss.setCell("D", 1);
     // ss.setCell("F", 2);
 
-    // cout &#x3C;&#x3C; "B: " &#x3C;&#x3C; ss.getCell("B") &#x3C;&#x3C; endl; // 4
-    // cout &#x3C;&#x3C; "C: " &#x3C;&#x3C; ss.getCell("C") &#x3C;&#x3C; endl; // 7
-    // cout &#x3C;&#x3C; "D: " &#x3C;&#x3C; ss.getCell("D") &#x3C;&#x3C; endl; // 1
-    // cout &#x3C;&#x3C; "G: " &#x3C;&#x3C; ss.getCell("G") &#x3C;&#x3C; endl; // 3
-    // cout &#x3C;&#x3C; "F: " &#x3C;&#x3C; ss.getCell("F") &#x3C;&#x3C; endl; // 2
+    // cout << "B: " << ss.getCell("B") << endl; // 4
+    // cout << "C: " << ss.getCell("C") << endl; // 7
+    // cout << "D: " << ss.getCell("D") << endl; // 1
+    // cout << "G: " << ss.getCell("G") << endl; // 3
+    // cout << "F: " << ss.getCell("F") << endl; // 2
 
     SpreadSheetBFSWithCache ss;
     ss.setCell("A", 6);
     ss.setCell("B", 7);
     ss.setCell("C", make_pair("A", "B"));
 
-    cout &#x3C;&#x3C; "A: " &#x3C;&#x3C; ss.getCell("A") &#x3C;&#x3C; endl; // 6
-    cout &#x3C;&#x3C; "B: " &#x3C;&#x3C; ss.getCell("B") &#x3C;&#x3C; endl; // 7
-    cout &#x3C;&#x3C; "C: " &#x3C;&#x3C; ss.getCell("C") &#x3C;&#x3C; endl; // 13
+    cout << "A: " << ss.getCell("A") << endl; // 6
+    cout << "B: " << ss.getCell("B") << endl; // 7
+    cout << "C: " << ss.getCell("C") << endl; // 13
 
     ss.setCell("A", 13);
-    cout &#x3C;&#x3C; "C: " &#x3C;&#x3C; ss.getCell("C") &#x3C;&#x3C; endl; // 20
+    cout << "C: " << ss.getCell("C") << endl; // 20
 
     // C -> B, G
     ss.setCell("D", 1);
@@ -195,12 +226,19 @@ int main() {
     ss.setCell("B", make_pair("G", "D"));
     ss.setCell("C", make_pair("B", "G"));
 
-    cout &#x3C;&#x3C; "B: " &#x3C;&#x3C; ss.getCell("B") &#x3C;&#x3C; endl; // 4
-    cout &#x3C;&#x3C; "C: " &#x3C;&#x3C; ss.getCell("C") &#x3C;&#x3C; endl; // 7
-    cout &#x3C;&#x3C; "D: " &#x3C;&#x3C; ss.getCell("D") &#x3C;&#x3C; endl; // 1
-    cout &#x3C;&#x3C; "G: " &#x3C;&#x3C; ss.getCell("G") &#x3C;&#x3C; endl; // 3
-    cout &#x3C;&#x3C; "F: " &#x3C;&#x3C; ss.getCell("F") &#x3C;&#x3C; endl; // 2
+    cout << "B: " << ss.getCell("B") << endl; // 4
+    cout << "C: " << ss.getCell("C") << endl; // 7
+    cout << "D: " << ss.getCell("D") << endl; // 1
+    cout << "G: " << ss.getCell("G") << endl; // 3
+    cout << "F: " << ss.getCell("F") << endl; // 2
 
+    // Cycle detection
+    cout << ss.setCell("D", make_pair("C", "A")) << endl; // 0
+    cout << "B: " << ss.getCell("B") << endl; // 4
+    cout << "C: " << ss.getCell("C") << endl; // 7
+    cout << "D: " << ss.getCell("D") << endl; // 1
+    cout << "G: " << ss.getCell("G") << endl; // 3
+    cout << "F: " << ss.getCell("F") << endl; // 2
 
 
     // Cell A = Cell(6);
@@ -211,19 +249,19 @@ int main() {
     // sheet.set("B", B);
     // sheet.set("C", C);
     // int a = sheet.get("A");
-    // cout &#x3C;&#x3C; a &#x3C;&#x3C; endl;
+    // cout << a << endl;
 
     // int b = sheet.get("B");
-    // cout &#x3C;&#x3C; b &#x3C;&#x3C; endl;
+    // cout << b << endl;
 
     // int c = sheet.get("C");
-    // cout &#x3C;&#x3C; c &#x3C;&#x3C; endl;
+    // cout << c << endl;
 
     // A.val = 13;
     // sheet.set("A", A);
 
     // c = sheet.get("C");
-    // cout &#x3C;&#x3C; c &#x3C;&#x3C; endl;
+    // cout << c << endl;
 
     return 0;
 }
@@ -243,7 +281,7 @@ public:
 // Without Cache
 class SpreadSheet {
 public:
-    unordered_map&#x3C;string, Cell> m;
+    unordered_map<string, Cell> m;
 
     SpreadSheet() {}
     int get(string key) {
@@ -255,7 +293,7 @@ public:
 
     int dfs(string key) {
         Cell cell = m[key];
-        if (cell.child1.empty() &#x26;&#x26; cell.child2.empty()) {
+        if (cell.child1.empty() && cell.child2.empty()) {
             return cell.val;
         }
 
@@ -268,4 +306,3 @@ public:
         m[key] = cell;
     }
 };```
-</code></pre>
