@@ -35,7 +35,7 @@ Optional:
 
 ## High Level Design
 
-<img src="../../.gitbook/assets/file.excalidraw (1) (1) (1) (1).svg" alt="" class="gitbook-drawing">
+<img src="../../.gitbook/assets/file.excalidraw (1) (1) (1) (1) (1).svg" alt="" class="gitbook-drawing">
 
 1. Client send a GET request to API Gateway for fetching videos.
 2. request get routed to Video service
@@ -175,7 +175,7 @@ total = 6\*500\*60 = 180000 MB per minute = 180GB per minute = 180\*24\*60 = 259
 
 500 hr/min \* 60 min \* 120mb/min \* 8 bits / 60s = 480Gbps
 
-<img src="../../.gitbook/assets/file.excalidraw (1) (1) (1) (1).svg" alt="" class="gitbook-drawing">
+<img src="../../.gitbook/assets/file.excalidraw (1) (1) (1) (1) (1).svg" alt="" class="gitbook-drawing">
 
 1. Use dynamo DB for large read requests and partition data easily with schema key design
 
