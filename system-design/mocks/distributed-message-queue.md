@@ -63,7 +63,7 @@ For WAL, a file cannot grow infinitely, we need segments. New messages are appen
 
 ## High Level Diagram
 
-<img src="../../.gitbook/assets/file.excalidraw (1).svg" alt="Basic version" class="gitbook-drawing">
+<img src="../../.gitbook/assets/file.excalidraw (1) (1).svg" alt="Basic version" class="gitbook-drawing">
 
 1. Scale message queue -> cluster of brokers coordinated by zookeeper for leader election.
 2. Consumer -> consumer groups for better read throughput.

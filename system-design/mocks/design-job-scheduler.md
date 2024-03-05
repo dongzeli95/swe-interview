@@ -55,20 +55,27 @@ description: Design a job scheduler that runs jobs at a scheduled interval.
 ## Data Schema
 
 ```
-Job History Table
+Job Execution Table (for quickly fetching jobs that needs to be executed)
+next_execution
 job_id
-execution_id
-status
-worker_id
-retry_cnt
+(job_id+next_execution_bucket) partiton key
+created_at (sort key)
 
-Job Execution Table
-next_execution ?? why we need this?
-job_id
+Job Table (for updating status and job details)
+job_id (partition_key)
+created_at (sort_key)
+user_id
+execution_cap
+scheduling_type
+total_attempts
+script_path
+resource_req {Basic, Regular, Premium}
+status: {CLAIMED, PROCESSING, FAILED, SUCCEED}
 
-Job Table
+Job History Table (for quickly lookup jobs history user executed)
 user_id (partition_key)
-job_id (sort key)
+created_at (sort_key)
+job_id
 retry_cnt
 created
 interval: 3hr, -1
@@ -106,7 +113,7 @@ SELECT * FROM ScheduledJob WHERE scheduled_job_execution_time == now() - X and s
 
 ### Job Executor Flow
 
-1. When a job is picked up from the queue, consumer's master updates JOB db attribution execution\_status = CLAIMED
+1. When a job is picked up from the queue, consumer's master updates JOB db attribution execution\_status = CLAIMED.
 2. When worker process picks up the work, it updates execution\_status = PROCESSING and continuously send health check to local DB.
 3. Upon completion of a job, worker process will push the result inside S3, update JOB db execution\_status = COMPLETED and local db with the status.
 4. Both worker processes and master will update the health check inside local database.

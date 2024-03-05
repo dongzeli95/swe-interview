@@ -2,6 +2,8 @@
 
 ## [Web Crawler Study Link](https://github.com/donnemartin/system-design-primer/blob/master/solutions/system\_design/web\_crawler/README.md)
 
+## [Web Crawler Medium Link](https://jc1175.medium.com/how-i-would-design-a-web-crawler-9013251fa9f3)
+
 ## Topics
 
 1. Politeness / Crawl Rate
