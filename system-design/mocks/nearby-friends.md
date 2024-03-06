@@ -40,7 +40,7 @@ description: >-
 
 ## High Level Diagram
 
-<img src="../../.gitbook/assets/file.excalidraw (2) (1) (1).svg" alt="Architecture" class="gitbook-drawing">
+<img src="../../.gitbook/assets/file.excalidraw (2) (1) (1) (1).svg" alt="Architecture" class="gitbook-drawing">
 
 ## Websocket Diagram
 
