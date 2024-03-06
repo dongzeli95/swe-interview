@@ -189,8 +189,9 @@
   * [Design File System](algorithm/trie/md/design_file_system.md)
 * [Union Find](algorithm/union\_find/README.md)
   * [Accounts Merge](algorithm/union\_find/md/accounts\_merge.md)
-* [Scheduler](company-tags/rabbit/md/scheduler.md)
-* [SchedulerC++](company-tags/rabbit/md/scheduler\_cpp.md)
+* [Multithreading](algorithm/multithreading/README.md)
+  * [Basics](algorithm/multithreading/md/basics.md)
+  * [Web Crawler](algorithm/multithreading/md/web_crawler.md)
 
 ## System Design
 
@@ -268,6 +269,10 @@
 * [OpenAI](company-tags/openai/README.md)
   * [Spreadsheet](company-tags/openai/md/spreadsheet.md)
   * [Iterator](company-tags/openai/md/iterator.md)
+  * [Kv Store](company-tags/openai/md/kv_store.md)
+* [Rabbit](company-tags/rabbit/README.md)
+  * [Scheduler](company-tags/rabbit/md/scheduler.md)
+  * [SchedulerC++](company-tags/rabbit/md/scheduler\_cpp.md)
 * [\[Microsoft\]](company-tags/microsoft/README.md)
   * [Min Moves Spread Stones](algorithm/backtracking/md/min\_moves\_spread\_stones.md)
   * [Inorder Successor](algorithm/binary\_search\_tree/md/inorder\_successor.md)
