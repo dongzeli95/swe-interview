@@ -7,6 +7,27 @@ from threading import *
 import time
 import random
 
+# Mutex vs Semaphore
+
+# Mutex: mutual exclusion
+# 
+# Semaphore is used for limiting access to a collection of resources. 
+# Think of semaphore as having a limited number of permits to give out. 
+# If a semaphore has given out all the permits it has, then any new thread that comes along requesting a permit will be blocked till an earlier thread with a permit returns it to the semaphore.
+#
+# 1. Mutex implies mutual exclusion and is used to serialize access to critical sections whereas semaphore can potentially be used as a mutex, but it can also be used for cooperation and signaling amongst threads. 
+# Semaphore also solves the issue of missed signals.
+
+# Mutex is owned by a thread, whereas a semaphore has no concept of ownership.
+
+# Mutex, if locked, must necessarily be unlocked by the same thread. A semaphore can be acted upon by different threads. 
+# This is true even if the semaphore has a permit of one
+
+# Condition variable
+# Concisely, a monitor is a mutex and one or more condition variables.
+# The wait() method, when called on cond_var, will cause mutex to be atomically released.
+# the calling thread would be placed in a wait queue. Since the mutex is now released, it gives other thread chance to change predicate.
+# The threads in wait queue will be able to make progress after that. 
 
 class ReadersWriteLock():
     def __init__(self):
