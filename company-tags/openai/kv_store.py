@@ -1,5 +1,39 @@
 import time
 import threading
+from threading import *
+
+class ReadersWriteLock():
+    def __init__(self):
+        self.cond_var = Condition()
+        self.write_in_progress = False
+        self.readers = 0
+
+    def acquire_read_lock(self):
+        self.cond_var.acquire()
+        while self.write_in_progress is True:
+            self.cond_var.wait()
+        self.readers += 1
+        self.cond_var.release()
+
+    def release_read_lock(self):
+        self.cond_var.acquire()
+        self.readers -= 1
+        if self.readers is 0:
+            self.cond_var.notifyAll()
+        self.cond_var.release()
+
+    def acquire_write_lock(self):
+        self.cond_var.acquire()
+        while self.readers is not 0 or self.write_in_progress is True:
+            self.cond_var.wait()
+        self.write_in_progress = True
+        self.cond_var.release()
+
+    def release_write_lock(self):
+        self.cond_var.acquire()
+        self.write_in_progress = False
+        self.cond_var.notifyAll()
+        self.cond_var.release()
 
 class Value:
     def __init__(self, val, time):
@@ -11,10 +45,11 @@ class KVStoreLock:
         self.m = {}
         self.timed_m = {}
         self.counter = 0
-        self.lock = threading.Lock()  # Initialize a lock
+        self.lock = ReadersWriteLock()
 
     def get(self, k, time=None):
-        with self.lock:  # Acquire the lock
+        self.lock.acquire_read_lock()
+        try:
             if time is None:
                 if k not in self.m:
                     raise ValueError("Key doesn't exist")
@@ -29,9 +64,12 @@ class KVStoreLock:
                 raise ValueError("Couldn't find key in time")
 
             return val_list[idx].val
+        finally:
+            self.lock.release_read_lock()
 
     def set(self, k, v):
-        with self.lock:  # Acquire the lock
+        self.lock.acquire_write_lock()
+        try:
             self.m[k] = v
             t = self.get_time()
             value = Value(v, t)
@@ -39,6 +77,8 @@ class KVStoreLock:
                 self.timed_m[k] = [value]
             else:
                 self.timed_m[k].append(value)
+        finally:
+            self.lock.release_write_lock()
 
     def search(self, val_list, time):
         n = len(val_list)
@@ -58,10 +98,9 @@ class KVStoreLock:
         return res
 
     def get_time(self):
-        with self.lock:
-            res = self.counter
-            self.counter += 1
-            return res
+        res = self.counter
+        self.counter += 1
+        return res
 
 class KVStore:
     def __init__(self):
@@ -131,9 +170,9 @@ def test_concurrent_write():
     kv_store = KVStoreLock()
 
     # Creating threads for simultaneous writes
-    thread2 = threading.Thread(target=set_values, args=(kv_store, 'k1'))
-    thread3 = threading.Thread(target=set_values, args=(kv_store, 'k1'))
-    thread1 = threading.Thread(target=set_values, args=(kv_store, 'k1'))
+    thread2 = threading.Thread(target=kv_store.set, args=('k1', 'v1'))
+    thread3 = threading.Thread(target=kv_store.set, args=('k1', 'v2'))
+    thread1 = threading.Thread(target=kv_store.set, args=('k1', 'v3'))
 
     thread1.start()
     thread2.start()
