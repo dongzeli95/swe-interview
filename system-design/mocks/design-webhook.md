@@ -121,6 +121,18 @@ Webhook Table
   status: PENDING, SUCCEED, FAILED
 }
 
+User Webhook Table
+{
+  webhook_id
+  owner_id + time bucket(partition key)
+  event_type
+  destination_url
+  secret_token
+  created_at (sort key)
+  is_active: bool
+  status: PENDING, SUCCEED, FAILED
+}
+
 WebhookTask Table
 {
   task_id
@@ -135,6 +147,8 @@ WebhookTask Table
 <img src="../../.gitbook/assets/file.excalidraw (29).svg" alt="Initial Approach without MQ" class="gitbook-drawing">
 
 <img src="../../.gitbook/assets/file.excalidraw (2).svg" alt="" class="gitbook-drawing">
+
+<img src="../../.gitbook/assets/file.excalidraw.svg" alt="" class="gitbook-drawing">
 
 ### E2E
 
