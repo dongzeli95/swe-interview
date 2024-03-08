@@ -23,6 +23,7 @@
    3. Exactly once
 2. If we resend webhook, could we assume the endpoint to be idempotent?
 3. Are we designing 1st party webhooks or 3rd party webhooks? This is critical since it determines the webhook triggering mechanism. If can be either triggered by us, or triggered by our client.
+4. Do we support canceling the webhook?
 
 ## Functional Requirement:
 
@@ -48,17 +49,59 @@ How many users?&#x20;
 
 ## API
 
-```
-CRUD
+<pre><code>CRUD
 
 POST /v1/webhook
+Request
+{
+  user_id
+  event_type,
+  secret_token,
+  destination_url,
+  payload JSON,
+}
 
-GET /v1/webhook
+Response:
+201 status code
+json {
+  "id": "webhook_id"
+}
 
-PUT /v1/webhook
+GET 
+/v1/webhook?user_id=xxx
+Request {
+  page_number,
+  page_size,
+}
 
-DELETE /v1/webhook
-```
+Response {
+  webhook_list: [
+    {
+      webhook_id,
+      destination_url,
+      status,
+      created_at,
+    },
+    {
+      webhook_id,
+      destination_url,
+      status,
+      created_at,
+    }
+    ...
+  ],
+}
+
+
+GET <a data-footnote-ref href="#user-content-fn-1">/v1/webhook?id=xxx</a>
+Response: {
+  id,
+  user_id,
+  status,
+}
+
+DELETE /v1/webhook (cancel a webhook)
+</code></pre>
 
 ## Schema
 
@@ -68,13 +111,14 @@ Event Table
 
 Webhook Table
 {
-  webhook_id
+  webhook_id (partition key)
   owner_id
   event_type
-  url
+  destination_url
   secret_token
-  created_at
-  is_active: bool 
+  created_at (sort key)
+  is_active: bool
+  status: PENDING, SUCCEED, FAILED
 }
 
 WebhookTask Table
@@ -128,6 +172,25 @@ For traditional message queue like SQS, if the task failed to process for whatev
 For Kafka, the worker only commit offset after the task is successfully processed. So if consumer worker dead, some other consumer will be able to start processing from the previous commit offset which will ensure the retry.
 
 We can handle errors with exponential backoff. Each request that results in a non-200 response code or time out will be re-attempted over the course of 10 minutes. Client can see the error in the console UI.
+
+### What's wrong with simple retries?
+
+<figure><img src="../../.gitbook/assets/Screenshot 2024-03-08 at 8.59.51 AM.png" alt=""><figcaption></figcaption></figure>
+
+* Clogged batch processing \
+  When we are required to process a large number of messages in real time, repeatedly failed messages can clog batch processing.&#x20;
+
+We can use separate retry queues to insert failed messages and a separate set of retry consumers can pick up and do the retry. We commit offset in the original topic to unblock the process. For retry queues, we can add several layers. When the handler of a particular topic returns an error response for a given message, it will publish that message onto next retry topic. We use DLQ as the end of line Kafka topic.&#x20;
+
+We can replay dead letter messages by publishing them back to first retry topic.
+
+For each subsequent level of retry consumers, we can enforce a processing delay.
+
+#### Pros:
+
+* Unblock batch processing
+* We can decouple message into granular steps and only retry some of the step. Say the message succeeded in step 1 and failed at step 2, we only publish step2 portion of the job onto retry topic.
+* Observability is better, we have a easy tracing of errored message's path. When and how many times the message has been retried. We can monitor the rate of production into original processing topic versus those of retry topic and DLQ to inform thresholds for automated alerts.
 
 ### How to verify webhook url ownership?
 
@@ -213,3 +276,5 @@ Web-hook is hard to know where it failed, client won't be able to know. You will
 Filter out event based on event types ana schema
 
 Rate limit on outgoing webhooks.
+
+[^1]: 
