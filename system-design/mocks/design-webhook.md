@@ -1,5 +1,9 @@
 # Design Webhook
 
+## [Webhook from hookdeck](https://hookdeck.com/webhooks/guides/webhook-infrastructure-requirements-and-architecture)
+
+## [Retry from Uber](https://www.uber.com/blog/reliable-reprocessing/)
+
 ## Topics
 
 1. How to handle failure?
