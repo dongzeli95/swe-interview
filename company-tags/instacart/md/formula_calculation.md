@@ -50,35 +50,6 @@ string solve(const string& target, const vector<string>& formulas) {
 
 // Question part 2.
 // Structure to represent an expression term
-struct Term {
-    string var; // Variable name or constant value
-    char op;    // Operation: '+' or '-'
-};
-
-// Function to parse a formula and return the variable and its expression
-pair<string, vector<Term>> parseFormula(const string& formula) {
-    istringstream iss(formula);
-    string variable, eq;
-    vector<Term> expression;
-    iss >> variable >> eq; // Read variable and equal sign
-
-    // Read the expression
-    string token;
-    char op = '+';
-    while (iss >> token) {
-        if (token == "+") {
-            op = '+';
-        }
-        else if (token == "-") {
-            op = '-';
-        }
-        else {
-            expression.push_back({ token, op });
-        }
-    }
-    return { variable, expression };
-}
-
 vector<string> split(const string& str) {
     istringstream iss(str);
     vector<string> tokens;
@@ -101,9 +72,6 @@ unordered_map<string, vector<string>> constructGraph2(const vector<string>& form
     return graph;
 }
 
-// Function to evaluate expressions
-int evaluate(const vector<string>& expr, unordered_map<string, vector<string>>& graph, unordered_map<string, bool>& visited, unordered_map<string, int>& computed);
-
 // DFS function to find the value of a variable
 int dfs2(const string& node, unordered_map<string, vector<string>>& graph, unordered_map<string, bool>& visited, unordered_map<string, int>& computed) {
     // Check if the node is a number
@@ -112,7 +80,7 @@ int dfs2(const string& node, unordered_map<string, vector<string>>& graph, unord
     }
 
     // Check for precomputed values
-    if (computed.find(node) != computed.end()) {
+    if (computed.count(node)) {
         return computed[node];
     }
 
@@ -120,21 +88,13 @@ int dfs2(const string& node, unordered_map<string, vector<string>>& graph, unord
     if (visited[node]) {
         throw runtime_error("Cycle detected in " + node);
     }
+
     visited[node] = true;
 
     // Evaluate the expression
-    int value = evaluate(graph[node], graph, visited, computed);
-    visited[node] = false;
-    computed[node] = value;
-    return value;
-}
-
-// DFS function to find the value of a variable
-int evaluate(const vector<string>& expr, unordered_map<string, vector<string>>& graph, unordered_map<string, bool>& visited, unordered_map<string, int>& computed) {
-    int result = 0;
+    int res = 0;
     int sign = 1;
-
-    for (const string& token : expr) {
+    for (const string& token : graph[node]) {
         if (token == "+") {
             sign = 1;
         }
@@ -142,10 +102,13 @@ int evaluate(const vector<string>& expr, unordered_map<string, vector<string>>& 
             sign = -1;
         }
         else {
-            result += sign * dfs2(token, graph, visited, computed);
+            cout << "token: " << token << endl;
+            res += sign * dfs2(token, graph, visited, computed);
         }
     }
-    return result;
+    visited[node] = false;
+    computed[node] = res;
+    return res;
 }
 
 // Main function to find the value of a target variable

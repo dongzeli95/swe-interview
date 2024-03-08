@@ -267,6 +267,7 @@
   * [Pw2](company-tags/instacart/md/pw2.md)
   * [Pw3](company-tags/instacart/md/pw3.md)
   * [Formula Calculation](company-tags/instacart/md/formula_calculation.md)
+  * [Formula Calculation Cycle](company-tags/instacart/md/formula_calculation_cycle.md)
 * [OpenAI](company-tags/openai/README.md)
   * [Spreadsheet](company-tags/openai/md/spreadsheet.md)
   * [Iterator](company-tags/openai/md/iterator.md)

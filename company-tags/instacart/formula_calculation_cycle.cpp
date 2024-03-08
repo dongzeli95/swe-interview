@@ -15,38 +15,6 @@
 
 using namespace std;
 
-// Function to parse input and construct the graph
-unordered_map<string, string> constructGraph(const vector<string>& formulas) {
-    unordered_map<string, string> graph;
-    for (const auto& formula : formulas) {
-        size_t equalPos = formula.find('=');
-        string left = formula.substr(0, equalPos - 1);
-        string right = formula.substr(equalPos + 2);
-        graph[left] = right;
-    }
-    return graph;
-}
-
-// DFS function to find the value of a variable
-string dfs(const string& node, unordered_map<string, string>& graph, unordered_map<string, bool>& visited) {
-    // Check if the node is a number
-    if (isdigit(node[0])) return node;
-
-    // Detect cycles
-    if (visited[node]) throw runtime_error("Cycle detected");
-    visited[node] = true;
-
-    // DFS on the adjacent node
-    return dfs(graph[node], graph, visited);
-}
-
-// Main function to find the value of a target variable
-string solve(const string& target, const vector<string>& formulas) {
-    auto graph = constructGraph(formulas);
-    unordered_map<string, bool> visited;
-    return dfs(target, graph, visited);
-}
-
 // Question part 2.
 // Structure to represent an expression term
 vector<string> split(const string& str) {
@@ -72,7 +40,7 @@ unordered_map<string, vector<string>> constructGraph2(const vector<string>& form
 }
 
 // DFS function to find the value of a variable
-int dfs2(const string& node, unordered_map<string, vector<string>>& graph, unordered_map<string, bool>& visited, unordered_map<string, int>& computed) {
+int dfs2(const string& node, unordered_map<string, vector<string>>& graph, unordered_map<string, int>& visited, unordered_map<string, int>& computed) {
     // Check if the node is a number
     if (isdigit(node[0]) || (node[0] == '-' && node.size() > 1)) {
         return stoi(node);
@@ -84,11 +52,11 @@ int dfs2(const string& node, unordered_map<string, vector<string>>& graph, unord
     }
 
     // Check for cycles
-    if (visited[node]) {
+    if (visited[node] == 1) {
         throw runtime_error("Cycle detected in " + node);
     }
 
-    visited[node] = true;
+    visited[node] = 1;
 
     // Evaluate the expression
     int res = 0;
@@ -105,7 +73,7 @@ int dfs2(const string& node, unordered_map<string, vector<string>>& graph, unord
             res += sign * dfs2(token, graph, visited, computed);
         }
     }
-    visited[node] = false;
+    visited[node] = 2;
     computed[node] = res;
     return res;
 }
@@ -113,7 +81,7 @@ int dfs2(const string& node, unordered_map<string, vector<string>>& graph, unord
 // Main function to find the value of a target variable
 int solve2(const string& target, const vector<string>& formulas) {
     auto graph = constructGraph2(formulas);
-    unordered_map<string, bool> visited;
+    unordered_map<string, int> visited;
     unordered_map<string, int> computed;
     return dfs2(target, graph, visited, computed);
 }
@@ -132,7 +100,7 @@ int main() {
     // Part2 Test
     // vector<string> formulas = { "T1 = 2", "T2 = 2 + T4", "T3 = T1 - 4", "T4 = T1 + T3" };
     // 比如这种情况的Testcase就不存在["T2", ["T1=4", "T1 = 2 + T2"]]
-    vector<string> formulas = { "T1=4", "T1 = 2 + T2" };
+    vector<string> formulas = { "T1 = 2 + T2", "T2 = 1 + T1" };
     string target = "T2";
     try {
         cout << "Value of " << target << " is " << solve2(target, formulas) << endl;
