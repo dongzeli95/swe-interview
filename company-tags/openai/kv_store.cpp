@@ -4,6 +4,51 @@
 
 using namespace std;
 
+#include <mutex>
+#include <condition_variable>
+
+class ReadersWriterLock {
+public:
+    ReadersWriterLock() : writeInProgress(false), readersCount(0) {}
+
+    // Acquire read lock
+    void acquireReadLock() {
+        std::unique_lock<std::mutex> lock(mutex_);
+        readCondVar.wait(lock, [this]() { return !writeInProgress; });
+        ++readersCount;
+    }
+
+    // Release read lock
+    void releaseReadLock() {
+        std::unique_lock<std::mutex> lock(mutex_);
+        if (--readersCount == 0 && writeInProgress) {
+            writeCondVar.notify_one();
+        }
+    }
+
+    // Acquire write lock
+    void acquireWriteLock() {
+        std::unique_lock<std::mutex> lock(mutex_);
+        writeInProgress = true;
+        writeCondVar.wait(lock, [this]() { return readersCount == 0; });
+    }
+
+    // Release write lock
+    void releaseWriteLock() {
+        std::unique_lock<std::mutex> lock(mutex_);
+        writeInProgress = false;
+        readCondVar.notify_all();
+        writeCondVar.notify_one();
+    }
+
+private:
+    std::mutex mutex_;
+    std::condition_variable readCondVar;
+    std::condition_variable writeCondVar;
+    bool writeInProgress;
+    int readersCount;
+};
+
 class Value {
 public: 
   string val;
