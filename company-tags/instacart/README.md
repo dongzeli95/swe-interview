@@ -1,3 +1,5 @@
 * [Pw](./md/pw.md)
 * [Pw2](./md/pw2.md)
 * [Pw3](./md/pw3.md)
+* [Formula Calculation](./md/formula_calculation.md)
+* [Formula Calculation Cycle](./md/formula_calculation_cycle.md)

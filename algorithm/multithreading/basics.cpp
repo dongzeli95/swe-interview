@@ -4,8 +4,6 @@
 
 using namespace std;
 
-// https://towardsdatascience.com/multithreading-vs-multiprocessing-in-python-3afeb73e105f#:~:text=The%20short%20answer%20is%3A,you%20have%20multiple%20cores%20available)
-
 // Multithreading: good for I/O bound operations.
 // Multiprocessing: good for CPU bound operations.
 
