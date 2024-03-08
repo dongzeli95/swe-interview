@@ -263,7 +263,6 @@
   * [Unique Elements](company-tags/google/md/unique\_elements.md)
 * [Instacart](company-tags/instacart/README.md)
   * [Meeting Rooms II](algorithm/greedy/md/meeting\_rooms\_ii.md)
-  * [Spreadsheet](company-tags/openai/md/spreadsheet.md)
   * [Pw](company-tags/instacart/md/pw.md)
   * [Pw2](company-tags/instacart/md/pw2.md)
   * [Pw3](company-tags/instacart/md/pw3.md)

@@ -8,10 +8,9 @@
 
 using namespace std;
 
+// Talking about trade offs of either read-heavy or write-heavy?
 // 1. Update Parent/
 // 2. parent can get to child using different path?
-
-// Q: if a node with a subtree is added, are the nodes within the subtree already set in the graph?
 
 class SpreadSheetBFS {
 public:
@@ -59,6 +58,12 @@ public:
     }
 };
 
+// Intuition:
+// if A dependes on B and C, means B and C's parent is A.
+// If we update value on B or C, we also need to update value on A.
+// So instead of traversing from A every time we are trying to get A value.
+//
+// We can traverse from children to parents based on value update on set function.
 class SpreadSheetBFSWithCache {
 public:
     map<string, variant<int, pair<string, string>>> m;
