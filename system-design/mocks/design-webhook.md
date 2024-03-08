@@ -30,7 +30,8 @@
 2. Verify ownership of webhook url
 3. Security validation for webhook
 4. Filtering by event type.
-5. UI Visibility - delivery status: event type, failed\_reason, response.
+5. Rate limiting to consumers.
+6. UI Visibility - delivery status: event type, failed\_reason, response.
 
 ## Non-functional Requirements:
 
@@ -146,12 +147,37 @@ How to make sure webhook request are secure?
 
 ### How to make sure webhook request are secure?
 
-1. Sign your request with secret token that able to be verified on user's side.
+#### Basic Authentication
 
-* User can create a secret token and store the token in a secure place.
-* Validate webhook deliveries:
-  * Create a hash signature that can be sent to client with each payload, like: X-Hub-Signature-256. Using HMAC hex digest.
-  * Client can calculate a hash based on stored secret and then compare the hash with payload hash.
+```
+Authorization: Basic {base64(username:password)
+```
+
+1. The developer of the destination application submits their username and password to webhook provider.
+2. Provider first sends a request with no Authorization header. The request is rejected with 401 and destination point sends back an authentication challenge using WWW-Authenticate header.
+3. Producer combine username and password and send base64 version.
+4. Destination endpoint receives the authenticated request, verify the credentials and if valid, allows the webhook.
+
+#### Signature Verification
+
+1. A secret key is known by both webhook producer and consumer.
+2. When sending webhook, producer uses this key and cryptographic algorithms like HMAC to create cryptographic hash of the webhook payload.
+3. The signature is sent in a custom header along with the webhook request. The type of algorithm used sometimes is also sent.
+
+```
+X-Hub-Signature-256. Using HMAC hex digest.
+```
+
+1. When webhook arrives at webhook URL, the receiving application takes the webhook payload and uses the secret key and cryptographic algorithm the calculate the signature.
+2. The calculated signature is then compared with that sent by producer in the custom header. If there is a match then the request is valid.
+
+#### Prevent Replay attack
+
+A reply attack occurs when an attacker gets hold of an authenticated request and repeats it, thereby causing duplicated webhooks.
+
+To prevent replay attacks, signature verification allows you to add a timestamp that can be used to expire webhook after a certain period of time, ex: 2 mins. This time can be adjusted based on security requirements.
+
+When webhook hits the webhook URL, it's checked against current time to see if it's still valid for use. If timestamp is too old, webhook is rejected.
 
 ### What happen if retry doesn't work?
 
