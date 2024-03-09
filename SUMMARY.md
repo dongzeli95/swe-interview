@@ -191,7 +191,7 @@
   * [Accounts Merge](algorithm/union\_find/md/accounts\_merge.md)
 * [Multithreading](algorithm/multithreading/README.md)
   * [Basics](algorithm/multithreading/md/basics.md)
-  * [Web Crawler](algorithm/multithreading/md/web_crawler.md)
+  * [Web Crawler](algorithm/multithreading/md/web\_crawler.md)
 
 ## System Design
 
@@ -216,6 +216,7 @@
   * [Design Youtube/Netflix](system-design/mocks/design-youtube-netflix.md)
   * [Design Google Doc](system-design/mocks/design-google-doc.md)
   * [Design Webhook](system-design/mocks/design-webhook.md)
+  * [Design Payment](system-design/mocks/design-payment.md)
 * [Deep-Dive](system-design/deep-dive/README.md)
   * [Back of Envelope](system-design/deep-dive/back-of-envelope.md)
   * [Message Queue](system-design/deep-dive/message-queue.md)
@@ -266,12 +267,12 @@
   * [Pw](company-tags/instacart/md/pw.md)
   * [Pw2](company-tags/instacart/md/pw2.md)
   * [Pw3](company-tags/instacart/md/pw3.md)
-  * [Formula Calculation](company-tags/instacart/md/formula_calculation.md)
-  * [Formula Calculation Cycle](company-tags/instacart/md/formula_calculation_cycle.md)
+  * [Formula Calculation](company-tags/instacart/md/formula\_calculation.md)
+  * [Formula Calculation Cycle](company-tags/instacart/md/formula\_calculation\_cycle.md)
 * [OpenAI](company-tags/openai/README.md)
   * [Spreadsheet](company-tags/openai/md/spreadsheet.md)
   * [Iterator](company-tags/openai/md/iterator.md)
-  * [Kv Store](company-tags/openai/md/kv_store.md)
+  * [Kv Store](company-tags/openai/md/kv\_store.md)
 * [Rabbit](company-tags/rabbit/README.md)
   * [Scheduler](company-tags/rabbit/md/scheduler.md)
   * [SchedulerC++](company-tags/rabbit/md/scheduler\_cpp.md)
