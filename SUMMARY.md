@@ -217,6 +217,7 @@
   * [Design Google Doc](system-design/mocks/design-google-doc.md)
   * [Design Webhook](system-design/mocks/design-webhook.md)
   * [Design Payment](system-design/mocks/design-payment.md)
+  * [Design Inventory](system-design/mocks/design-inventory.md)
 * [Deep-Dive](system-design/deep-dive/README.md)
   * [Back of Envelope](system-design/deep-dive/back-of-envelope.md)
   * [Message Queue](system-design/deep-dive/message-queue.md)
