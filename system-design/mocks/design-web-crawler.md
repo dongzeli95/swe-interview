@@ -1,5 +1,9 @@
 # Design Web Crawler
 
+## [Web Crawler Study Link](https://github.com/donnemartin/system-design-primer/blob/master/solutions/system\_design/web\_crawler/README.md)
+
+## [Web Crawler Medium Link](https://jc1175.medium.com/how-i-would-design-a-web-crawler-9013251fa9f3)
+
 ## Topics
 
 1. Politeness / Crawl Rate
@@ -14,6 +18,10 @@
    Two ways to get them: 1. manually create 2. scan IP address of web servers
 2. Storing: The system should be able to extract and store content of a URL in a blob store. Make it processable by search engine for indexing and ranking.
 3. Scheduling: Since crawling is a process that's repeated, the system should have regular scheduling to update its blob stores records.
+4. Throttling on crawl speed / Politeness?
+5. Crawling based on priority?
+6. Deduplicate urls.
+7. Do we think about search?
 
 ## Non-functional Requirements
 
@@ -37,11 +45,30 @@ total = 5 Billion x 60 = 0.3B seconds = 9.5 year
 
 we need 3468 servers to finish it in a day.
 
+## API
+
+```
+CRUD
+
+/v1/crawl/seeds POST
+json {
+  "urls": [url1, url2...],
+}
+
+/v1/crawl?url=xxx PUT
+Response: 201
+
+/v1/search?query=hello+world GET
+```
+
 ## High Level Design
 
 <img src="../../.gitbook/assets/file.excalidraw (14).svg" alt="" class="gitbook-drawing">
 
 Scheduler: used to schedule crawling events on URLs that are stored in its database.
+
+* Priority Queue (URL frontier): The queue hosts URLs that are made ready for crawling based on priority and update frequency.
+* RDBMS: store urls with priority and update(recrawl) frequency.&#x20;
 
 DNS: needed to get IP address resolution of the web pages.
 

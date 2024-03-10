@@ -23,7 +23,7 @@ Value: ["p_1", "p_2", ...], a list of pubsub servers.
 
 Given a channel, we need to check with service discovery to find the redis server.
 
-<img src="../../.gitbook/assets/file.excalidraw (1) (1) (1) (1).svg" alt="" class="gitbook-drawing">
+<img src="../../.gitbook/assets/file.excalidraw (1) (1) (1) (1) (1) (1) (1).svg" alt="" class="gitbook-drawing">
 
 ps2 server consists of channel1 and channel2.
 
