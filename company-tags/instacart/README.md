@@ -3,3 +3,6 @@
 * [Pw3](./md/pw3.md)
 * [Formula Calculation](./md/formula_calculation.md)
 * [Formula Calculation Cycle](./md/formula_calculation_cycle.md)
+* [Mock Pw](./md/mock_pw.md)
+* [Mock Pw2](./md/mock_pw2.md)
+* [Mock Pw3](./md/mock_pw3.md)
