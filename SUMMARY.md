@@ -271,6 +271,8 @@
   * [Expression1](company-tags/instacart/md/mock_formula.md)
   * [Expression2](company-tags/instacart/md/mock_formula2.md)
   * [Expression3](company-tags/instacart/md/mock_formula3.md)
+  * [PW All](company-tags/instacart/md/pw_all.md)
+  * [Expression All](company-tags/instacart/md/expression_all.md)
 * [OpenAI](company-tags/openai/README.md)
   * [Spreadsheet](company-tags/openai/md/spreadsheet.md)
   * [Iterator](company-tags/openai/md/iterator.md)
