@@ -130,9 +130,9 @@ int main() {
     // }
 
     // Part2 Test
-    // vector<string> formulas = { "T1 = 2", "T2 = 2 + T4", "T3 = T1 - 4", "T4 = T1 + T3" };
+    vector<string> formulas = { "T1 = 2", "T2 = 2 + T4", "T3 = T1 - 4", "T4 = T1 + T3" };
     // 比如这种情况的Testcase就不存在["T2", ["T1=4", "T1 = 2 + T2"]]
-    vector<string> formulas = { "T1=4", "T1 = 2 + T2" };
+    // vector<string> formulas = { "T1 = 4", "T1 = 2 + T2" };
     string target = "T2";
     try {
         cout << "Value of " << target << " is " << solve2(target, formulas) << endl;

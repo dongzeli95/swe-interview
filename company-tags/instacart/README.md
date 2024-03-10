@@ -6,3 +6,6 @@
 * [Mock Pw](./md/mock_pw.md)
 * [Mock Pw2](./md/mock_pw2.md)
 * [Mock Pw3](./md/mock_pw3.md)
+* [Mock Formula](./md/mock_formula.md)
+* [Mock Formula2](./md/mock_formula2.md)
+* [Mock Formula3](./md/mock_formula3.md)
