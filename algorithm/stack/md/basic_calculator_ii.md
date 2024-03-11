@@ -30,94 +30,72 @@ Output: 5
 
 using namespace std;
 
-int cal(int a, int b, char op) {
-    if (op == '+') {
-        return a+b;
-    } else if (op == '-') {
-        return a-b;
-    } else if (op == '*') {
-        return a*b;
-    } else {
-        return a/b;
-    }
-}
-
-bool isdigit(char c) {
-    return c >= '0' && c <= '9';
-}
-
-bool ismuldiv(char c) {
-    return c == '*' || c == '/';
-}
-
 // Time: O(n), Space: O(n)
 int calculate(string s) {
-    if (s.empty()) {
-        return 0;
-    }
-
-    vector<int> st;
-
+    int res = 0;
+    int num = 0;
     int n = s.size();
-    int a = 0, b = 0;
-    char c = '#';
 
-    int i = 0;
-    while (i < n) {
-        if (s[i] == ' ') {
-            i++;
-            continue;
+    char op = '+';
+    stack<int> st;
+    for (int i = 0; i < n; i++) {
+        if (s[i] >= '0' && s[i] <= '9') {
+            num = num * 10 + (s[i] - '0');
         }
-
-        if (isdigit(s[i])) {
-            string num = "";
-            while (i < n && isdigit(s[i])) {
-                num.push_back(s[i]);
-                i++;
+        if (i == n-1 || (s[i] < '0' && s[i] != ' ')){
+            if (op == '+') st.push(num);
+            else if (op == '-') st.push(-num);
+            else {
+                int tmp = (op == '*') ? st.top() * num : st.top() / num;
+                // cout << "st top: " << st.top() << " num: " << num << endl;
+                st.pop();
+                st.push(tmp);
             }
-
-            i--;
-
-            if (c == '#') {
-                st.push_back(stoi(num));
-            } else {
-                b = stoi(num);
-                int res = cal(a, b, c);
-                st.push_back(res);
-            }
-        } else if (ismuldiv(s[i])) {
-            a = st.back();
-            st.pop_back();
-            c = s[i];
-        } else {
-            st.push_back(s[i]);
+            op = s[i];
+            num = 0;
         }
-        i++;
     }
 
-    reverse(st.begin(), st.end());
-
-    while (st.size() >= 3) {
-        int b = st.back();
-        st.pop_back();
-        char c = st.back();
-        st.pop_back();
-        int a = st.back();
-        st.pop_back();
-
-        cout << "a: " << a << " b:" << b << endl;
-        int res = cal(a, b, c);
-        st.push_back(res);
+    while (!st.empty()) {
+        cout << "top: " << st.top() << endl;
+        res += st.top();
+        st.pop();
     }
 
-    return st.back();
+    return res;
+}
+
+// Time: O(n), Space: O(1)
+int calculate2(string s) {
+    long res = 0, curRes = 0, num = 0, n = s.size();
+    char op = '+';
+    for (int i = 0; i < n; ++i) {
+        char c = s[i];
+        if (c >= '0' && c <= '9') {
+            num = num * 10 + c - '0';
+        }
+        if (c == '+' || c == '-' || c == '*' || c == '/' || i == n - 1) {
+            switch (op) {
+            case '+': curRes += num; break;
+            case '-': curRes -= num; break;
+            case '*': curRes *= num; break;
+            case '/': curRes /= num; break;
+            }
+            if (c == '+' || c == '-' || i == n - 1) {
+                res += curRes;
+                curRes = 0;
+            }
+            op = c;
+            num = 0;
+        }
+    }
+    return res;
 }
 
 int main() {
-    // cout << calculate("3+2*2") << endl; // 7
-    // cout << calculate(" 3/2 ") << endl; // 1
-    // cout << calculate(" 3+5 / 2") << endl; // 5
-
-    cout << calculate("1-1+1") << endl; // -1
+    cout << calculate2("3+2*2") << endl; // 7
+    cout << calculate2(" 3/2 ") << endl; // 1
+    cout << calculate2(" 3+5 / 2") << endl; // 5
+    cout << calculate2("1-1+1") << endl; // 1
     return 0;
 }```
