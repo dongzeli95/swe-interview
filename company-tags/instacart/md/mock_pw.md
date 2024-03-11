@@ -41,27 +41,6 @@ should print it to STDOUT, in our example the password is HI.
 
 using namespace std;
 
-class EncryptChar {
-public:
-  EncryptChar(vector<string>& board) : board(board) {}
-
-  char getChar(int x, int y) {
-    int m = board.size();
-    int n = board[0].size();
-    int tx = x;
-    int ty = m-1-y;
-
-    if (tx < 0 || ty < 0 || tx >= n || ty >= m) {
-        throw runtime_error("x, y out of bounds!");
-    }
-
-    return board[ty][tx];
-  }
-
-private:
-  vector<string> board;
-};
-
 class Entity {
 public:
   int x;
@@ -70,6 +49,19 @@ public:
 
   Entity() : x(-1), y(-1), board({}) {}
   Entity(int x, int y, vector<string>& board) : x(x), y(y), board(board) {}
+
+  char get() {
+    int m = board.size();
+    int n = board[0].size();
+    int tx = x;
+    int ty = m - 1 - y;
+
+    if (tx < 0 || ty < 0 || tx >= n || ty >= m) {
+        throw runtime_error("x, y out of bounds!");
+    }
+
+    return board[ty][tx];
+  }
 
   void debug() {
     cout << "x: " << x << " y:" << y << endl;
@@ -133,9 +125,7 @@ int main() {
     Parser parser = Parser("company-tags/instacart/test1.txt");
     Entity entity = parser.parse();
     entity.debug();
-
-    EncryptChar char1 = EncryptChar(entity.board);
-    cout << char1.getChar(entity.x, entity.y) << endl;
+    cout << entity.get() << endl;
 
     return 0;
 }```

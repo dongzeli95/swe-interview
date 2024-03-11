@@ -1,3 +1,4 @@
+```cpp
 /*
 Part 1:
 For this challenge, you will need to parse data from STDIN to find a character in a matrix.
@@ -37,49 +38,51 @@ should print it to STDOUT, in our example the password is HI.
 #include <iostream>
 #include <fstream>
 #include <sstream>
+#include <deque>
 
 using namespace std;
 
+// 1: B -> P -> A -> I
+// 2: [MH]
+
 class Entity {
 public:
-  int x;
-  int y;
-  vector<string> board;
+    int x;
+    int y;
 
-  Entity() : x(-1), y(-1), board({}) {}
-  Entity(int x, int y, vector<string>& board) : x(x), y(y), board(board) {}
+    Entity(int x, int y) : x(x), y(y) {}
 
-  char get() {
-    int m = board.size();
-    int n = board[0].size();
-    int tx = x;
-    int ty = m - 1 - y;
+    void add(string str) {
+        if (x >= str.size()) {
+            throw runtime_error("x out of bounds");
+        }
 
-    if (tx < 0 || ty < 0 || tx >= n || ty >= m) {
-        throw runtime_error("x, y out of bounds!");
+        dq.push_back(str[x]);
+        if (dq.size() > y+1) {
+            dq.pop_front();
+        }
     }
 
-    return board[ty][tx];
-  }
+    char get() {
+        if (dq.size() != y+1) {
+            throw runtime_error("y out of bounds");
+        }
 
-  void debug() {
-    cout << "x: " << x << " y:" << y << endl;
-    cout << "board: " << endl;
-    for (int i = 0; i < board.size(); i++) {
-        cout << board[i] << endl;
+        return dq.front();
     }
-  }
+
+    deque<char> dq;
 };
 
 class Parser {
 public:
-    Parser(string filename): filename(filename) {}
+    Parser(string filename) : filename(filename) {}
 
     Entity parse() {
         ifstream file(filename);
         if (!file.is_open()) {
             cout << "Fail to open" << endl;
-            return Entity();
+            return Entity(-1, -1);
         }
 
         vector<string> res;
@@ -92,12 +95,13 @@ public:
         istringstream iss(line);
         iss >> delim >> x >> delim >> y >> delim;
 
+        Entity e = Entity(x, y);
         while (getline(file, line)) {
-            res.push_back(line);
+            e.add(line);
         }
 
         file.close();
-        return Entity(x, y, res);
+        return e;
     }
 
 private:
@@ -123,8 +127,8 @@ int main() {
 
     Parser parser = Parser("company-tags/instacart/test1.txt");
     Entity entity = parser.parse();
-    entity.debug();
     cout << entity.get() << endl;
+    // entity.debug();
 
     return 0;
-}
+}```

@@ -17,27 +17,6 @@ find the first password and print it out.
 
 using namespace std;
 
-class EncryptChar {
-public:
-    EncryptChar(vector<string>& board) : board(board) {}
-
-    char getChar(int x, int y) {
-        int m = board.size();
-        int n = board[0].size();
-        int tx = x;
-        int ty = m - 1 - y;
-
-        if (tx < 0 || ty < 0 || tx >= n || ty >= m) {
-            throw runtime_error("x, y out of bounds!");
-        }
-
-        return board[ty][tx];
-    }
-
-private:
-    vector<string> board;
-};
-
 class Entity {
 public:
     int x;
@@ -49,9 +28,17 @@ public:
     Entity(int x, int y, vector<string>& board) : x(x), y(y), idx(-1), board(board) {}
     Entity(int x, int y, int idx, vector<string>& board) : x(x), y(y), idx(idx), board(board) {}
 
-    char getChar() {
-        EncryptChar ec = EncryptChar(board);
-        return ec.getChar(x, y);
+    char get() {
+        int m = board.size();
+        int n = board[0].size();
+        int tx = x;
+        int ty = m - 1 - y;
+
+        if (tx < 0 || ty < 0 || tx >= n || ty >= m) {
+            throw runtime_error("x, y out of bounds!");
+        }
+
+        return board[ty][tx];
     }
 
     void debug() {
@@ -152,7 +139,7 @@ vector<string> getPW() {
     string curr = string(entityList.size(), ' ');
     int count = 0;
     for (Entity e : entityList) {
-        char c = e.getChar();
+        char c = e.get();
         if (curr[e.idx] != ' ') {
             res.push_back(curr.substr(0, count));
             curr = string(entityList.size(), ' ');
