@@ -41,27 +41,6 @@ should print it to STDOUT, in our example the password is HI.
 
 using namespace std;
 
-class EncryptChar {
-public:
-  EncryptChar(vector<string>& board) : board(board) {}
-
-  char getChar(int x, int y) {
-    int m = board.size();
-    int n = board[0].size();
-    int tx = x;
-    int ty = m-1-y;
-
-    if (tx < 0 || ty < 0 || tx >= n || ty >= m) {
-        throw runtime_error("x, y out of bounds!");
-    }
-
-    return board[ty][tx];
-  }
-
-private:
-  vector<string> board;
-};
-
 class Entity {
 public:
   int x;
@@ -70,6 +49,19 @@ public:
 
   Entity() : x(-1), y(-1), board({}) {}
   Entity(int x, int y, vector<string>& board) : x(x), y(y), board(board) {}
+
+  char get() {
+    int m = board.size();
+    int n = board[0].size();
+    int tx = x;
+    int ty = m - 1 - y;
+
+    if (tx < 0 || ty < 0 || tx >= n || ty >= m) {
+        throw runtime_error("x, y out of bounds!");
+    }
+
+    return board[ty][tx];
+  }
 
   void debug() {
     cout << "x: " << x << " y:" << y << endl;
@@ -133,9 +125,7 @@ int main() {
     Parser parser = Parser("company-tags/instacart/test1.txt");
     Entity entity = parser.parse();
     entity.debug();
-
-    EncryptChar char1 = EncryptChar(entity.board);
-    cout << char1.getChar(entity.x, entity.y) << endl;
+    cout << entity.get() << endl;
 
     return 0;
 }```
@@ -183,27 +173,6 @@ should print it to STDOUT, in our example the password is HI.
 
 using namespace std;
 
-class EncryptChar {
-public:
-    EncryptChar(vector<string>& board) : board(board) {}
-
-    char getChar(int x, int y) {
-        int m = board.size();
-        int n = board[0].size();
-        int tx = x;
-        int ty = m - 1 - y;
-
-        if (tx < 0 || ty < 0 || tx >= n || ty >= m) {
-            throw runtime_error("x, y out of bounds!");
-        }
-
-        return board[ty][tx];
-    }
-
-private:
-    vector<string> board;
-};
-
 class Entity {
 public:
     int x;
@@ -215,9 +184,17 @@ public:
     Entity(int x, int y, vector<string>& board) : x(x), y(y), idx(-1), board(board) {}
     Entity(int x, int y, int idx, vector<string>& board) : x(x), y(y), idx(idx), board(board) {}
 
-    char getChar() {
-        EncryptChar ec = EncryptChar(board);
-        return ec.getChar(x, y);
+    char get() {
+        int m = board.size();
+        int n = board[0].size();
+        int tx = x;
+        int ty = m - 1 - y;
+
+        if (tx < 0 || ty < 0 || tx >= n || ty >= m) {
+            throw runtime_error("x, y out of bounds!");
+        }
+
+        return board[ty][tx];
     }
 
     void debug() {
@@ -310,15 +287,6 @@ void debug(vector<string>& file) {
 }
 
 int main() {
-    // Print current directory.
-    // char cwd[256];
-    // if (getcwd(cwd, sizeof(cwd)) != NULL) {
-    //     std::cout << "Current working dir: " << cwd << std::endl;
-    // }
-    // else {
-    //     perror("getcwd() error");
-    // }
-
     Parser parser = Parser("company-tags/instacart/part2_test1.txt");
     vector<Entity> entityList = parser.parseList();
     // for (Entity e: entityList) {
@@ -327,7 +295,7 @@ int main() {
 
     string res = string(entityList.size(), ' ');
     for (Entity e: entityList) {
-        char c = e.getChar();
+        char c = e.get();
         res[e.idx] = c;
     }
 
@@ -355,11 +323,18 @@ find the first password and print it out.
 
 using namespace std;
 
-class EncryptChar {
+class Entity {
 public:
-    EncryptChar(vector<string>& board) : board(board) {}
+    int x;
+    int y;
+    int idx;
+    vector<string> board;
 
-    char getChar(int x, int y) {
+    Entity() : x(-1), y(-1), idx(-1), board({}) {}
+    Entity(int x, int y, vector<string>& board) : x(x), y(y), idx(-1), board(board) {}
+    Entity(int x, int y, int idx, vector<string>& board) : x(x), y(y), idx(idx), board(board) {}
+
+    char get() {
         int m = board.size();
         int n = board[0].size();
         int tx = x;
@@ -372,26 +347,6 @@ public:
         return board[ty][tx];
     }
 
-private:
-    vector<string> board;
-};
-
-class Entity {
-public:
-    int x;
-    int y;
-    int idx;
-    vector<string> board;
-
-    Entity() : x(-1), y(-1), idx(-1), board({}) {}
-    Entity(int x, int y, vector<string>& board) : x(x), y(y), idx(-1), board(board) {}
-    Entity(int x, int y, int idx, vector<string>& board) : x(x), y(y), idx(idx), board(board) {}
-
-    char getChar() {
-        EncryptChar ec = EncryptChar(board);
-        return ec.getChar(x, y);
-    }
-
     void debug() {
         cout << "x: " << x << " y:" << y << endl;
         cout << "index: " << idx << endl;
@@ -400,6 +355,38 @@ public:
             cout << board[i] << endl;
         }
     }
+};
+
+// Rolling Update
+// So we keep track of char at col x, and we keep a fixed sliding window to keep track of y+1 characters
+// on the column such that the first char will eventually be the char we want.
+class Entity {
+public:
+    int x;
+    int y;
+
+    Entity(int x, int y) : x(x), y(y) {}
+
+    void add(string str) {
+        if (x >= str.size()) {
+            throw runtime_error("x out of bounds");
+        }
+
+        dq.push_back(str[x]);
+        if (dq.size() > y+1) {
+            dq.pop_front();
+        }
+    }
+
+    char get() {
+        if (dq.size() != y+1) {
+            throw runtime_error("y out of bounds");
+        }
+
+        return dq.front();
+    }
+
+    deque<char> dq;
 };
 
 class Parser {
@@ -490,7 +477,7 @@ vector<string> getPW() {
     string curr = string(entityList.size(), ' ');
     int count = 0;
     for (Entity e : entityList) {
-        char c = e.getChar();
+        char c = e.get();
         if (curr[e.idx] != ' ') {
             res.push_back(curr.substr(0, count));
             curr = string(entityList.size(), ' ');
