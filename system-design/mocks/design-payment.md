@@ -21,3 +21,14 @@ When we receive the HTTP request, we have to synchronously response within 1 sec
 
 Say you are hired tomorrow, and you are leading the three person team in this room. How would you suggest we build the application that processes these requests? Some areas we should be sure to cover are physical infrastructure, data stores, data model, security, and performance considerations. For simiplicity, we should start off with the assumption that 1 shopper has just 1 order at 1 merchant.
 
+
+
+## Why Deny?
+
+1. Balance not correct?
+   1. whether shopper replaced an item?
+   2. whether shopper marked any item not found?
+2. Geo location is too far, not possible?
+3. Shopper does not exist?
+4. Shopper does exist but duplicate requests?
+
