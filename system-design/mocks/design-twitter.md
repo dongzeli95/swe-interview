@@ -32,6 +32,30 @@
 3. read, write ratio: 10000:1
 4. Eventual consistency, availability > consistency.
 
+## Scale
+
+### QPS
+
+100M active users -> 500M tweets per day:
+
+Each tweet averages a fanout of 10 deliveries -> 5B total tweets delivered on fanout each day.
+
+10B read requests per day -> 10^4 QPS.
+
+10B search per month.
+
+### Data
+
+```
+Tweet id: 8 bytes
+user id: 32 bytes
+text: 140 bytes
+total: 1KB
+
+1KB * 500M tweets per day * 30 days
+0.5PB in three years.
+```
+
 ## API
 
 ```
@@ -65,6 +89,121 @@ Request {
 GET /v1/search
 ```
 
+## Data Schema
+
+```
+Dynamo DB
+
+User Table
+{
+  user_id, (partition_key)
+  profile_url,
+  bio,
+  userhandle,
+  encrypted_pw,
+  email,
+}
+
+Tweets Table
+{
+  tweet_id, (partition_key)
+  user_id,
+  content,
+  created_at, (sort_key)
+  is_deleted,
+}
+
+Follow Table
+{
+  following_id (partition_key)
+  follower_id
+  followee_id
+  updated_at (sort_key)
+}
+
+HashTag table {
+  hashtag_id
+  name
+  reference_counter
+}
+
+HashTagRef Table {
+
+}
+```
+
+## High Level Diagram
+
+<img src="../../.gitbook/assets/file.excalidraw (32).svg" alt="" class="gitbook-drawing">
+
+1. Client send request, either post a tweet or view home timeline.
+2. Web server read and write from DB.
+3. Return the response back to client.
+
+Single point of failures:
+
+1. Web servers
+2. DB
+
+<img src="../../.gitbook/assets/file.excalidraw (33).svg" alt="" class="gitbook-drawing">
+
+Posting a tweet:
+
+1. user send post tweet request load balancer, it get routes onto one of the web servers.
+2. web server write this record onto DB.
+
+Viewing a tweet:
+
+1. user send read request for home timeline.
+2. web server read tweets from DB.
+3. Same tweets might be read multiple times by different followers.&#x20;
+
+```
+userid: listOfFollowers
+timeline cache, userId: listOfTweets
+```
+
+More read burden on DB. So we can fanout during the write phase for posting tweet:
+
+1. Each user store a list of followers in the cache.
+2. We push the tweets into user timeline inbox in the cache.
+
+Posting a tweet:
+
+1. user send post tweet request load balancer, it get routes onto one of the web servers.
+2. web server write this record onto DB.
+3. Fanout to store tweets in each follower's tweet list cache.
+
+Viewing a tweet:
+
+1. user send read request for home timeline.
+2. read from redis first to see if there are any tweets.
+3. it not enough, we read tweets from DB.
+4. Same tweets might be read multiple times by different followers.&#x20;
+
+Pros:
+
+1. We reduce load on read by doing fanout.
+
+Cons:
+
+1. If the tweet poster is a celebrity, the fanout overhead is huge.
+2. We need Redis to scale.
+
+
+
+Celebrity case:
+
+Instead of fanout, we store some cache for celebrity in Redis as well:
+
+```
+Celebrity tweets, userId: listOfTweets
+userId: listOfCelebritiesIdTheUserIsFollowing
+userId: isCelebrity
+```
+
+<img src="../../.gitbook/assets/file.excalidraw (34).svg" alt="" class="gitbook-drawing">
+
 ## Deep Dive
 
 ### How to deal with thundering herd problem?
@@ -89,3 +228,36 @@ Celebrity tweets, userId: listOfTweets
 userId: listOfCelebritiesIdTheUserIsFollowing
 userId: isCelebrity
 ```
+
+* Keep only several hundred tweets for each home timeline in the **Memory Cache**
+* Keep only active users' home timeline info in the **Memory Cache**
+  * If a user was not previously active in the past 30 days, we could rebuild the timeline from the **SQL Database**
+    * Query the **User Graph Service** to determine who the user is following
+    * Get the tweets from the **SQL Database** and add them to the **Memory Cache**
+
+**How to update cache?**
+
+1. **cache aside**
+
+application is responsible for reading and writing from storage.
+
+2. **write-through**
+
+application uses the cache as the main data store, reading and writing data to it without interacting with db.&#x20;
+
+Pros: read are fast.
+
+Cons:&#x20;
+
+* write-through is a slow overall operation due to write operation.
+* Most data written might never be read, which can be minimized by TTL config.
+
+
+
+2. **write-behind**
+3. **refresh ahead**
+
+### How to do censorship for tweets?
+
+1. We can train a model or use some existing models to do that?
+2. GPT 3.5 API call?
