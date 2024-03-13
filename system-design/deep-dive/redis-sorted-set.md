@@ -16,3 +16,7 @@ Sorted sets are implemented via a dual-ported data structure contains both a ski
 When we read sorted elements, the operation is O(1). ZRANGE order is low to high, ZREVRANGE order is high to low.
 
 ZREVRANK is available to get rank, considering the elements sorted in descending way.&#x20;
+
+
+
+{% embed url="https://alibaba-cloud.medium.com/understanding-the-failover-mechanism-of-redis-cluster-3b979dcf3441" %}

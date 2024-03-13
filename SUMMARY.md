@@ -219,6 +219,7 @@
   * [Design Payment](system-design/mocks/design-payment.md)
   * [Design Inventory](system-design/mocks/design-inventory.md)
   * [Design donation app](system-design/mocks/design-donation-app.md)
+  * [Design Twitter](system-design/mocks/design-twitter.md)
 * [Deep-Dive](system-design/deep-dive/README.md)
   * [Back of Envelope](system-design/deep-dive/back-of-envelope.md)
   * [Message Queue](system-design/deep-dive/message-queue.md)

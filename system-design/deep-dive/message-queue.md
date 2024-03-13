@@ -81,4 +81,7 @@ Multi-threaded model:
 1. Offset might be committed before a record is processed by consumers.
 2. Message processing order can't be guaranteed since messages from the same partition could be processed in parallel.
 
-## How to scale SQS?
+## Kafka Exactly Once Support
+
+{% embed url="https://www.confluent.io/blog/exactly-once-semantics-are-possible-heres-how-apache-kafka-does-it/" %}
+
