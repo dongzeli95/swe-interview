@@ -85,3 +85,41 @@ Multi-threaded model:
 
 {% embed url="https://www.confluent.io/blog/exactly-once-semantics-are-possible-heres-how-apache-kafka-does-it/" %}
 
+{% embed url="https://www.confluent.io/blog/enabling-exactly-once-kafka-streams/" %}
+
+Use Kafka streams API:
+
+_“processing.guarantee” to “exactly\_once” (default value is “at\_least\_once”)_
+
+> when processing.guarantee is configured to exactly\_once, Kafka Streams sets the internal embedded producer client with a transaction id to enable the idempotence and transactional messaging features, and also sets its consumer client with the read-committed mode to only fetch messages from committed transactions from the upstream producers.
+
+
+
+## Push vs Pull?
+
+### Push
+
+Pros:
+
+1. Instant communication. Message get pushed as soon as they arrives.
+2. Client can be thinner since they don't need polling mechanism.
+3. Save network bandwidth.
+
+Cons:
+
+1. Message maybe missed if network not reliable.
+2. Need firewall on client side.
+3. Consumer might be overwhelmed if it can't keep up with producer's speed.
+
+### Pull
+
+Pros:
+
+1. No firewall needed for security
+2. Consumer control the consumption speed.
+
+Cons:
+
+1. May have delays for actually processing the message.
+2. Consumer implementation is thicker for poll mechanism.
+3. More network bandwidth.

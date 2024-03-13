@@ -20,3 +20,7 @@ ZREVRANK is available to get rank, considering the elements sorted in descending
 
 
 {% embed url="https://alibaba-cloud.medium.com/understanding-the-failover-mechanism-of-redis-cluster-3b979dcf3441" %}
+
+## How to scale Redis cluster?
+
+Redis cluster is a cluster architecture of acentric node P2P, and internally it adopts the gossip protocol to transmit and maintain the topological structure of the cluster and the cluster metadata.
