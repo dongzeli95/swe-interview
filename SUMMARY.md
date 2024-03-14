@@ -261,6 +261,7 @@
   * [Autocomplete](company-tags/lyft/md/autocomplete.md)
   * [Job Scheduler](company-tags/lyft/md/job_scheduler.md)
   * [Read4](company-tags/lyft/md/read4.md)
+  * [Kvstore](company-tags/lyft/md/kvstore.md)
 * [Amazon](company-tags/amazon/README.md)
   * [Min Binary Str Val](company-tags/amazon/md/min\_binary\_str\_val.md)
 * [AppLovin](company-tags/applovin/README.md)
