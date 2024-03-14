@@ -70,20 +70,6 @@ Scheduler: used to schedule crawling events on URLs that are stored in its datab
 * Priority Queue (URL frontier): The queue hosts URLs that are made ready for crawling based on priority and update frequency.
 * RDBMS: store urls with priority and update(recrawl) frequency.&#x20;
 
-DNS: needed to get IP address resolution of the web pages.
-
-Cache: utilized in storing fetched documents for quick access by all processing modules.
-
-Blob store: store crawled content permanently for indexing.
-
-HTML fetcher: establishes a network communication connection between crawler and web hosts.
-
-Service host: manages crawling operation among workers.
-
-Extractor: extracts embedded URLs and document from web page.
-
-Duplicate eliminator: dedup testing on incoming URLs and documents.
-
 ## E2E
 
 1. Assignment to a worker\
@@ -96,9 +82,14 @@ Duplicate eliminator: dedup testing on incoming URLs and documents.
    Once html fetcher get the web page, the next step would be to extract URLs and content from the webpage. The extractor sends the extracted URLs and content with document input stream (DIS) to duplicate eliminator. Once verified no duplicates, extractor store content in blob storage and send URL to URL frontier for recrawl.
 5. Dedup testing\
    Duplicate eliminator calculates and compares checksum of both URL and document with checksum values that stored in DB.  It discards the incoming request in case of a match. If no match, it places new calculated checksum value in DB and gives go ahead to extractor.
-6. Content storing\
+
+Calculating checksum word by word for whole document is probably very time consuming
+
+[minhash](https://en.wikipedia.org/wiki/MinHash) and [simhash](https://en.wikipedia.org/wiki/SimHash) (a method of seeing how close two sets are), [fuzzy search](https://en.wikipedia.org/wiki/Approximate\_string\_matching) (searching to see if the documents are roughly similar)
+
+1. Content storing\
    The extractor sends the newly discovered URLs to scheduler. Save then in DB and sets value for priority.
-7. Recrawling\
+2. Recrawling\
    Once a cycle is complete, the crawler goes back to first point and repeats the same process until URL frontier query is empty.\
 
 
@@ -116,6 +107,29 @@ seed URLs must be of good quality.
 1. We are crawling using a library but not from browser, avoid additional network hops.
 2. DNS resolver is synchronous and not work with multi-thread worker architecture.
 
+### Crawler Traps
+
+a set of URLs that cause indefinite crawler resource exhaustion.
+
+1. URLs with query parameters
+2. URLs with internal links
+3. URLs with dynamic content generation
+4. URLs with repeated cyclic directories.
+
+we need to identify them:
+
+1. Analyze URL scheme, if URL is poor structured, we skip.
+
+```
+http://www.abc.com/first/second/first/second/...
+```
+
+1. Analyze the total number of web pages against a domain, set a cap.
+
+### Robot.txt
+
+This file contains DOs and DONTs for a crawler listed by web owner. This is called robots exclusion protocol. We need to respect it to only crawl only the allowed urls.
+
 ### URL Frontier
 
 Front queues are for priorities, Back queues for politeness.
@@ -131,6 +145,8 @@ How to set priority:
 Put the url from same site onto same back queue to make sure we don't overwhelm it.
 
 One back queue is associated with one worker thread.
+
+* Instad of using static crawl speed for every domain, we can adjust crawl speed based on domain's time to first byte (TTFB) value. The higher the value, the slower the server is so we need to crawl slower.
 
 3. Freshness
 
