@@ -39,7 +39,7 @@ Total storage: 5B x (2000kb + 500b) = 10PB
 
 ### Traversal time
 
-total = 5 Billion x 60 = 0.3B seconds = 9.5 year
+total = 5 Billion x 60ms = 0.3B seconds = 9.5 year
 
 1 server = 3468 days.
 
@@ -95,7 +95,7 @@ Duplicate eliminator: dedup testing on incoming URLs and documents.
 4. Content extraction\
    Once html fetcher get the web page, the next step would be to extract URLs and content from the webpage. The extractor sends the extracted URLs and content with document input stream (DIS) to duplicate eliminator. Once verified no duplicates, extractor store content in blob storage and send URL to URL frontier for recrawl.
 5. Dedup testing\
-   dedup eliminator calculates and compare checksum of both URL and document.
+   Duplicate eliminator calculates and compares checksum of both URL and document with checksum values that stored in DB.  It discards the incoming request in case of a match. If no match, it places new calculated checksum value in DB and gives go ahead to extractor.
 6. Content storing\
    The extractor sends the newly discovered URLs to scheduler. Save then in DB and sets value for priority.
 7. Recrawling\
@@ -103,6 +103,13 @@ Duplicate eliminator: dedup testing on incoming URLs and documents.
 
 
 ## Deep dive
+
+### How we get the seed URLs?
+
+1. manually creat them
+2. scan IP addresses for the presence of the web servers
+
+seed URLs must be of good quality.
 
 ### Why we need DNS resolver:
 
