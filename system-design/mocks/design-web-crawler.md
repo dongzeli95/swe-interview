@@ -93,7 +93,7 @@ Duplicate eliminator: dedup testing on incoming URLs and documents.
 3. Communication by HTML fetcher\
    initiate communication between the crawler and host server.
 4. Content extraction\
-   worker establishes communication, the worker extracts URLs and HTML document from web pages and places the document in a cache for other components to process it.
+   Once html fetcher get the web page, the next step would be to extract URLs and content from the webpage. The extractor sends the extracted URLs and content with document input stream (DIS) to duplicate eliminator. Once verified no duplicates, extractor store content in blob storage and send URL to URL frontier for recrawl.
 5. Dedup testing\
    dedup eliminator calculates and compare checksum of both URL and document.
 6. Content storing\
