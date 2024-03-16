@@ -4,6 +4,14 @@ System Design：不是最常见的visa payment system, 而是inventory managemen
 
 
 
+问如果做一个能显示各种category （food，clothes..）的页面, 然后点开每个category 的话还能显示sub- category，应该怎么设计database。感觉这里也答得一般
+
+
+
+System Design： 是没见过的心题 ， 就算是老面镜题payment都不知道能不能过关。给我来了一个全新的题。 题目： 有用户， 有快递小哥， 有厂商， 围绕着从库里的库存 的数量，更新数据。 api要求返回在1s之内。 问了， 选什么database， 怎么monitor， single point failure有哪些 ‍‍‍‍‍‍‍‌‍‌‌‌‌‍‍‌‌‌之前没怎么看system design， 属于半裸面。 真不敢相信自己真的就扯了1个小时。
+
+
+
 shopping experience for customer
 
 * retailer app check 库存 {商店, 商品, 薯量}
