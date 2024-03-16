@@ -4,6 +4,12 @@
 
 {% embed url="https://www.1point3acres.com/bbs/thread-804726-1-1.html" %}
 
+Answer:
+
+这轮面试官全程就按照手里的标准答案来，没有任何讨论空间，最后还特别虚伪地说I'm happy with the design，结果就秒拒了 T T 以下是我聊到或者面试官问到的点，大家可以参考着准备 physical infrastructure: server, storage, network data stores: SQL vs NoSQL data model: merchant, shopper, order, transaction (includes order id in transaction table) security: API token, pre-shared secret performance considerations: load balancer, data partition, write through cache of order table Monitoring: how to ensure the system performs expected? Testing & Deployment: Load testing etc Research & Analytics: how can data scientists leverage data for research? 尤其有两个特‍‍‍‍‍‍‍‌‍‌‌‌‌‍‍‌‌‌匪夷所思的点： 如果database down了，如何确保在sla一秒内respond？这时直接approve，因为他们trust shoppers，认为fraud rate低 database不需要replica，面试官认为这个只会增加latency或者inconsistency，不值得有这个complexity
+
+
+
 Design。还是经典原题，设计一个payment system，当有shopper刷卡的时候，如何判断是不是要通过这个刷卡请求。虽然面试问的是设计这个小的系统，但我觉得面试官看中的是这个小系统在整个大的系统里的位置，以及如何和大的系统里的其他部分进行沟通。我的建议是按照整个business flow，用breadth first search的方法，从用户下单开始，简单讲讲都会经历哪些component，最后是怎么到达payment system，payment system又需要和哪些其他的component进行交流。面试官会按照自己的喜好来让你深入聊聊某些具体的部分，有可能具体聊的部分不一定是payment system本身，而是一个和payme‍‍‍‍‍‍‍‌‍‌‌‌‌‍‍‌‌‌nt system有联系的其他组件。总之就是先笼统的讲个bigger picture，然后跟着面试官的思路来深入，切记不要一下子就钻的太深。
 
 感觉这道题的难点是AP‍‍‍‍‍‍‍‌‍‌‌‌‌‍‍‌‌‌I design 以及 如何处理transaction error handling/rollback 和ACID compliance
