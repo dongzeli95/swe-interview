@@ -30,7 +30,7 @@ A technique used to push information to a client as soon as possible from the se
 
 In long polling, the server does not close the connection once it receives a request from the client. Instead, the server responds only if any new message is available or timeout is reached.
 
-<img src="../../.gitbook/assets/file.excalidraw (1) (1).svg" alt="" class="gitbook-drawing">
+<img src="../../.gitbook/assets/file.excalidraw (1) (1) (1).svg" alt="" class="gitbook-drawing">
 
 ### Workflow
 

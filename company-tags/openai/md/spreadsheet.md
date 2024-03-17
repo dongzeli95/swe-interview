@@ -1,6 +1,6 @@
 # Spreadsheet
 
-<img src="../../../.gitbook/assets/file.excalidraw.svg" alt="" class="gitbook-drawing">
+<img src="../../../.gitbook/assets/file.excalidraw (1).svg" alt="" class="gitbook-drawing">
 
 <pre class="language-cpp"><code class="lang-cpp"><strong>#include &#x3C;string>
 </strong>#include &#x3C;map>

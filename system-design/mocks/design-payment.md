@@ -4,9 +4,50 @@
 
 {% embed url="https://www.1point3acres.com/bbs/thread-804726-1-1.html" %}
 
+## Topics:
+
+1. How to ensure system performs as expected? Monitoring?
+2. If DB goes down, how do we respond within 1s?
+3. Don't need replicas for DB? Because DB replicas will introduce inconsistencies, don't need the complexity?
+4. How to approve incoming request if checkout balance is different than the order balance?
+   1. The item price on Instacart is not update-to-date with item price in store.
+   2. Shopper checkout the same order in multiple batches.
+   3. For fruits like apple, the actual weight might fluctuate a bit, so the final amount is not exactly the same.
+   4. Shopper has to replace similar item or marked some mising items.
+5. SQL vs NoSQL?
+   1. Transaction using SQL?
+   2. Write throughput using Cassandra?
+6. How to handle the case where shopper is picking up order in grocery stores which are not partnered with instacart?
+7. What if grocery store doesn't have enough item, for example customer asked for 5 apples, shopper only found three.
+8. Duplicate payment? idempotency?
+
 Answer:
 
 这轮面试官全程就按照手里的标准答案来，没有任何讨论空间，最后还特别虚伪地说I'm happy with the design，结果就秒拒了 T T 以下是我聊到或者面试官问到的点，大家可以参考着准备 physical infrastructure: server, storage, network data stores: SQL vs NoSQL data model: merchant, shopper, order, transaction (includes order id in transaction table) security: API token, pre-shared secret performance considerations: load balancer, data partition, write through cache of order table Monitoring: how to ensure the system performs expected? Testing & Deployment: Load testing etc Research & Analytics: how can data scientists leverage data for research? 尤其有两个特‍‍‍‍‍‍‍‌‍‌‌‌‌‍‍‌‌‌匪夷所思的点： 如果database down了，如何确保在sla一秒内respond？这时直接approve，因为他们trust shoppers，认为fraud rate低 database不需要replica，面试官认为这个只会增加latency或者inconsistency，不值得有这个complexity
+
+
+
+我觉得这个不是payment service 只需要考虑怎么approve incoming request 被问到一个单子分好几次买怎么办
+
+
+
+设计题是payment verification，接收一个第三方服务的API，但是payload只有shopper\_id, amount (金额), merchant\_adddress，细节在于如何verify是一个valid payment，如果金额有微小差错怎么办，如果shopper买完发现忘记了什么东西再跑回去买怎么办。因为我个人比较偏重design，所以这轮感觉面的最好。适当提一下，所有payment相关的系统都要注意idempotency，以及verification的过程需要一个模糊估计，这个具体怎么实现见仁见智，可以考虑temporal locality，‍‍‍‍‍‍‍‌‍‌‌‌‌‍‍‌‌‌地址的locality，如何进行fraud detection都可以谈，聊得比较愉快。
+
+
+
+被问到了如何scale read/write request，SQL vs NoSQL的选择，有哪些关键metrics需要monitor，特别是availability如何monitor。确实没啥经验，尽量扯了。
+
+
+
+第四轮，设计一个payment verification的服务器，接受的request是他们的第三方支付服务，形如{shipper\_id:1123, amount: 13.34, merchant: {addr: 123 ave, city: san jose\}} ，问如何在1sec之内，完成这笔交易的验证，并返回。     主要考察以下几点      1）performance      2) security      3) data model      4) data storage      5) stability/ fallover      问到一个小问题，shopper在刷信用卡时的金额和用户下订单的不是完全一致，比方说有10刀左右的误差，为什么。原因有二：1）instacart系统里面的价格和商店的标价没有实时一致，有滞后的情况。2）有些东西比如一斤苹果，买的时候重量有误差。然后追问，如何判断这个误差是正常的误差，还是shopp‍‍‍‍‍‍‍‌‍‌‌‌‌‍‍‌‌‌er有欺诈。 我给的方案是，用历史数据作为判断依据。可以加一个async的服务，一旦交易完成，就记录下每个商品的误差，并且存到db里面。     还有问到db是被不同的service共享的，如何提高性能。加cache，怎么加cache，cache里面存放的啥，dump的策略是什么。我这个地方没有回答好。我最后还专门问了一下面试官。他说用write through的策略会简单有效，而且只用存放每个shopper最新的一个order的信息就好了。
+
+
+
+总的流程应该就是顾客下单后，会有司机（shopper）接到通知，然后拿着公司的信用卡去店里面（比如说costco）购买物品，信用卡公司会找到胡萝卜来verify。但是后段怎么根据已有order来verify？Verify什么哪些方面？Verify之后还需要发生什‍‍‍‍‍‍‍‌‍‌‌‌‌‍‍‌‌‌么事？（比如说如果你是顾客，下的单子应该有个status update之类的吧）还有就是什么样的DB table + schema可以用来支持你的design。准备的时候如果把整个流程都想通，这个问题就容易了。
+
+
+
+* System design: instacart shopper payment system. 面试官比较关心怎么处理dupli‍‍‍‍‍‍‍‌‍‌‌‌‌‍‍‌‌‌cate payment. 怎么保证SLO 1s RTT 99.9%.  我提出来他不应该set RTT, 因为你没法控制网络延迟.不过面试官好像不同意.
 
 
 
@@ -56,12 +97,50 @@ Say you are hired tomorrow, and you are leading the three person team in this ro
 
 
 
-## Why Deny?
+## Questions:
 
-1. Balance not correct?
-   1. whether shopper replaced an item?
-   2. whether shopper marked any item not found?
-2. Geo location is too far, not possible?
-3. Shopper does not exist?
-4. Shopper does exist but duplicate requests?
+1. Does this system need consistency guarantee?
+
+**Atomicity**: This ensures that all parts of a transaction are completed successfully. If any part fails, the entire transaction is rolled back. In your system, this is critical when updating shopper balances. For example, when a payment is processed, you might need to update the shopper's balance and record the transaction simultaneously. If either operation fails, neither should be committed to avoid inconsistencies.
+
+**Consistency**: This ensures that the database transitions from one valid state to another, maintaining all predefined rules. Your system likely has rules such as "balances cannot be negative" or "transactions must have valid shopper and merchant IDs." SQL databases enforce these rules consistently.
+
+**Isolation**: In a system where multiple transactions occur simultaneously, isolation ensures that concurrent transactions do not affect each other's integrity. For instance, two shoppers making purchases at the same time should not impact each other's transactions or balances.
+
+**Durability**: Once a transaction is committed, it is permanently recorded even in the event of a system failure. This is vital for financial transactions to ensure that every payment or balance update is permanently stored.
+
+You may have to update multiple tables at once:
+
+1. Create transaction record in transaction table.
+2. Update order balance.
+3. Update order status from Pickup -> Checked out.
+
+## Clarifying Questions
+
+1. Do we assume we have other services and db tables for: Shopper, Retailer, Order and User? Or we design everything from scratch.
+2. Do we also check if credit card have sufficient balance? Or if shopper has a balance limit?
+
+## Functional Requirement
+
+1. Validate incoming checkout request
+
+## Non-functional Requirement
+
+1. Highly available
+2. Highly scalable
+3. Low latency < 1s
+4. Durability, transaction record cannot be lost.
+5. Consistency (ACID)
+
+## Scale
+
+## High Level Diagram
+
+<img src="../../.gitbook/assets/file.excalidraw.svg" alt="" class="gitbook-drawing">
+
+Single point of failures:
+
+1. Checkout Service -> need load balancer in front of it, ideally we deploy it using Kubernetes and auto-scale based on traffic.
+2. DB: We need cache for fast read query and also ease up on read request loads.
+3. What if step 5 failed? How do we make sure the transaction record is persisted in DB and we update order balance and status accordingly.
 
