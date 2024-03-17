@@ -110,11 +110,13 @@ store_address
 geo_hash
 zipcode
 
-Stock Table
+Item Availability Table
 sku
 retailer_id
 item_id
 item_quantity,
+version, (optimistic lock)
+created_at,
 updated_at
 
 Item Table
@@ -138,6 +140,15 @@ is it necessary to keep a separate table for stock quantity?
 ```
 
 ## Deep Dive
+
+### How user make an order?
+
+1. Create cart order
+2. Fetch item availability and version number from Cache.
+3. Create order in cache.
+4. After clicking checkout:
+   1. Update Item Availability table with version number for optimistic lock.
+   2. Create order items records.
 
 ### How to show accurate item availability?
 
