@@ -97,6 +97,7 @@ last_name
 Order Table
 id, (primary key)
 shopper_id
+retailer_id
 user_id,
 created_at,
 amount,
@@ -106,6 +107,7 @@ status
 Order Item Table
 id (primary key)
 order_id
+retailer_id
 item_id
 item_name
 item_quantity,
@@ -122,7 +124,7 @@ geo_hash
 zipcode
 
 Item Availability Table
-sku
+retailer_id + item_id + date (composite primary key)
 retailer_id
 item_id
 item_quantity,
@@ -149,6 +151,10 @@ how to quickly update quantity for each product item?
 is it necessary to keep a separate table for stock quantity?
 ```
 
+
+
+## High Level Diagram
+
 ## Deep Dive
 
 ### How user make an order?
@@ -163,13 +169,105 @@ is it necessary to keep a separate table for stock quantity?
 
 ### How to prevent the inconsistent state when updating inventory?
 
-* Pessimistic Lock
-* Optimistic Lock
-* Database constraint
+### Different shoppers
+
+shopper1 and shopper2 both mark the same item as found in the same retail store, we might ended up with inaccurate quantity for item availability table.
+
+> The isolation property in ACID means database transactions must complet their tasks independently from other transactions. So data changes made by transaction 1 are not visible to transaction 2 until transaction 1 is completed.
+
+#### Option 1: Pessimistic Locking
+
+Pessimistic concurrency control, prevents simultaneous updates by placing a lock on a record as soon as one user starts to update it. Other users who attempt to update the record have to wait until the first user has released the lock.
+
+For MySQL:
+
+```
+SELECT ... FOR UPDATE
+```
+
+works by locking the rows returned by a selection query.&#x20;
+
+Pros:
+
+* Prevents applications from updating data that is being changed.
+* Easy to implement and it avoids conflicts by serializing updates.
+* Useful for write heavy application when data-contention is heavy.
+
+Cons:
+
+* Deadlocks may occur when multiple resources are locked. Writing deadlock-free application code could be challenging.
+* If a transaction is locked for too long, other transactions cannot access the resource. This has a significant impact on database performance, especially when transactions are long lived.
+
+#### Option 2: Optimistic Locking
+
+Optimistic concurrency control, allows multiple concurrent users to attempt to update the same resource.
+
+1. A new column called version is added to the database table.
+2. Before a user modifies the database row, the application read the version number of the row.
+3. When the user updates the row, the application increases the version number by 1 and write back to db.
+4. A database validation check is put in place: the next version number should exceed the current version number by 1. Otherwise, validation fails and user tries again from step 2.
+
+Pros:
+
+* Prevents applications from updating stale data.
+* We don't need to lock db resources. version number control is on application level.
+* Optimistic lock is good when data-contention and concurrency is low.&#x20;
+
+Cons:
+
+* Poor performance when data contention is heavy.
+* Why? \
+  When there are a lot of shoppers try to mark the same grocery item, only one of them will succeed and the rest of client requests will have to retry.
+
+#### Option 3: Database constraints
+
+Similar to optimistic locking.
+
+Instead of using is\_available, we can use availability initialized to 1, and we add the following DB constraint:
+
+```
+CONSTRAINT `check_availability` CHECK ( total inventory - total sold >= 0)
+```
+
+Pros:
+
+* Easy to implement, works well when data contention is low.
+
+Cons:
+
+* The db constraint cannot be version controlled easily like application code.
+* Not all db support constraints, if we do data migration in the future, it might cause problems.
 
 ### How to use cache?
 
 ### How to do DB sharding?
+
+There are normally two ways we can scale the DB. Either we add replica or we shard the data.
+
+* Add Read Replicas:
+
+Pros:&#x20;
+
+1. Can help ease up read load.
+
+Cons:
+
+1. Higher chance of change conflicts if user read stale data from version column within the table.
+
+* Partition data into multiple databases
+
+### What if data size is too large for a single database?
+
+1. Move data to cold storage, for example item availability table from past dates.
+2. Shard by retailer\_id
+
+```
+hash(retailer_id) % number of servers
+```
+
+Each retailer is unique and location-based, so we are effectively splitting request traffic from different retailers.
+
+
 
 ### How to show accurate item availability?
 
