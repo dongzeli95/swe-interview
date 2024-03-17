@@ -76,27 +76,61 @@ Update Item: Mark not found.
 ## Data Schema
 
 ```
-User table
-user_id
+Shopper Table
+id (primary key)
+phone
+email
+zipcode
+first_name
+last_name
 
-Shopper table
+Order Table
+id, (primary key)
+shopper_id
+user_id,
+created_at,
+balance,
+checkout_balance,
 
-Store table
-store_id
+Order Item Table
+id (primary key)
+order_id
+item_id
+item_name
+item_quantity,
+price,
+status: PENDING/FOUND/REPLACED/NOT_FOUND
+is_deleted,
+updated_at
+
+Retailer Table
+id (primary key)
 store_name
+store_address
+geo_hash
+zipcode
+
+Stock Table
+sku
+retailer_id
+item_id
+item_quantity,
+updated_at
+
+Item Table
+id
+retailer_id
+item_name
+item_price
+
+
+User Table
+id
+phone
+email
 location
-
-Stock table
-item_id
-store_id
-quantity
-created_at
-
-Item table
-item_id
-category_name
-
-Order table
+first_name
+last_name
 
 Question:
 how to quickly update quantity for each product item?
