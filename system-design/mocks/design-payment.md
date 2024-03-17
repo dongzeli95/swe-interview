@@ -20,6 +20,14 @@
 6. How to handle the case where shopper is picking up order in grocery stores which are not partnered with instacart?
 7. What if grocery store doesn't have enough item, for example customer asked for 5 apples, shopper only found three.
 8. Duplicate payment? idempotency?
+9.  Four parties:
+
+    1. customer
+    2. shopper
+    3. stripe
+    4. visa payment (issuer)
+
+    Instacart gives shopper credit.
 
 Answer:
 
@@ -247,16 +255,52 @@ Kafka
 
 Write through
 
+### Why Cache work?
+
+1. Because we don't have high concurrency issues for same shopper credit card, so there won't be a case where the credit card balance is updated concurrently multiple times, leading to inconsistency issues.
+2. Data is relatively small, because we only need to store the latest order for each shopper, likely TTL is within a couple hours and we can evict the record.
+
 ### Validate Logics?
 
-1. shopper information based on shopper id, shopper exist look up db on shopper table.
-2. location, location history of shopper a. check store in in our list? if not, reject. b. check store location with customer location? within radius?
-3. check on order balance: a) what if balance is not equal:
-   1. shopper purchase multiple times, 33 < 100
-   2. item price might not accurate: a. our db record might be eventual consistent, there might a small discrepancy.
-4. check historic data for a threshold of discrepancy? (Big data pipeline or ML algorithm)
-5. If discrepancy too much, we reject? b. if item not found in store, shopper might replace the item with similar items.
+* Shopper check
+
+1. Check shopper exist and have an active order.
+
+* Balance Check
+
+1. Check the checkout amount doesn't exist shopper credit limit? (Cache this information from Stripe)
+2. Check the amount is no more than the latest order total amount?
+3. Check how much balance is allowed for single checkout?
+4. If balance is different than order balance, we need to check if it's within a threshold, for example either smaller or larger within 20% of total amount is okay? This percentage threshold can be data derived using offline ML pipeline?
+
+* Policy Check
+
+1. Check store is in the right category for grocery.
+2. Check location is in the proper radius within customer's location?
+3. Check retailer store is in our partnered retailer list?
+
+* Fraud Detection (offline)
+
+### What if DB fails or Redis crashed?&#x20;
+
+1. We can simply return "200" OK since we trust the shoppers and fraudulent rate is actually pretty low.
+2. We can have fallback check mechanism to check on basic stuff without querying db or cache? For example, we can just check if balance is within a threshold? If timeout more than 1s, we just run fallback check and return.
 
 ### Fraudulent Prevention
+
+Fraud detection:
+
+We can do it based on ip address and historic data. It might involve complicated ML model detection and we can't do it in real-time. We can have an offline pipeline that does this to prevent future fraudulent activities.&#x20;
+
+If we marked the fraudulent activity, we can notify third party payment gateway like stripe to froze the card, or reject the card later?
+
+Fraudulent examples:
+
+1. Shopper checked out in multiple different regions within a short time period.
+2. Shopper checked out in a different region than previous checkouts?
+
+### Monolithic vs Microservices?
+
+### Payment and Ledger?
 
 ### Security compliances
