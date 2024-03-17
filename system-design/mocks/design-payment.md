@@ -253,7 +253,11 @@ Kafka
 
 ### Cache architecture?
 
-Write through
+Write through > Cache aside
+
+Because checkout request are mostly one-time for a specific order. The cache-aside architecture can't optimize first-time read request. We need cache to be ready before this checkout request comes in.
+
+So other services need to use write-through cache to update it before updating DB.
 
 ### Why Cache work?
 
