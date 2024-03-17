@@ -155,6 +155,14 @@ is it necessary to keep a separate table for stock quantity?
 
 ## High Level Diagram
 
+<img src="../../.gitbook/assets/file.excalidraw (37).svg" alt="" class="gitbook-drawing">
+
+
+
+### With Offline processing:
+
+<img src="../../.gitbook/assets/file.excalidraw (38).svg" alt="" class="gitbook-drawing">
+
 ## Deep Dive
 
 ### How user make an order?
@@ -239,6 +247,12 @@ Cons:
 * Not all db support constraints, if we do data migration in the future, it might cause problems.
 
 ### How to use cache?
+
+For customer browsing item catalogs within a retailer store and placing an order, we can actually put all the read requests onto the cache, since the item is not sold until shopper picked it up from store.
+
+Only when shopper pick up item from store, we start update item availability and solve the conflict by using optimistic lock.
+
+After DB updated, we update the cache.
 
 ### How to do DB sharding?
 
