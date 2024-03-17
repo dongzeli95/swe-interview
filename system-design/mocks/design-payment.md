@@ -1,4 +1,4 @@
-# Design Payment
+# Validate Instacart Shopper Checkout
 
 {% embed url="https://www.1point3acres.com/bbs/thread-764928-1-1.html" %}
 
@@ -134,6 +134,16 @@ You may have to update multiple tables at once:
 
 ## Scale
 
+75k stores, 500M products on the shelves.
+
+2M active users place multiple orders of tens of items in their cart every month.
+
+600k Shoppers.
+
+One month -> 10M order -> 10M / 30 = 0.3M order / day = 0.3\*10^6 / 10^5 = 15 QPS
+
+15\*3 = 45 QPS for checkout validation requests.
+
 ## High Level Diagram
 
 <img src="../../.gitbook/assets/file.excalidraw.svg" alt="" class="gitbook-drawing">
@@ -144,3 +154,109 @@ Single point of failures:
 2. DB: We need cache for fast read query and also ease up on read request loads.
 3. What if step 5 failed? How do we make sure the transaction record is persisted in DB and we update order balance and status accordingly.
 
+<img src="../../.gitbook/assets/file.excalidraw (35).svg" alt="" class="gitbook-drawing">
+
+## Data Schema
+
+```
+Transaction Table
+id (primary key)
+shopper_id (index)
+order_id (index)
+amount
+retailer_name
+retailer_address
+validation_result: Failure, Accept, Reject
+created_at
+
+Shopper Table
+id (primary key)
+phone
+email
+zipcode
+first_name
+last_name
+
+Order Table
+id, (primary key)
+shopper_id
+user_id,
+created_at,
+balance,
+checkout_balance,
+
+Order Item Table
+id (primary key)
+order_id
+item_id
+item_name
+item_quantity,
+price,
+status: PENDING/FOUND/REPLACED/NOT_FOUND
+is_deleted,
+updated_at
+
+Retailer Table
+id (primary key)
+store_name
+store_address
+geo_hash
+zipcode
+
+User Table
+```
+
+## API
+
+```
+Validate payment request
+
+POST v1/authorize
+Request
+JSON {
+  shopper_id: 456,
+  amount: 100.0,
+  merchant: {
+    name: "Safeway",
+    address: "123 Main St",
+  },
+}
+
+Response:
+200 OK
+402 Payment Required
+400 Bad Request
+500 Internal Server Errors
+404 Not Found
+429 Too Many Requests
+```
+
+## Deep Dive
+
+### SQL vs NoSQL?
+
+We need strong consistency guarantee, likely ACID properties supported by SQL can help handle that.
+
+We can update multiple tables at once in a transaction to make sure they all succeed or nothing succeed.
+
+### Kafka vs SQS?
+
+Kafka
+
+### Cache architecture?
+
+Write through
+
+### Validate Logics?
+
+1. shopper information based on shopper id, shopper exist look up db on shopper table.
+2. location, location history of shopper a. check store in in our list? if not, reject. b. check store location with customer location? within radius?
+3. check on order balance: a) what if balance is not equal:
+   1. shopper purchase multiple times, 33 < 100
+   2. item price might not accurate: a. our db record might be eventual consistent, there might a small discrepancy.
+4. check historic data for a threshold of discrepancy? (Big data pipeline or ML algorithm)
+5. If discrepancy too much, we reject? b. if item not found in store, shopper might replace the item with similar items.
+
+### Fraudulent Prevention
+
+### Security compliances
