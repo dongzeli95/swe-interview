@@ -20,18 +20,22 @@ shopping experience for customer
 
 {% embed url="https://www.1point3acres.com/bbs/thread-1025963-1-1.html" %}
 
+## Questions:
+
+1. How frequent does retailer update the inventory?
+
 ## Functional Requirement
 
 1. Retailers are able to check inventory, add/update inventory, delete inventory...
-2. Customers are able to check inventory, make an order on inventory.
-3. Shopper can checkout on the order.
+2. Customers are able to check inventory, add item to cart and place an order.
+3. Shopper can update, checkout order.
 
 ## Non-functional Requirement
 
-1. Highly available
-2. Highly scalable
+1. Highly available - user will be able to do grocery shopping at any time.
+2. Highly scalable - the system can handle large amount of read/write
 3. Low latency
-4. Consistency - if customer make an order, the items quatity need to be accurate?
+4. Consistency - If multiple users place orders on the same item, we need to accurately reflect on the item availability?
 
 ## Scale
 
@@ -40,6 +44,12 @@ How much scale we are looking at? and read:write ratio?
 75k stores, 500M products on the shelves.
 
 2M active users place multiple orders of tens of items in their cart every month.
+
+600k Shoppers.
+
+One month -> 10M order -> 10M / 30 = 0.3M order / day = 0.3\*10^6 / 10^5 = 15 QPS
+
+15\*3 = 45 QPS for checkout validation requests.
 
 ### Data
 
@@ -89,8 +99,9 @@ id, (primary key)
 shopper_id
 user_id,
 created_at,
-balance,
-checkout_balance,
+amount,
+checkout_amount
+status
 
 Order Item Table
 id (primary key)
@@ -125,7 +136,6 @@ retailer_id
 item_name
 item_price
 
-
 User Table
 id
 phone
@@ -144,11 +154,22 @@ is it necessary to keep a separate table for stock quantity?
 ### How user make an order?
 
 1. Create cart order
-2. Fetch item availability and version number from Cache.
-3. Create order in cache.
-4. After clicking checkout:
-   1. Update Item Availability table with version number for optimistic lock.
-   2. Create order items records.
+2. Fetch item availability from Cache.
+3. Create order and order items.
+4. After shopper update order item status:
+   1. Fetch item availability and version number.
+   2. Update Item Availability table with version number for optimistic lock.
+   3. Update order item status.
+
+### How to prevent the inconsistent state when updating inventory?
+
+* Pessimistic Lock
+* Optimistic Lock
+* Database constraint
+
+### How to use cache?
+
+### How to do DB sharding?
 
 ### How to show accurate item availability?
 
