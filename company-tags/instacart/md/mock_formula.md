@@ -11,6 +11,7 @@ using namespace std;
 // Q1: Are there gonna be duplicate expressions for a given sign, T1 = 1, T1 = T2
 // Q2: Do we need to deal with format issues like some expression might have spaces but some might not have spaces in-between?
 // Q3: Are there going to be cycles with the given expressions?
+// Q4: Do we have float number in the equation?
 
 class ExpressionCalculator {
 public:

@@ -1,4 +1,3 @@
-```cpp
 // 第三轮 coding 公式计算
 // 第一小问 input : ["T2", ["T1 = 1", "T2 = T3", "T3 = T1"]] output : T2值   公式都是左边一个变量， 右边是变量或者数值
 // 第二小问 input : ["T2", ["T1 = 1", "T2 = 2 + T4", "T3 = T1 - 4", "T4 = T1 + T3]]  output:T2值
@@ -249,4 +248,4 @@ int main() {
 
 //     // return Entity(x, y, idx, res);
 //     return e;
-// }```
+// }
