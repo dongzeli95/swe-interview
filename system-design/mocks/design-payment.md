@@ -251,6 +251,10 @@ We can update multiple tables at once in a transaction to make sure they all suc
 
 Kafka
 
+_“processing.guarantee” to “exactly\_once” (default value is “at\_least\_once”)_
+
+> when processing.guarantee is configured to exactly\_once, Kafka Streams sets the internal embedded producer client with a transaction id to enable the idempotence and transactional messaging features, and also sets its consumer client with the read-committed mode to only fetch messages from committed transactions from the upstream producers.
+
 ### Cache architecture?
 
 Write through > Cache aside
@@ -263,6 +267,45 @@ So other services need to use write-through cache to update it before updating D
 
 1. Because we don't have high concurrency issues for same shopper credit card, so there won't be a case where the credit card balance is updated concurrently multiple times, leading to inconsistency issues.
 2. Data is relatively small, because we only need to store the latest order for each shopper, likely TTL is within a couple hours and we can evict the record.
+
+```
+shopper_id: {
+  has_active_order:
+  order_id:
+  shopper_credit_line:
+}
+
+// Keep for a couple hours TTL
+order_id: {
+  order_amount,
+  checkedout_amount: 0,
+  user_id,
+  user_geohash,
+}
+
+// Permanant.
+store_list: {
+  "SF": {
+    
+  }
+  "LA": {
+    
+  }
+  
+  "geohash1": {
+    store_name
+    store_id,
+  }
+}
+
+store_id: {
+  store_name,
+  address,
+  geohash,
+  zipcode,
+  category,
+}
+```
 
 ### Validate Logics?
 
