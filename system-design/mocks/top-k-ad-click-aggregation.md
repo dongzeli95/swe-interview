@@ -142,7 +142,7 @@ We can also consider to store ORC, parquet in S3/GCS and add hive metastore cata
 
 ## High Level Design
 
-<img src="../../.gitbook/assets/file.excalidraw (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1).svg" alt="" class="gitbook-drawing">
+<img src="../../.gitbook/assets/file.excalidraw (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1).svg" alt="" class="gitbook-drawing">
 
 ## E2E
 

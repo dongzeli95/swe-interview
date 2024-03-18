@@ -154,7 +154,7 @@ One month -> 10M order -> 10M / 30 = 0.3M order / day = 0.3\*10^6 / 10^5 = 15 QP
 
 ## High Level Diagram
 
-<img src="../../.gitbook/assets/file.excalidraw (1).svg" alt="" class="gitbook-drawing">
+<img src="../../.gitbook/assets/file.excalidraw (1) (1).svg" alt="" class="gitbook-drawing">
 
 Single point of failures:
 

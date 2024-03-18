@@ -221,7 +221,7 @@ is it necessary to keep a separate table for stock quantity?
 
 ## High Level Diagram
 
-<img src="../../.gitbook/assets/file.excalidraw.svg" alt="" class="gitbook-drawing">
+<img src="../../.gitbook/assets/file.excalidraw (1).svg" alt="" class="gitbook-drawing">
 
 <img src="../../.gitbook/assets/file.excalidraw (37).svg" alt="" class="gitbook-drawing">
 
@@ -230,6 +230,12 @@ is it necessary to keep a separate table for stock quantity?
 ### With Offline processing:
 
 <img src="../../.gitbook/assets/file.excalidraw (38).svg" alt="" class="gitbook-drawing">
+
+
+
+### Item Availability ML Pipeline
+
+<img src="../../.gitbook/assets/file.excalidraw.svg" alt="" class="gitbook-drawing">
 
 ## Deep Dive
 
