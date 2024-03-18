@@ -280,6 +280,7 @@
   * [Expression3](company-tags/instacart/md/mock\_formula3.md)
   * [PW All](company-tags/instacart/md/pw\_all.md)
   * [Expression All](company-tags/instacart/md/expression\_all.md)
+  * [Wildcard](company-tags/instacart/md/wildcard.md)
 * [OpenAI](company-tags/openai/README.md)
   * [Spreadsheet](company-tags/openai/md/spreadsheet.md)
   * [Iterator](company-tags/openai/md/iterator.md)
