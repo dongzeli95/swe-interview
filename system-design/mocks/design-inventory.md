@@ -70,17 +70,82 @@ One month -> 10M order -> 10M / 30 = 0.3M order / day = 0.3\*10^6 / 10^5 = 15 QP
 ## API
 
 ```
-Retailer
-CRUD -> Update
+API
+
+Retailer Update inventory
+POST v1/inventory
+Request:
+json {
+  inventory_name
+  inventory_id,
+  encoded_blob(base64): []
+}
+
+Response:201 Updated OK
+500 internal server error
 
 Customer
-CRUD order
-get product item
+CRUD
+create order
+POST v1/order
+Request
+{
+  user_id,
+  retailer_id,
+  created_at
+}
+Response
+
+view order
+GET v1/order?id=xxx
+Request: 
+Response: {
+  order_id,
+  items: [
+    "item_name1": {
+       "quantity": 10,
+    }
+   "item_name1": {
+       "quantity": 10,
+    }
+   "item_name1": {
+       "quantity": 10,
+    }
+  ],
+  status: CREATED, SHOPPER_ASSIGNED, PICKED_UP, CHECKED_OUT, DELIVERED
+  amount: xxx,
+}
+
+update order
+PUT v1/order
+Reqeust:
+{
+  user_id,
+  order_id,
+  item_id,
+  item_name,
+  item_quantity,
+  price, [optional]
+  created_at
+}
+
+Response:
+201 OK
+
+remove order
+DELETE /v1/order?id=xxx
 
 Shopper
-Get order
-Update order: Mark item as found
-Update Item: Mark not found.
+POST v1/orderitem
+Reqeust:
+{
+  order_id,
+  orderitem_id,
+  shopper_id,
+  item_id,
+  item_name,
+  item_quantity
+}
 ```
 
 ## Data Schema
@@ -137,6 +202,7 @@ id
 retailer_id
 item_name
 item_price
+item_pic: url in S3
 
 User Table
 id
@@ -154,6 +220,8 @@ is it necessary to keep a separate table for stock quantity?
 
 
 ## High Level Diagram
+
+<img src="../../.gitbook/assets/file.excalidraw.svg" alt="" class="gitbook-drawing">
 
 <img src="../../.gitbook/assets/file.excalidraw (37).svg" alt="" class="gitbook-drawing">
 
