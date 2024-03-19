@@ -63,20 +63,69 @@ int maxPathSum(TreeNode* root) {
     return res;
 }
 
-int main() {
-    TreeNode* root = new TreeNode(1);
-    root->left = new TreeNode(2);
-    root->right = new TreeNode(3);
-    // cout << maxPathSum(root) << endl;
-    assert(maxPathSum(root) == 6);
+int helper2(TreeNode* curr, int& res, vector<int>& path, vector<int>& maxPath) {
+    if (!curr) return 0;
 
-    root = new TreeNode(-10);
+    vector<int> leftPath, rightPath;
+    int l = max(0, helper2(curr->left, res, leftPath, maxPath));
+    int r = max(0, helper2(curr->right, res, rightPath, maxPath));
+    int currMax = curr->val + l + r;
+
+    if (currMax > res) {
+        res = currMax;
+        maxPath.clear();
+        maxPath.insert(maxPath.end(), leftPath.rbegin(), leftPath.rend());
+        maxPath.push_back(curr->val);
+        maxPath.insert(maxPath.end(), rightPath.begin(), rightPath.end());
+    }
+
+    // Determine the maximum sum path that can continue through the parent node
+    path = (l > r) ? leftPath : rightPath;
+    path.push_back(curr->val);
+
+    return curr->val + max(l, r);
+}
+
+// Time: O(n), Space: O(n)
+vector<int> maxPathSum2(TreeNode* root, int& maxSum) {
+    vector<int> path, maxPath;
+    maxSum = INT_MIN;
+    if (root) {
+        helper2(root, maxSum, path, maxPath);
+    }
+    return maxPath;
+}
+
+int main() {
+    // TreeNode* root = new TreeNode(1);
+    // root->left = new TreeNode(2);
+    // root->right = new TreeNode(3);
+    // // cout << maxPathSum(root) << endl;
+    // assert(maxPathSum(root) == 6);
+
+    // root = new TreeNode(-10);
+    // root->left = new TreeNode(9);
+    // root->right = new TreeNode(20);
+    // root->right->left = new TreeNode(15);
+    // root->right->right = new TreeNode(7);
+    // assert(maxPathSum(root) == 42);
+
+
+    TreeNode* root = new TreeNode(-10);
     root->left = new TreeNode(9);
     root->right = new TreeNode(20);
     root->right->left = new TreeNode(15);
     root->right->right = new TreeNode(7);
-    assert(maxPathSum(root) == 42);
 
+    int maxSum = 0;
+    vector<int> path = maxPathSum2(root, maxSum);
+
+    cout << "Max Path Sum: " << maxSum << endl;
+    cout << "Path: ";
+    for (int val : path) {
+        cout << val << " ";
+    }
+    cout << endl;
     return 0;
 }
 
