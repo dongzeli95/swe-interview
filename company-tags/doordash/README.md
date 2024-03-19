@@ -1,2 +1,7 @@
 * [Door And Gates](./md/door_and_gates.md)
 * [Max Job Profit](./md/max_job_profit.md)
+* [Swap](./md/swap.md)
+* [Nearest Cities](./md/nearest_cities.md)
+* [Sakudo](./md/sakudo.md)
+* [Tree Add Removal](./md/tree_add_removal.md)
+* [Exployee Free Time](./md/exployee_free_time.md)

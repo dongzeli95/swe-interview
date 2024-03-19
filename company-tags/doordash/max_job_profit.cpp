@@ -35,7 +35,6 @@ using namespace std;
 // Intuition: we sort the job based on their end time.
 // dp[i]: maximum profit ended at time i.
 // dp[i] = max(dp[i], dp[start_time] + profit);
-
 // We can use binary search to find the max profit that have idx <= start_time
 
 // Time: O(nlogn), Space: O(n)
@@ -52,3 +51,31 @@ int jobScheduling(vector<int>& startTime, vector<int>& endTime, vector<int>& pro
     }
     return dp.rbegin()->second;
 }
+
+// You're a dasher, and you want to try planning out your schedule. You can view a list of deliveries along with their associated start time, end time, and dollar amount for completing the order. Assuming dashers can only deliver one order at a time, determine the maximum amount of money you can make from the given deliveries.
+
+// The inputs are as follows :
+
+// int start_time : when you plan to start your schedule
+// int end_time : when you plan to end your schedule
+// int d_starts[n] : the start times of each delivery[i]
+// int d_ends[n] : the end times of each delivery[i]
+// int d_pays[n] : the pay for each delivery[i]
+// The output should be an integer representing the maximum amount of money you can make by forming a schedule with the given deliveries.
+
+// Constraints
+// end_time >= start_time
+// d_ends[i] >= d_starts[i]
+// d_pays[i] > 0
+// len(d_starts) == len(d_ends) == len(d_pays)
+
+// Test 1
+
+// start_time = 4
+// end_time = 10
+// d_starts = [2, 3, 5, 7]
+// d_ends = [6, 5, 11, 10]
+// d_pays = [5, 2, 4, 1]
+// max_pay[5, (2 + 4), 4, -]
+
+// Expected: 6
