@@ -72,18 +72,23 @@ public:
     } 
 };
 
-int count(Node* n) {
+// hashmap keep track of key and number of nodes under that subtree.
+unordered_map<string, int> om;
+unordered_map<string, int> nm;
+
+int count(Node* n, unordered_map<string, int>& m) {
     if (!n) {
         return 0;
     }
 
     int res = 1;
     for (Node* child : n->children) {
-        res += count(child);
+        res += count(child, m);
     }
-
+    
+    m[n->key] = res;
     return res;
-} 
+}
 
 int findDiffNodes(Node* oldMenu, Node* newMenu) {
     // Both trees are empty, they are the same tree
@@ -96,7 +101,7 @@ int findDiffNodes(Node* oldMenu, Node* newMenu) {
     if ((!oldMenu && newMenu)
     || (!newMenu && oldMenu)
     || (newMenu->key != oldMenu->key)) {
-        return count(oldMenu) + count(newMenu);
+        return om[oldMenu->key] + nm[newMenu->key];
     }
 
     int res = 0;
@@ -120,7 +125,7 @@ int findDiffNodes(Node* oldMenu, Node* newMenu) {
 
     for (auto i : m1) {
         if (!m2.count(i.first)) {
-            res += count(i.second);
+            res += om[i.second->key];
         } else {
             Node* child2 = m2[i.first];
             res += findDiffNodes(i.second, child2);
@@ -129,10 +134,16 @@ int findDiffNodes(Node* oldMenu, Node* newMenu) {
     }
 
     for (auto i : m2) {
-        res += count(i.second);
+        res += nm[i.second->key];
     }
 
     return res;
+}
+
+int diff(Node* oldMenu, Node* newMenu) {
+    count(oldMenu, om);
+    count(newMenu, nm);
+    return findDiffNodes(oldMenu, newMenu);
 }
 
 int main() {
@@ -181,7 +192,7 @@ int main() {
     a1->addChild(c1);
     c1->addChild(f1);
 
-    cout << findDiffNodes(a1, a) << endl;
+    cout << diff(a1, a) << endl;
 
 // Example 2
 // Existing Menu in our system:
@@ -229,7 +240,7 @@ int main() {
     b4->addChild(f4);
     c4->addChild(g4);
 
-    cout << findDiffNodes(a4, a3) << endl;
+    cout << diff(a4, a3) << endl;
 
     return 0;
 }```
