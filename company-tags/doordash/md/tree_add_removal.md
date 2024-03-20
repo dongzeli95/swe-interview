@@ -1,57 +1,56 @@
 ```cpp
-// 两个树的遍历，先统计不同的节点数量，再对不同节点分类， 哪些点是添加，哪些点是更改，哪些点是删除。
-
-// At DoorDash, menus are updated daily even hourly to keep them up - to - date.Each menu can be regarded as a tree.When the merchant sends us the latest menu, can we calculate
-// how many nodes have changed / added / deleted ?
-
-// Assume each Node structure is as below :
-
-// class Node {
-//     String key;
-//     int value;
-//     List children;
-// }
+// At DoorDash, menus are updated daily even hourly to keep them up-to-date. Each menu can be regarded as a tree.
+// When the merchant sends us the latest menu, can we calculate how many nodes has changed?
 
 // Assume there are no duplicate nodes with the same key.
 
 // Output: Return the number of changed nodes in the tree.
 
-/*
-// Existing tree
-//       a(1)
-//     /     \
-//   b(2)      c(3)
-//    / \          \     
-// d(4)   e(5)      f(6)
-
-// New tree
-// a(1)
-//   \
-//  c(3)
-//    \
-//   f(66)
-
-// a(1) a is the key, 1 is the value
-// For example, there are a total of 4 changed nodes.Node b, Node d, Node e are automatically set to inactive.The value of Node f changed as well.
+// Example 1
+// Existing Menu in our system:
 
 // Existing tree
-//      a(1)
-//     /    \
-//   b(2‍‍‌‌‌‍‍‌‌‍‍‍‌‍‍‌‌‍)    c(3)
-//    / \       \
-// d(4)  e(5)   g(7)
+//                           a(1, T)
+//                           /     \
+//                    b(2, T)     c(3, T)
+//                      / \              \
+//            d(4, T) e(5, T)        f(6, T)
+//
+// Legend: In "a(1, T)", a is the key, 1 is the value, T is True for active status 
+
+// New Menu sent by the Merchant:
 
 // New tree
-//         a(1)
-//       /      \
-//      b(2)     h(8)
-//   /   |   \       \
-// e(5) d(4) f(6)    g(7)
+//                  a(1, T)
+//                     |
+//                  c(3, F)
+//                     |
+//                 f(66, T)
+//
+// Expected Answer: 5 Explanation: Node b, Node d, Node e are automatically set to inactive.
+// The active status of Node c and the value of Node f changed as well.
 
-// There are a total of 5 changed nodes.Node f is a newly - added node.c(3) and old g(7) are deactivated and h(8) and g(7) are newly added nodes
+// Example 2
+// Existing Menu in our system:
 
-// followup print out the changes
-*/
+// Existing tree
+//                           a(1, T)
+//                            /    \
+//                    b(2, T)      c(3, T)
+//                       / \           \
+//             d(4, T) e(5, T)     g(7, T)
+// New Menu sent by the Merchant:
+
+// New tree
+//                         a(1, T)
+//                       /          \
+//                 b(2, T)         c(3, T)
+//                /  |    \              \
+//       d(4, T) e(5, T)  f(6, T)      g(7, F)
+//
+// Expected Answer: 2 Explanation: Node f is a newly-added node. Node g changed from Active to inactive
+// follow - up是输出变化的节点。具体可以参考这个帖子
+
 #include <string>
 #include <vector>
 #include <iostream>
@@ -59,133 +58,178 @@
 using namespace std;
 
 class Node {
-private:
-    string key;
-    int value;
-    bool isActive;
-    vector<Node*> children;
-
 public:
-    Node(string key, int value, bool isActive) {
-        this->key = key;
-        this->value = value;
-        this->isActive = isActive;
-    }
+    string key;
+    int val;
+    bool isActive;
 
-    // Destructor to properly clean up memory used by children nodes
-    ~Node() {
-        for (auto child : children) {
-            delete child;
-        }
-    }
+    vector<Node*> children;
+    Node(string k, int v): key(k), val(v), isActive(true) {}
+    Node(string k, int v, bool active) : key(k), val(v), isActive(active) {}
 
-    // Add a child to the node
-    void addChild(Node* child) {
-        children.push_back(child);
-    }
-
-    // Check for equality
-    bool equals(const Node* node) const {
-        return this->key == node->key
-            && this->value == node->value
-            && this->isActive == node->isActive;
-    }
-
-    // Convert node to string
-    string toString() const {
-        return key;
-    }
-
-    // Getters for Node properties
-    string getKey() const { return key; }
-    int getValue() const { return value; }
-    bool getIsActive() const { return isActive; }
-
-    // Get children
-    const vector<Node*>& getChildren() const {
-        return children;
-    }
+    void addChild(Node* n) {
+        children.push_back(n);
+    } 
 };
 
-class Menu {
-public:
-  int getModifiedItems(Node* oldMenu, Node* newMenu) {
-    if (oldMenu == nullptr && newMenu == nullptr) {
+int count(Node* n) {
+    if (!n) {
         return 0;
     }
 
-    int count = 0;
-    if (oldMenu == nullptr || newMenu == nullptr || !oldMenu->equals(newMenu)) {
-        // cout << oldMenu->toString() << " " << newMenu->toString() << endl;
-        count++;
-    }
-
-    unordered_map<string, Node*> children1 = getChildNodes(oldMenu);
-    unordered_map<string, Node*> children2 = getChildNodes(newMenu);
-
-    for (auto i: children1) {
-        string key = i.first;
-        count += getModifiedItems(children1[key], children2[key]);
-    }
-
-    for (auto i: children2) {
-        string key = i.first;
-        count += getModifiedItems(children1[key], children2[key]);
-    }
-
-    return count;
-  }
-
-  unordered_map<string, Node*> getChildNodes(Node* menu) {
-    unordered_map<string, Node*> res;
-    if (!menu) {
-        return res;
-    }
-
-    for (Node* n : menu->getChildren()) {
-        res[n->toString()] = n;
+    int res = 1;
+    for (Node* child : n->children) {
+        res += count(child);
     }
 
     return res;
-  }
-};
+} 
+
+int findDiffNodes(Node* oldMenu, Node* newMenu) {
+    // Both trees are empty, they are the same tree
+    if (!oldMenu && !newMenu) {
+        return 0;
+    }
+    // Only one of the trees is not null
+    // Or if the key of both trees are different, then return
+    // the node count of both trees (which could be zero or one of them)
+    if ((!oldMenu && newMenu)
+    || (!newMenu && oldMenu)
+    || (newMenu->key != oldMenu->key)) {
+        return count(oldMenu) + count(newMenu);
+    }
+
+    int res = 0;
+    // If their values are different
+    // Then we include the current nodes of the two trees as the only diff and then
+    // compute the diff of the children
+    if (oldMenu->val != newMenu->val) {
+        res += 1;
+    } else if (oldMenu->isActive != newMenu->isActive) {
+        res += 1;
+    }
+
+    unordered_map<string, Node*> m1;
+    for (Node* n : oldMenu->children) {
+        m1[n->key] = n;
+    }
+    unordered_map<string, Node*> m2;
+    for (Node* n : newMenu->children) {
+        m2[n->key] = n;
+    }
+
+    for (auto i : m1) {
+        if (!m2.count(i.first)) {
+            res += count(i.second);
+        } else {
+            Node* child2 = m2[i.first];
+            res += findDiffNodes(i.second, child2);
+            m2.erase(i.first);
+        }
+    }
+
+    for (auto i : m2) {
+        res += count(i.second);
+    }
+
+    return res;
+}
 
 int main() {
+    // Example 1
+// Existing Menu in our system:
+
+// Existing tree
+//                           a(1, T)
+//                           /     \
+//                    b(2, T)     c(3, T)
+//                      / \             \
+//            d(4, T) e(5, T)        f(6, T)
+//
+// Legend: In "a(1, T)", a is the key, 1 is the value, T is True for active status 
+
+// New Menu sent by the Merchant:
+
+// New tree
+//                  a(1, T)
+//                     |
+//                  c(3, F)
+//                     |
+//                 f(66, T)
+//
+// Expected Answer: 5 Explanation: Node b, Node d, Node e are automatically set to inactive.
+// The active status of Node c and the value of Node f changed as well.
+
     Node* a = new Node("a", 1, true);
     Node* b = new Node("b", 2, true);
     Node* c = new Node("c", 3, true);
     Node* d = new Node("d", 4, true);
     Node* e = new Node("e", 5, true);
-    Node* g = new Node("g", 7, true);
+    Node* f = new Node("f", 6, true);
 
+    // Existing tree
     a->addChild(b);
     a->addChild(c);
     b->addChild(d);
     b->addChild(e);
-    // c->addChild(g); // Commented out as in your Java code
+    c->addChild(f);
 
     Node* a1 = new Node("a", 1, true);
-    Node* b1 = new Node("b", 2, true);
-    Node* c1 = new Node("c", 3, true);
-    Node* d1 = new Node("d", 4, true);
-    Node* e1 = new Node("e", 5, true);
-    Node* f1 = new Node("f", 6, true);
-    Node* g1 = new Node("g", 7, false);
+    Node* c1 = new Node("c", 3, false);
+    Node* f1 = new Node("f", 66, true);
 
-    a1->addChild(b1);
     a1->addChild(c1);
-    b1->addChild(d1);
-    // b1->addChild(e1); // Commented out as in your Java code
-    // b1->addChild(f1); // Commented out as in your Java code
-    c1->addChild(e1);
+    c1->addChild(f1);
 
-    Menu menu;
-    int count = menu.getModifiedItems(a, a1);
-    cout << "Changed Items are: " << count << endl;
+    cout << findDiffNodes(a1, a) << endl;
 
-    // Memory cleanup
-    delete a;
-    delete a1;
+// Example 2
+// Existing Menu in our system:
+
+// Existing tree
+//                           a(1, T)
+//                            /    \
+//                    b(2, T)      c(3, T)
+//                       / \           \
+//             d(4, T) e(5, T)     g(7, T)
+// New Menu sent by the Merchant:
+
+// New tree
+//                         a(1, T)
+//                       /          \
+//                 b(2, T)         c(3, T)
+//                /  |    \              \
+//       d(4, T) e(5, T)  f(6, T)      g(7, F)
+//
+// Expected Answer: 2 Explanation: Node f is a newly-added node. Node g changed from Active to inactive
+
+    Node* a3 = new Node("a", 1, true);
+    Node* b3 = new Node("b", 2, true);
+    Node* c3 = new Node("c", 3, true);
+    Node* d3 = new Node("d", 4, true);
+    Node* e3 = new Node("e", 5, true);
+    Node* g3 = new Node("g", 7, true);
+    a3->addChild(b3);
+    a3->addChild(c3);
+    b3->addChild(d3);
+    b3->addChild(e3);
+    c3->addChild(g3);
+
+    Node* a4 = new Node("a", 1, true);
+    Node* b4 = new Node("b", 2, true);
+    Node* c4 = new Node("c", 3, true);
+    Node* d4 = new Node("d", 4, true);
+    Node* e4 = new Node("e", 5, true);
+    Node* f4 = new Node("f", 6, true);
+    Node* g4 = new Node("g", 7, false);
+    a4->addChild(b4);
+    a4->addChild(c4);
+    b4->addChild(d4);
+    b4->addChild(e4);
+    b4->addChild(f4);
+    c4->addChild(g4);
+
+    cout << findDiffNodes(a4, a3) << endl;
 
     return 0;
 }```
