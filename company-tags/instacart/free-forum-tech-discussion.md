@@ -202,6 +202,13 @@ var timesTwo = params => params * 2
 timesTwo(5);  // 10
 ```
 
+* Has no bindings to 'this' or 'super', so it shouldn't be used as a method.
+* Has no new.target keyword.
+* The call, apply, and bind methods are not suitable since they rely on establishing scope.
+* Not suitable for use as constructors.
+* Not possible for an arrow function to use the yield keyword within its body, etc.
+
+\
 
 
 ###
