@@ -1,0 +1,206 @@
+{
+  "_comment": "Test fixtures for task_dependency.py. Each graph defines a set of Tasks and a list of Q1/Q2 test cases. Expected outputs are given as SETS (order-agnostic) because topological order isn't unique — the runner validates content equality AND topo order validity separately.",
+
+  "graphs": [
+    {
+      "name": "original",
+      "description": "F depends on D and E. D depends on A, B, C. A, B, C, E are leaves.",
+      "ascii_art": [
+        "  A ──┐",
+        "  B ──┤─→ D ─→ F",
+        "  C ──┘       ↑",
+        "         E ───┘"
+      ],
+      "tasks": [
+        {"id": "A"},
+        {"id": "B"},
+        {"id": "C"},
+        {"id": "D", "deps": ["A", "B", "C"]},
+        {"id": "E"},
+        {"id": "F", "deps": ["D", "E"]}
+      ],
+      "q1_cases": [
+        {
+          "targets": ["F"],
+          "expected_exclude": ["A", "B", "C", "D", "E"],
+          "expected_include": ["A", "B", "C", "D", "E", "F"],
+          "notes": "single target, multi-level deps"
+        },
+        {
+          "targets": ["D"],
+          "expected_exclude": ["A", "B", "C"],
+          "expected_include": ["A", "B", "C", "D"],
+          "notes": "single target, one-level deps"
+        },
+        {
+          "targets": ["E"],
+          "expected_exclude": [],
+          "expected_include": ["E"],
+          "notes": "leaf target — nothing to depend on"
+        },
+        {
+          "targets": ["A"],
+          "expected_exclude": [],
+          "expected_include": ["A"],
+          "notes": "leaf target — same as E"
+        },
+        {
+          "targets": ["F", "D"],
+          "expected_exclude": ["A", "B", "C", "E"],
+          "expected_include": ["A", "B", "C", "D", "E", "F"],
+          "notes": "D is a target that F depends on — D is pulled into reachable but filtered from exclude output"
+        },
+        {
+          "targets": ["D", "E"],
+          "expected_exclude": ["A", "B", "C"],
+          "expected_include": ["A", "B", "C", "D", "E"],
+          "notes": "two independent targets"
+        }
+      ],
+      "q2_cases": [
+        {"target": "A", "expected_ancestors": ["D", "F"], "notes": "A → D → F"},
+        {"target": "B", "expected_ancestors": ["D", "F"], "notes": "same shape as A"},
+        {"target": "C", "expected_ancestors": ["D", "F"], "notes": "same shape as A"},
+        {"target": "D", "expected_ancestors": ["F"], "notes": "only F depends on D"},
+        {"target": "E", "expected_ancestors": ["F"], "notes": "only F depends on E"},
+        {"target": "F", "expected_ancestors": [], "notes": "nothing depends on F"}
+      ]
+    },
+
+    {
+      "name": "unrelated_islands",
+      "description": "Two disconnected components — party planning + travel planning. Reachability MUST prune the other side.",
+      "ascii_art": [
+        "  shopping ──→ cook_pasta ──┐",
+        "  decorate ─────────────────┤─→ host_party",
+        "  send_invites ─────────────┘",
+        "",
+        "  book_flight ──→ book_hotel ──→ pack_bags       (separate island)"
+      ],
+      "tasks": [
+        {"id": "shopping"},
+        {"id": "cook_pasta", "deps": ["shopping"]},
+        {"id": "decorate"},
+        {"id": "send_invites"},
+        {"id": "host_party", "deps": ["cook_pasta", "decorate", "send_invites"]},
+        {"id": "book_flight"},
+        {"id": "book_hotel", "deps": ["book_flight"]},
+        {"id": "pack_bags", "deps": ["book_hotel"]}
+      ],
+      "q1_cases": [
+        {
+          "targets": ["host_party"],
+          "expected_exclude": ["shopping", "cook_pasta", "decorate", "send_invites"],
+          "expected_include": ["shopping", "cook_pasta", "decorate", "send_invites", "host_party"],
+          "notes": "travel island NEVER appears in output"
+        },
+        {
+          "targets": ["pack_bags"],
+          "expected_exclude": ["book_flight", "book_hotel"],
+          "expected_include": ["book_flight", "book_hotel", "pack_bags"],
+          "notes": "party island NEVER appears in output"
+        },
+        {
+          "targets": ["host_party", "pack_bags"],
+          "expected_exclude": ["shopping", "cook_pasta", "decorate", "send_invites", "book_flight", "book_hotel"],
+          "expected_include": ["shopping", "cook_pasta", "decorate", "send_invites", "book_flight", "book_hotel", "host_party", "pack_bags"],
+          "notes": "targets in different components — output covers both islands"
+        }
+      ],
+      "q2_cases": [
+        {"target": "shopping", "expected_ancestors": ["cook_pasta", "host_party"], "notes": "chain up the party side"},
+        {"target": "book_flight", "expected_ancestors": ["book_hotel", "pack_bags"], "notes": "chain up the travel side"},
+        {"target": "host_party", "expected_ancestors": [], "notes": "top of its component"}
+      ]
+    },
+
+    {
+      "name": "diamond",
+      "description": "A is reachable via two paths (D→B→A and D→C→A). Shared visited set ensures A is walked exactly once.",
+      "ascii_art": [
+        "        A",
+        "       / \\",
+        "      B   C     (B depends on A. C depends on A.)",
+        "       \\ /",
+        "        D       (D depends on B and C.)"
+      ],
+      "tasks": [
+        {"id": "A"},
+        {"id": "B", "deps": ["A"]},
+        {"id": "C", "deps": ["A"]},
+        {"id": "D", "deps": ["B", "C"]}
+      ],
+      "q1_cases": [
+        {
+          "targets": ["D"],
+          "expected_exclude": ["A", "B", "C"],
+          "expected_include": ["A", "B", "C", "D"],
+          "notes": "A appears ONCE despite two paths"
+        },
+        {
+          "targets": ["B", "C"],
+          "expected_exclude": ["A"],
+          "expected_include": ["A", "B", "C"],
+          "notes": "two targets share dep A — multi-source BFS handles this"
+        },
+        {
+          "targets": ["B", "D"],
+          "expected_exclude": ["A", "C"],
+          "expected_include": ["A", "B", "C", "D"],
+          "notes": "B is a target that D depends on — pulled in then filtered from exclude"
+        }
+      ],
+      "q2_cases": [
+        {"target": "A", "expected_ancestors": ["B", "C", "D"], "notes": "A is depended on by B, C directly, and D transitively"},
+        {"target": "B", "expected_ancestors": ["D"], "notes": "only D depends on B"},
+        {"target": "D", "expected_ancestors": [], "notes": "top of graph"}
+      ]
+    },
+
+    {
+      "name": "linear_chain",
+      "description": "5-task linear chain — the only case with a UNIQUE topological order.",
+      "ascii_art": [
+        "  t1 ──→ t2 ──→ t3 ──→ t4 ──→ t5"
+      ],
+      "tasks": [
+        {"id": "t1"},
+        {"id": "t2", "deps": ["t1"]},
+        {"id": "t3", "deps": ["t2"]},
+        {"id": "t4", "deps": ["t3"]},
+        {"id": "t5", "deps": ["t4"]}
+      ],
+      "q1_cases": [
+        {
+          "targets": [],
+          "expected_exclude": [],
+          "expected_include": [],
+          "notes": "empty targets list → empty output"
+        },
+        {
+          "targets": ["t1"],
+          "expected_exclude": [],
+          "expected_include": ["t1"],
+          "notes": "leaf target"
+        },
+        {
+          "targets": ["t5"],
+          "expected_exclude": ["t1", "t2", "t3", "t4"],
+          "expected_include": ["t1", "t2", "t3", "t4", "t5"],
+          "notes": "full chain — output order is fully determined"
+        },
+        {
+          "targets": ["t3", "t5"],
+          "expected_exclude": ["t1", "t2", "t4"],
+          "expected_include": ["t1", "t2", "t3", "t4", "t5"],
+          "notes": "two targets in same chain — t3 filtered in exclude, still needed in include for t4/t5 ordering"
+        }
+      ],
+      "q2_cases": [
+        {"target": "t1", "expected_ancestors": ["t2", "t3", "t4", "t5"], "notes": "everything is downstream"},
+        {"target": "t3", "expected_ancestors": ["t4", "t5"], "notes": "only two nodes downstream"},
+        {"target": "t5", "expected_ancestors": [], "notes": "end of chain"}
+      ]
+    }
+  ]
+}
