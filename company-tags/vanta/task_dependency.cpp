@@ -24,9 +24,8 @@
 // bindings for the same loops.
 //
 // Complexity is identical to the Python version:
-//   dependencies_of_targets_brute: O(k*(V+E)) reachability + O(V+E) topo
-//   dependencies_of_targets:       O(V+E) total
-//   ancestors_of_target:           O(V+E)
+//   dependencies_of_targets:  O(V+E) total
+//   ancestors_of_target:      O(V+E)
 
 #include <iostream>
 #include <queue>
@@ -45,88 +44,7 @@ struct Task {
 };
 
 
-// ---------- Q1 (brute force): per-target reachability + topo sort ----------
-
-vector<string> dependencies_of_targets_brute(
-    const vector<Task>& all_tasks,
-    const vector<string>& targets
-) {
-    // by_id: dict[str, Task*] — pointer avoids copying the Task; the vector owns storage.
-    unordered_map<string, const Task*> by_id;
-    for (const Task& t : all_tasks) by_id[t.id] = &t;
-
-    unordered_set<string> target_set(targets.begin(), targets.end());
-    for (const string& tgt : targets) {
-        if (by_id.find(tgt) == by_id.end()) {
-            throw runtime_error("target not found in all_tasks: " + tgt);
-        }
-    }
-
-    // Pass 1: one BFS *per target*, fresh visited set each time, then union.
-    // Wasteful when targets share deps — same subgraph gets walked more than once.
-    unordered_set<string> reachable;
-    for (const string& tgt : targets) {
-        unordered_set<string> per_target_seen;
-        queue<string> q;
-        for (const string& dep : by_id[tgt]->dependencies) {
-            if (!per_target_seen.count(dep)) {
-                per_target_seen.insert(dep);
-                q.push(dep);
-            }
-        }
-        while (!q.empty()) {
-            string node = q.front();
-            q.pop();
-            for (const string& dep : by_id[node]->dependencies) {
-                if (!per_target_seen.count(dep)) {
-                    per_target_seen.insert(dep);
-                    q.push(dep);
-                }
-            }
-        }
-        for (const string& n : per_target_seen) reachable.insert(n);
-    }
-
-    // Pass 2: Kahn's topo sort restricted to `reachable`.
-    unordered_map<string, vector<string>> reverse_adj;
-    unordered_map<string, int> in_degree;
-    for (const string& node : reachable) in_degree[node] = 0;
-    for (const string& node : reachable) {
-        for (const string& dep : by_id[node]->dependencies) {
-            if (reachable.count(dep)) {
-                reverse_adj[dep].push_back(node);
-                in_degree[node] += 1;
-            }
-        }
-    }
-
-    queue<string> q;
-    for (const pair<const string, int>& entry : in_degree) {
-        if (entry.second == 0) q.push(entry.first);
-    }
-    vector<string> order;
-    while (!q.empty()) {
-        string node = q.front();
-        q.pop();
-        order.push_back(node);
-        for (const string& dependent : reverse_adj[node]) {
-            if (--in_degree[dependent] == 0) q.push(dependent);
-        }
-    }
-
-    if (order.size() != reachable.size()) {
-        throw runtime_error("cycle detected in dependency graph");
-    }
-
-    vector<string> result;
-    for (const string& n : order) {
-        if (!target_set.count(n)) result.push_back(n);
-    }
-    return result;
-}
-
-
-// ---------- Q1 (optimized): multi-source BFS with shared visited set ----------
+// ---------- Q1: multi-source BFS with shared visited set + Kahn's topo sort ----------
 
 vector<string> dependencies_of_targets(
     const vector<Task>& all_tasks,
@@ -165,7 +83,7 @@ vector<string> dependencies_of_targets(
         }
     }
 
-    // Pass 2: Kahn's topo sort restricted to `reachable`. Identical to brute version.
+    // Pass 2: Kahn's topo sort restricted to `reachable`.
     unordered_map<string, vector<string>> reverse_adj;
     unordered_map<string, int> in_degree;
     for (const string& node : reachable) in_degree[node] = 0;
@@ -270,15 +188,12 @@ int main() {
         {"F", {"D", "E"}},
     };
 
-    print_vec("Q1 brute  deps of [F]   ", dependencies_of_targets_brute(tasks, {"F"}));
-    print_vec("Q1 opt    deps of [F]   ", dependencies_of_targets(tasks, {"F"}));
-    print_vec("Q1 brute  deps of [D,E] ", dependencies_of_targets_brute(tasks, {"D", "E"}));
-    print_vec("Q1 opt    deps of [D,E] ", dependencies_of_targets(tasks, {"D", "E"}));
-    print_vec("Q1 brute  deps of [F,D] ", dependencies_of_targets_brute(tasks, {"F", "D"}));
-    print_vec("Q1 opt    deps of [F,D] ", dependencies_of_targets(tasks, {"F", "D"}));
-    print_vec("Q2  ancestors of A      ", ancestors_of_target(tasks, "A"));
-    print_vec("Q2  ancestors of E      ", ancestors_of_target(tasks, "E"));
-    print_vec("Q2  ancestors of F      ", ancestors_of_target(tasks, "F"));
+    print_vec("Q1 deps of [F]     ", dependencies_of_targets(tasks, {"F"}));
+    print_vec("Q1 deps of [D, E]  ", dependencies_of_targets(tasks, {"D", "E"}));
+    print_vec("Q1 deps of [F, D]  ", dependencies_of_targets(tasks, {"F", "D"}));
+    print_vec("Q2 ancestors of A  ", ancestors_of_target(tasks, "A"));
+    print_vec("Q2 ancestors of E  ", ancestors_of_target(tasks, "E"));
+    print_vec("Q2 ancestors of F  ", ancestors_of_target(tasks, "F"));
 
     return 0;
 }

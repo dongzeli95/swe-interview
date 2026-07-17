@@ -70,12 +70,30 @@ Q2: Employees are in a TREE of groups:
         - total overdue days (summed over all employees in this + descendants)
 ```
 
+### Clarifying questions to ask BEFORE coding (script these)
+
+Ask these in the first ~90 seconds. Every one has bitten a candidate on 1p3a.
+
+**Data model:**
+1. **Completion field?** *"Do employees have a `trained_day` field, or is the input pre-filtered to employees who haven't completed training?"* — Variant A has no completion field (if they're in the list, they're not done). Variant B has `trained_day` and Alice who finished on day 25 is compliant even at `check_day = 50`. The overdue rule differs.
+2. **`int` days or actual `date` objects?** Older reports use ints (`joined_day`, `check_day` as day counters). Newer reports use `datetime.date`. Ask — ints are simpler; if dates, use `(check_day - due_date).days`.
+3. **Boundary: `check_day == due_day` — compliant or overdue?** Off-by-one that trips ~1 in 3 candidates. Confirm the convention out loud.
+4. **Training-not-yet-started employees** — if `check_day < start_day`, is that valid input? (Usually treat as compliant, but confirm.)
+
+**Q2 tree structure:**
+5. **Signature — interviewer WON'T give you one for Q2.** Announce yours: *"I'll take `groups: dict[str, list[str]]`, `employees_by_group: dict[str, list[Employee]]`, `check_day: int`, and return `dict[str, GroupStats]`. Sound right?"*
+6. **Single root or forest?** Vanta's real product is per-tenant so it's one root, but the abstract prompt often doesn't say. Ask — infer roots vs accept `root: str` param.
+7. **Can internal (non-leaf) groups have direct employees?** *Answer is yes* — the VP of Engineering is directly on "eng", not on any sub-team. Confirm anyway; the code is the same either way but the interviewer wants to hear you think about it.
+8. **Cycle guarantee?** *"Is `groups` guaranteed to be a tree — no cycles, each group has at most one parent?"* If not, you need a `visited` set.
+9. **Groups referenced only as children** — a group that appears in some parent's child list but has no entry in `groups` or `employees_by_group`. Should it appear in the output with `GroupStats(0, 0)`? (Yes — every referenced group gets a row.)
+
 ### Common bugs
 
-- Off-by-one in overdue calc. If they're due on day `S + T`, is `check_day = S + T` compliant or not? **Ask.**
+- Off-by-one in overdue calc. If they're due on day `S + T`, is `check_day = S + T` compliant or not? **Ask (see #3 above).**
 - Q2: recomputing subtree state per group instead of caching (O(n²) instead of O(n)).
-- Assuming the tree has a single root — the problem may have a forest. Ask.
-- Missing groups with no direct employees but with subgroups.
+- Assuming the tree has a single root — the problem may have a forest. Ask (#6).
+- Missing groups with no direct employees but with subgroups (#7 / #9).
+- Forgetting to record `result[group] = stats` inside `dfs` — you'll only get the root's total instead of one entry per group.
 
 ## What NOT to spend time on
 

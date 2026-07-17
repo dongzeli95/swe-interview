@@ -38,14 +38,32 @@ guessing. If the prompt is sparse, ask:
         → Almost always yes. Those tasks MUST NOT appear in the output.
         → This is what motivates the reachability (BFS) step.
 
-    4. "Is any valid topological order acceptable, or do you want a
-        specific tiebreak (e.g., alphabetical among equals)?"
-        → Usually any valid order. If specific, swap Kahn's queue for a heap.
+    4. "For tasks at the same dependency level — say D and G both depend
+        on A, B, C but neither depends on the other — do you care about
+        their relative order in the output? Or is any valid topological
+        order fine?"
+        → Ask this BEFORE coding. Topo sort is not unique; independent
+          nodes can appear in ANY order. If the interviewer doesn't care,
+          say so out loud and move on. If they want a specific tiebreak
+          (usually alphabetical), swap Kahn's queue for a min-heap
+          (O((V+E) log V) instead of O(V+E)) — plan for that upfront so
+          you don't have to refactor midway through.
+        → Also flag: independent leaf nodes {A, B, C} can appear in any
+          order among themselves for the same reason.
 
-    5. "Can a dep id reference a task not in `all_tasks`? Duplicate ids
-        in all_tasks or in targets? Empty targets list?"
-        → Usually no on all three, but confirm — cheap questions with
-          large downside if wrong.
+    5. "Can `targets` contain duplicates? (e.g., ['D', 'F', 'D'])"
+        → If yes: the BFS seeding loop needs an `if tgt not in reachable`
+          guard to avoid enqueueing the same target twice. Without the
+          guard, correctness is unaffected (the inner visited check
+          catches everything) but you waste one queue pop per duplicate.
+        → If the interviewer says "assume no duplicates," the guard is
+          dead code and can be removed.
+
+    6. "Can a dep id reference a task not in `all_tasks`? Empty targets
+        list? Duplicate ids in `all_tasks`?"
+        → Usually no on all three, but ask — cheap to check, large
+          downside if wrong. Empty targets should return []; missing
+          deps should probably raise (see the KeyError guard).
 
 ───────────────────────────────────────────────────────────────────────────
 STEP 2 — SOLUTION PROGRESSION (narrate this out loud)
@@ -53,7 +71,7 @@ STEP 2 — SOLUTION PROGRESSION (narrate this out loud)
 The interviewer scores your reasoning, not just the final code. Walk them
 through the progression:
 
-  APPROACH A — recursive post-order DFS from each target
+  APPROACH A — recursive post-order DFS from each target (naive starting point)
     def dfs(node):
         if node in visited: return
         visited.add(node)
@@ -64,35 +82,29 @@ through the progression:
     for tgt in targets: dfs(tgt)
 
     ✓ Reachability + ordering in ONE pass (post-order emission).
-    ✗ Python recursion limit (~1000) blows up on deep chains.
+    ✓ Visited set is shared across all targets — no wasted re-traversal.
+    ✗ Python recursion limit (~1000) blows up on deep dep chains.
     ✗ Cycle detection needs 3-color DFS (WHITE/GRAY/BLACK).
     Complexity: O(V + E).
 
-  APPROACH B — two-pass, per-target BFS + Kahn's  (see: dependencies_of_targets_brute)
-    Pass 1: For each target, BFS its deps into a fresh visited set. Union.
-    Pass 2: Kahn's topo sort restricted to the union.
-
-    ✓ Iterative — no recursion limit.
-    ✓ Cycle detection free from Kahn's.
-    ✗ Pass 1 re-walks shared subgraphs across targets.
-    Complexity: O(k*(V + E)) + O(V + E) where k = len(targets).
-
-  APPROACH C — two-pass, multi-source BFS + Kahn's  (see: dependencies_of_targets)
+  APPROACH B — two-pass, multi-source BFS + Kahn's  (see: dependencies_of_targets)
     Pass 1: ONE BFS starting from ALL targets simultaneously, sharing a
             single `reachable` set. Each node enqueued at most once.
-    Pass 2: Same Kahn's as B.
+    Pass 2: Kahn's topo sort restricted to `reachable`.
 
-    ✓ Every advantage of B, without the k-fold waste.
+    ✓ Iterative — no recursion limit.
+    ✓ Cycle detection free from Kahn's (len(order) != len(reachable)).
+    ✓ Same shared-visited efficiency as approach A.
     Complexity: O(V + E) total.
 
 Narration template:
-    "I'd start with recursive post-order DFS — clean and one-pass. But two
-     concerns: Python's recursion limit on deep chains, and cycle detection
-     is finicky (3-color). Let me switch to iterative Kahn's — that gives
-     cycle detection for free. First pass finds the reachable subgraph
-     from the targets, second pass topo-sorts it. One optimization: instead
-     of a fresh BFS per target, one multi-source BFS with a shared visited
-     set — same work regardless of overlap."
+    "The most natural first version is a recursive post-order DFS from each
+     target with a shared visited set — one pass gets both reachability and
+     topo order (post-order emission). Two concerns for production though:
+     Python's recursion limit on deep chains, and cycle detection needs
+     3-color DFS which is easy to get wrong. So I'll rewrite iteratively
+     as two passes — multi-source BFS to find the reachable subgraph, then
+     Kahn's for the topo sort. Kahn's gives cycle detection for free."
 
 ───────────────────────────────────────────────────────────────────────────
 STEP 3 — MENTAL MODEL
@@ -113,9 +125,8 @@ the graph backwards.
 
 COMPLEXITY
 ----------
-Q1 brute:      O(k*(V+E)) reachability + O(V+E) topo = O(k*(V+E))
-Q1 optimized:  O(V + E)
-Q2:            O(V + E)
+Q1:  O(V + E)   (both approach A and approach B)
+Q2:  O(V + E)
 ═══════════════════════════════════════════════════════════════════════════
 """
 
@@ -130,119 +141,27 @@ class Task:
 
 
 # ═══════════════════════════════════════════════════════════════════════════
-# Q1 APPROACH B (brute force): per-target BFS + Kahn's topo sort
-# ═══════════════════════════════════════════════════════════════════════════
-
-def dependencies_of_targets_brute(all_tasks: list[Task], targets: list[str]) -> list[str]:
-    """APPROACH B — the natural first version to code in an interview.
-
-    Intuition:
-        Two questions, two passes.
-        Q1: "Which tasks matter?"   → BFS from each target, union the results.
-        Q2: "In what order?"        → Kahn's topo sort on that subgraph.
-
-    Why not just Kahn's on all_tasks?
-        Kahn's would happily topo-sort the entire task universe, including
-        unrelated islands (tasks no target depends on). We'd have to filter
-        those out at the end — and filtering requires the reachability info
-        anyway. So we compute reachability first and prune upfront.
-
-    Why not optimal?
-        Pass 1 uses a fresh visited set per target. If F and G both depend
-        on D, D's whole subtree gets walked twice. See `dependencies_of_targets`
-        below for the fix (shared visited set).
-
-    Complexity: O(k*(V+E)) reachability + O(V+E) topo, where k = |targets|.
-    """
-    by_id: dict[str, Task] = {t.id: t for t in all_tasks}
-    target_set: set[str] = set(targets)
-
-    # Defensive: catch bad input at the boundary. Cheap to check, hard to debug otherwise.
-    for tgt in targets:
-        if tgt not in by_id:
-            raise KeyError(f"target {tgt!r} not found in all_tasks")
-
-    # ─── PASS 1: Reachability (per-target BFS, union results) ──────────
-    # WHY: We must know which tasks the targets transitively depend on so
-    # we can (a) prune the input for pass 2 and (b) exclude unrelated
-    # tasks from the final output.
-    #
-    # WHY per-target (not multi-source): This is the "naive" version — for
-    # each target, we run a full BFS with a fresh `per_target_seen` set.
-    # Then we union everything into `reachable`. Wasteful when targets
-    # share deps, but very easy to reason about.
-    reachable: set[str] = set()
-    for tgt in targets:
-        per_target_seen: set[str] = set()
-        queue: deque[str] = deque()
-        # Seed with target's *direct* deps — not the target itself, since
-        # we want to exclude targets from the output.
-        for dep in by_id[tgt].dependencies:
-            if dep not in per_target_seen:
-                per_target_seen.add(dep)
-                queue.append(dep)
-        while queue:
-            node = queue.popleft()
-            for dep in by_id[node].dependencies:
-                if dep not in per_target_seen:
-                    per_target_seen.add(dep)
-                    queue.append(dep)
-        reachable |= per_target_seen
-
-    # ─── PASS 2: Kahn's topological sort restricted to `reachable` ─────
-    # WHY Kahn's over recursive DFS: (1) iterative → no Python stack
-    # limit; (2) built-in cycle detection via `len(order) != len(reachable)`.
-    #
-    # Edge convention: dep → dependent (so a dep is emitted before what
-    # depends on it). in_degree[X] = "how many deps X has that are still
-    # unprocessed." When in_degree[X] == 0, X's deps are all done → emit X.
-    reverse_adj: dict[str, list[str]] = defaultdict(list)
-    in_degree: dict[str, int] = {node: 0 for node in reachable}
-    for node in reachable:
-        for dep in by_id[node].dependencies:
-            if dep in reachable:  # (redundant given BFS invariant, kept for clarity)
-                reverse_adj[dep].append(node)
-                in_degree[node] += 1
-
-    queue = deque(n for n, d in in_degree.items() if d == 0)
-    order: list[str] = []
-    while queue:
-        node = queue.popleft()
-        order.append(node)
-        for dependent in reverse_adj[node]:
-            in_degree[dependent] -= 1
-            if in_degree[dependent] == 0:
-                queue.append(dependent)
-
-    # WHY this check: if a cycle exists, some nodes never reach in_degree
-    # 0, so they're never emitted. len(order) < len(reachable) is the tell.
-    if len(order) != len(reachable):
-        raise ValueError("cycle detected in dependency graph")
-
-    # ─── PASS 3 (trivial): filter out targets from the output ──────────
-    # WHY: The problem asks for "extra work needed before the targets."
-    # Targets in `reachable` (when one target depends on another) must be
-    # dropped here. Confirm this framing with the interviewer upfront.
-    return [n for n in order if n not in target_set]
-
-
-# ═══════════════════════════════════════════════════════════════════════════
-# Q1 APPROACH C (optimized): multi-source BFS + Kahn's topo sort
+# Q1 APPROACH B (production): multi-source BFS + Kahn's topo sort
 # ═══════════════════════════════════════════════════════════════════════════
 
 def dependencies_of_targets(all_tasks: list[Task], targets: list[str]) -> list[str]:
-    """APPROACH C — the optimization to converge on if you have time.
+    """APPROACH B — iterative two-pass version. What to write for production.
 
-    The ONE key insight vs. brute:
-        Instead of running a fresh BFS per target, seed a single BFS queue
-        with the direct deps of EVERY target upfront and share ONE visited
-        set (`reachable`) across the whole traversal. This turns k separate
-        BFSes into one multi-source BFS. Any node reachable from multiple
-        targets gets processed exactly once.
+    Motivation vs. the naive recursive DFS (approach A in the top docstring):
+        Approach A is fine for scratch code but has two issues in real use:
+          - Python's recursion limit (~1000) crashes on deep dep chains.
+          - Cycle detection in a recursive DFS needs 3-color marking
+            (WHITE/GRAY/BLACK), which is easy to get subtly wrong.
+        Rewriting iteratively as two passes fixes both — and Kahn's gives
+        us cycle detection for free (len(order) != len(reachable)).
 
-    Pass 2 (Kahn's) and pass 3 (filter) are byte-identical to brute — the
-    only diff is pass 1. That's the "diff between naive and optimized" you
-    can point at during the interview.
+    Mental model — SCOPE DOWN then ORDER:
+        Pass 1: Multi-source BFS builds `reachable`, the induced subgraph
+                of tasks the targets transitively depend on. `reachable`
+                doubles as the BFS visited set — shared across all targets,
+                so overlapping subgraphs are walked exactly once.
+        Pass 2: Kahn's topological sort restricted to `reachable`.
+        Pass 3: Drop targets from the final list (per problem framing).
 
     Complexity: O(V + E) total.
     """
@@ -282,7 +201,7 @@ def dependencies_of_targets(all_tasks: list[Task], targets: list[str]) -> list[s
                 queue.append(dep)
 
     # ─── PASS 2: Kahn's topological sort restricted to `reachable` ─────
-    # Identical to brute. Kahn's gives us:
+    # Kahn's gives us:
     #   (1) a valid topo order (deps before dependents), and
     #   (2) cycle detection for free.
     reverse_adj: dict[str, list[str]] = defaultdict(list)
@@ -452,9 +371,9 @@ def _validate_topo(output: list[str], tasks_by_id: dict[str, Task], expected: li
 
 if __name__ == "__main__":
     # Fixture-driven demo. Cases live in test_fixtures.json alongside this
-    # file. The runner loads the fixture, executes each case against all
-    # three Q1 variants (brute, optimized, include) and Q2, and validates
-    # results by (a) set equality vs expected, (b) topological validity.
+    # file. The runner loads the fixture, executes each case against both
+    # Q1 variants (exclude, include) and Q2, and validates results by
+    # (a) set equality vs expected, (b) topological validity.
     #
     # Topological order is NOT unique — if A, B, C all have no deps, any
     # order among them is valid. That's why validation checks content +
@@ -486,9 +405,8 @@ if __name__ == "__main__":
                 print(f"   notes: {case['notes']}")
 
             for label, fn, expected in [
-                ("exclude (brute)", dependencies_of_targets_brute, case["expected_exclude"]),
-                ("exclude (opt)  ", dependencies_of_targets,       case["expected_exclude"]),
-                ("include        ", dependencies_of_targets_include, case["expected_include"]),
+                ("exclude", dependencies_of_targets,         case["expected_exclude"]),
+                ("include", dependencies_of_targets_include, case["expected_include"]),
             ]:
                 actual = fn(tasks, targets)
                 status = _validate_topo(actual, tasks_by_id, expected)
