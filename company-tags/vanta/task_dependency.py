@@ -71,20 +71,26 @@ STEP 2 — SOLUTION PROGRESSION (narrate this out loud)
 The interviewer scores your reasoning, not just the final code. Walk them
 through the progression:
 
-  APPROACH A — recursive post-order DFS from each target (naive starting point)
+  APPROACH A — recursive post-order DFS from each target  (see: dependencies_of_targets_dfs)
     def dfs(node):
         if node in visited: return
-        visited.add(node)
+        if node in on_stack: raise CycleError
+        on_stack.add(node)
         for dep in by_id[node].dependencies:
             dfs(dep)
+        on_stack.remove(node); visited.add(node)
         if node not in target_set:
             result.append(node)   # post-order → topo order for free
     for tgt in targets: dfs(tgt)
 
     ✓ Reachability + ordering in ONE pass (post-order emission).
-    ✓ Visited set is shared across all targets — no wasted re-traversal.
+    ✓ Visited set shared across all targets — no wasted re-traversal.
+    ✓ Naturally scopes to reachable subgraph — no separate BFS pre-pass needed.
     ✗ Python recursion limit (~1000) blows up on deep dep chains.
-    ✗ Cycle detection needs 3-color DFS (WHITE/GRAY/BLACK).
+      Fix: sys.setrecursionlimit(N) or iterative version with ENTER/EXIT
+      markers on an explicit stack (2-state trick — see impl note below).
+    ✗ Cycle detection needs a separate on_stack set (GRAY nodes in the
+      textbook WHITE/GRAY/BLACK 3-color scheme). Easy to forget.
     Complexity: O(V + E).
 
   APPROACH B — two-pass, multi-source BFS + Kahn's  (see: dependencies_of_targets)
@@ -93,18 +99,30 @@ through the progression:
     Pass 2: Kahn's topo sort restricted to `reachable`.
 
     ✓ Iterative — no recursion limit.
-    ✓ Cycle detection free from Kahn's (len(order) != len(reachable)).
+    ✓ Cycle detection free (len(order) != len(reachable)).
     ✓ Same shared-visited efficiency as approach A.
+    ✗ Two passes vs one — needs the BFS pre-pass to scope down before it
+      can compute in-degrees over the reachable subgraph.
     Complexity: O(V + E) total.
 
-Narration template:
-    "The most natural first version is a recursive post-order DFS from each
-     target with a shared visited set — one pass gets both reachability and
-     topo order (post-order emission). Two concerns for production though:
-     Python's recursion limit on deep chains, and cycle detection needs
-     3-color DFS which is easy to get wrong. So I'll rewrite iteratively
-     as two passes — multi-source BFS to find the reachable subgraph, then
-     Kahn's for the topo sort. Kahn's gives cycle detection for free."
+⚠ INTERVIEW FRAMING TRAP (from Vanta phone screen 2026-08-04):
+    Some interviewers use "topological sort" to mean Kahn's specifically,
+    and treat DFS post-order as "a different approach" — even though
+    mathematically it IS a topological sort algorithm (Cormen ch. 22).
+    If you only present Kahn's and they ask "is there another way?", the
+    intended answer is DFS post-order. Pre-empt this by naming BOTH
+    algorithms in your opening narration (see template below), then pick
+    one to implement.
+
+Narration template (defuses the trap):
+    "There are two canonical algorithms for topological sort — Kahn's
+     algorithm (BFS + in-degree tracking) and DFS post-order (emit nodes
+     as recursion unwinds). For this problem I'd lean toward DFS
+     post-order because it does reachability and ordering in a single
+     pass — we're topo-sorting from a specific set of targets, not the
+     whole graph, so DFS from targets scopes down for free. The trade-off
+     is Python's recursion limit on very deep chains. I can code either;
+     which would you prefer to see?"
 
 ───────────────────────────────────────────────────────────────────────────
 STEP 3 — MENTAL MODEL
@@ -122,6 +140,37 @@ Any graph problem shaped like "given a big graph + a starting set, do X
 only within reach" tends to fit this shape (Course Schedule II, Clone
 Graph, etc.). Q2 is Q1 with edges reversed — "what depends on me?" walks
 the graph backwards.
+
+───────────────────────────────────────────────────────────────────────────
+STEP 4 — WHEN TO REACH FOR KAHN'S vs DFS POST-ORDER (reusable rubric)
+───────────────────────────────────────────────────────────────────────────
+Both are O(V+E) topological sort algorithms. Pick based on the SHAPE of
+the problem, not personal preference — the interviewer will judge the
+choice.
+
+  Prefer DFS POST-ORDER when:
+    • Topo-sorting from a SPECIFIC starting set (this problem, "build
+      order for a specific target"). Reachability + ordering in one pass.
+    • You want the shortest code. ~10 lines for the core recursion.
+    • Post-order emission naturally maps to the mental model
+      "everything I depend on must appear before me."
+
+  Prefer KAHN'S ALGORITHM when:
+    • Topo-sorting the WHOLE graph (Course Schedule, package resolution
+      over all packages).
+    • You want an iterative solution — recursion limit is a real risk.
+    • You want ordering by "level" / dependency depth (Kahn's naturally
+      layers nodes by when their in-degree hits 0 — useful for parallel
+      scheduling: "run these 3 first in parallel, then these 2, ...").
+    • You want cycle detection with a trivially simple check
+      (len(order) != len(nodes)).
+
+  Cycle detection cheat sheet:
+    • Kahn's:  cycle ⇔ some node never gets in-degree 0 ⇔ order shorter
+               than reachable set at the end.
+    • DFS:     cycle ⇔ during recursion, hit a node that's already on the
+               current DFS path (the "gray" set / on_stack). NOT the
+               same as `visited` — visited = fully processed (black).
 
 COMPLEXITY
 ----------
@@ -295,6 +344,134 @@ def dependencies_of_targets_include(all_tasks: list[Task], targets: list[str]) -
 
 
 # ═══════════════════════════════════════════════════════════════════════════
+# Q1 APPROACH A: recursive post-order DFS  (the "other approach" some
+# interviewers expect when they say "besides topological sort" — even
+# though DFS post-order IS a topological sort algorithm)
+# ═══════════════════════════════════════════════════════════════════════════
+
+def dependencies_of_targets_dfs(all_tasks: list[Task], targets: list[str]) -> list[str]:
+    """APPROACH A — recursive post-order DFS. Single pass.
+
+    THE CORE IDEA (memorize this — reuse for any "topo sort from a set of
+    targets" problem):
+        Recurse into a node's deps first. Once they've all returned, they
+        are already in `result`. NOW append the current node. Post-order
+        emission ⇒ every node appears AFTER all its deps ⇒ valid topo order.
+
+    Cycle detection uses two sets — the standard 3-color scheme:
+        WHITE = not in `visited` and not in `on_stack`  → not yet touched
+        GRAY  = in `on_stack`                            → on current DFS path
+        BLACK = in `visited`                             → fully processed
+        A cycle exists iff DFS revisits a GRAY node. Revisiting a BLACK
+        node is fine — it just means shared subgraph, already emitted.
+
+    Why the visited/on_stack DISTINCTION matters:
+        Two targets sharing a dep D → the second target's DFS hits D, sees
+        it's BLACK (visited), returns immediately. Correct — D and its
+        subtree are already in `result`. If we treated any prior visit as
+        a "cycle", we'd get false positives on shared deps.
+
+    Complexity: O(V + E).
+
+    Trade-off vs Kahn's:
+        + One pass (reachability + ordering fused via post-order emission).
+        + Shorter code, cleaner mental model.
+        − Recursion depth capped by Python's limit (~1000). Deep chains
+          need sys.setrecursionlimit(N) or the iterative version below.
+    """
+    by_id: dict[str, Task] = {t.id: t for t in all_tasks}
+    target_set: set[str] = set(targets)
+
+    for tgt in targets:
+        if tgt not in by_id:
+            raise KeyError(f"target {tgt!r} not found in all_tasks")
+
+    result: list[str] = []
+    visited: set[str] = set()   # BLACK — fully processed, already in result
+    on_stack: set[str] = set()  # GRAY — on current DFS path (cycle sentinel)
+
+    def dfs(node: str) -> None:
+        if node in visited:
+            return                                       # shared subgraph — fine
+        if node in on_stack:
+            raise ValueError(f"cycle detected involving {node!r}")
+        on_stack.add(node)
+        for dep in by_id[node].dependencies:
+            dfs(dep)                                     # deps emitted FIRST
+        on_stack.remove(node)
+        visited.add(node)
+        if node not in target_set:                       # exclude targets
+            result.append(node)                          # post-order emit
+
+    for tgt in targets:
+        dfs(tgt)
+    return result
+
+
+def dependencies_of_targets_dfs_include(all_tasks: list[Task], targets: list[str]) -> list[str]:
+    """APPROACH A, include variant. Same DFS, drop the target filter.
+
+    Only difference vs `dependencies_of_targets_dfs`: no `if node not in
+    target_set` guard around the append. Targets end up in the topo order
+    at their correct position (after all their deps).
+    """
+    by_id: dict[str, Task] = {t.id: t for t in all_tasks}
+
+    for tgt in targets:
+        if tgt not in by_id:
+            raise KeyError(f"target {tgt!r} not found in all_tasks")
+
+    result: list[str] = []
+    visited: set[str] = set()
+    on_stack: set[str] = set()
+
+    def dfs(node: str) -> None:
+        if node in visited:
+            return
+        if node in on_stack:
+            raise ValueError(f"cycle detected involving {node!r}")
+        on_stack.add(node)
+        for dep in by_id[node].dependencies:
+            dfs(dep)
+        on_stack.remove(node)
+        visited.add(node)
+        result.append(node)
+
+    for tgt in targets:
+        dfs(tgt)
+    return result
+
+
+# ─── ITERATIVE VARIANT (for the "what if the chain is 10,000 deep?" follow-up) ──
+# Same algorithm, explicit stack, 2-state markers to simulate post-order.
+# The trick: push (ENTER, node) to start processing, and BEFORE recursing
+# into deps push (EXIT, node) so it's processed AFTER all deps drain.
+#
+# def dependencies_of_targets_dfs_iterative(all_tasks, targets):
+#     by_id = {t.id: t for t in all_tasks}
+#     target_set = set(targets)
+#     result, visited, on_stack = [], set(), set()
+#     ENTER, EXIT = 0, 1
+#     for tgt in targets:
+#         if tgt in visited: continue
+#         stack = [(ENTER, tgt)]
+#         while stack:
+#             state, node = stack.pop()
+#             if state == EXIT:
+#                 on_stack.discard(node); visited.add(node)
+#                 if node not in target_set: result.append(node)
+#                 continue
+#             if node in visited: continue
+#             if node in on_stack: raise ValueError(f"cycle at {node!r}")
+#             on_stack.add(node)
+#             stack.append((EXIT, node))              # emit AFTER deps
+#             for dep in by_id[node].dependencies:
+#                 if dep not in visited:
+#                     stack.append((ENTER, dep))
+#     return result
+
+
+# ═══════════════════════════════════════════════════════════════════════════
 # Q2: transitive ancestors of a single target
 # ═══════════════════════════════════════════════════════════════════════════
 
@@ -369,7 +546,49 @@ def _validate_topo(output: list[str], tasks_by_id: dict[str, Task], expected: li
     return "PASS"
 
 
+def _manual_smoke_test() -> None:
+    """Hand-rolled smoke test — the "original" fixture graph, built inline.
+
+    Easy to reproduce from memory in an interview: F needs D and E, D needs
+    A, B, C. Eyeball the printed outputs — deps should appear before their
+    dependents in each list.
+
+          A ──┐
+          B ──┤─→ D ─→ F
+          C ──┘       ↑
+                 E ───┘
+    """
+    tasks = [
+        Task("A"),
+        Task("B"),
+        Task("C"),
+        Task("D", ["A", "B", "C"]),
+        Task("E"),
+        Task("F", ["D", "E"]),
+    ]
+
+    print("Q1 Kahn's exclude, F     :", dependencies_of_targets(tasks, ["F"]))
+    print("Q1 Kahn's include, F     :", dependencies_of_targets_include(tasks, ["F"]))
+    print("Q1 DFS   exclude, F      :", dependencies_of_targets_dfs(tasks, ["F"]))
+    print("Q1 DFS   include, F      :", dependencies_of_targets_dfs_include(tasks, ["F"]))
+    print("Q2 ancestors of 'A'      :", ancestors_of_target(tasks, "A"))
+    print("Q2 ancestors of 'F'      :", ancestors_of_target(tasks, "F"))
+
+    # Cycle detection — A→B→A should raise from BOTH approaches.
+    cyclic = [Task("A", ["B"]), Task("B", ["A"]), Task("C", ["A"])]
+    for label, fn in [("Kahn's", dependencies_of_targets),
+                      ("DFS   ", dependencies_of_targets_dfs)]:
+        try:
+            fn(cyclic, ["C"])
+            print(f"cycle test {label}         : FAIL (no exception)")
+        except ValueError as e:
+            print(f"cycle test {label}         : raised ValueError({e})")
+
+
 if __name__ == "__main__":
+    _manual_smoke_test()
+    print()
+
     # Fixture-driven demo. Cases live in test_fixtures.json alongside this
     # file. The runner loads the fixture, executes each case against both
     # Q1 variants (exclude, include) and Q2, and validates results by
@@ -405,8 +624,10 @@ if __name__ == "__main__":
                 print(f"   notes: {case['notes']}")
 
             for label, fn, expected in [
-                ("exclude", dependencies_of_targets,         case["expected_exclude"]),
-                ("include", dependencies_of_targets_include, case["expected_include"]),
+                ("Kahn exclude", dependencies_of_targets,             case["expected_exclude"]),
+                ("Kahn include", dependencies_of_targets_include,     case["expected_include"]),
+                ("DFS  exclude", dependencies_of_targets_dfs,         case["expected_exclude"]),
+                ("DFS  include", dependencies_of_targets_dfs_include, case["expected_include"]),
             ]:
                 actual = fn(tasks, targets)
                 status = _validate_topo(actual, tasks_by_id, expected)
