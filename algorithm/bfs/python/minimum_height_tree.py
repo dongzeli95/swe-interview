@@ -16,58 +16,36 @@
 
 from collections import deque
 
+# Pattern: Topological-source-style BFS on undirected tree (leaf-peeling)
+# Trigger: "undirected tree, find root(s) that minimize height" → peel leaves toward center(s)
+#
+# Time:  O(n) — n-1 edges built in O(n); each node enqueued/popped once; each edge decremented twice.
+# Space: O(n) — adjacency list (2*(n-1) entries) + branches array + queue, all O(n).
 def minHeightTree(n, edges):
     if n == 1:
         return [0]
-    graph = {}
-    indegree = {}
-    visited = set()
-    for e in edges:
-        s = e[0]
-        d = e[1]
-        if s in graph:
-            graph[s].append(d)
-        else:
-            graph[s] = [d]
+    graph: list[list[int]] = [[] for i in range(0, n)]
+    # construct the graph
+    for pair in edges:
+        x = pair[0]
+        y = pair[1]
+        graph[x].append(y)
+        graph[y].append(x)
 
-        if d in graph:
-            graph[d].append(s)
-        else:
-            graph[d] = [s]
+    branches: list[int] = [len(i) for i in graph]
+    queue: deque[int] = deque({i for i in range(len(branches)) if branches[i] == 1})
+    remaining: int = n
+    while remaining > 2:
+        s = len(queue)
+        remaining -= s
+        for i in range(0, s):
+            curr = queue.popleft()
+            for j in graph[curr]:
+                branches[j] -= 1
+                if branches[j] == 1:
+                    queue.append(j)
 
-        if s in indegree:
-            indegree[s] += 1
-        else:
-            indegree[s] = 1
-
-        if d in indegree:
-            indegree[d] += 1
-        else:
-            indegree[d] = 1
-
-    q = deque()
-    for node, degree in indegree.items():
-        if degree == 1:
-            q.append(node)
-            indegree[node] = 0
-
-    while n-len(visited) > 2:
-        s = len(q)
-        for _ in range(s):
-            node = q.popleft()
-            visited.add(node)
-            # print("node: " + str(node))
-            for i in graph[node]:
-                if i in visited:
-                    continue
-
-                indegree[i] -= 1
-                if indegree[i] == 1:
-                    q.append(i)
-
-        # print("length of queue: " + str(len(q)))
-
-    return list(q)
+    return list(queue)
 
 def main():
     n = 4
